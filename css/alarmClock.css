@@ -7,4 +7,24 @@
     background-size: 50px 50px;
     width: 50px;
     height:50px;
+    border-style: none;
+}
+.alarmclock_block{
+    padding-left: 16px;
+    padding-right: 16px;
+    position: relative;
+}
+.alarmclock_block p{
+    font-size: 40px;
+    line-height: 40px;
+    float:left;
+    text-align: left;
+    margin-right: 60px;
+    position:absolute;
+    top:30px;
+}
+.alarmclock_block .alarmclock_close{
+    position:absolute;
+    top:30px;
+    right:0;
 }
