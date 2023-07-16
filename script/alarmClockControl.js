@@ -5,30 +5,12 @@ function* generateId(){
     }
 }
 alarmClockControl.idGenerator=generateId();
-
-function int2string(h,m,s){ // return a string like "00:00:00"
-    if(h<10) h="0"+h;
-    if(m<10) m="0"+m;
-    if(s<10) s="0"+s;
-    return h+":"+m+":"+s;
-}
-class time{
-    constructor(){
-        this.hour=0;
-        this.minute=0;
-        this.second=0;
-    }
-    time2string(){
-        return int2string(this.hour,this.minute,this.second);
-    }
-}
 class alarmClock{
     constructor(){
         this.time=new time();
         this.id=alarmClockControl.idGenerator.next().value;
     }
 }
-
 alarmClockControl.allAlarmclock=[]
 function id2index(id){
     let recIndex;

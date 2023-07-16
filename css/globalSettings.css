@@ -37,8 +37,10 @@ body{
 }
 /* clock block display part */
 .block{
-    width:330px;
+    width:298px;
     height:100px;
+    padding-left: 16px;
+    padding-right: 16px;
     border-bottom: black solid 1px;
 }
 .close{

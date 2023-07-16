@@ -1,0 +1,52 @@
+#button_restart{
+    position: fixed;
+    bottom: 30px;
+    left:46%;
+    margin-left: -100px;
+    background: url(../src/restart.png) no-repeat center center;
+    background-size: 50px 50px;
+    width: 50px;
+    height:50px;
+    border-style: none;
+}
+#button_start{
+    position: fixed;
+    bottom: 30px;
+    left:50%;
+    margin-left: -25px;
+    background: url(../src/start.png) no-repeat center center;
+    background-size: 50px 50px;
+    width: 50px;
+    height:50px;
+    border-style: none;
+}
+#button_record{
+    position: fixed;
+    bottom: 30px;
+    left:54%;
+    margin-left: 50px;
+    background: url(../src/stopWatch/record.png) no-repeat center center;
+    background-size: 50px 50px;
+    width: 50px;
+    height:50px;
+    border-style: none;
+}
+.stopwatch_block{
+    position: relative;
+    height:110px;
+}
+.stopwatch_block p{
+    font-size: 40px;
+    line-height: 40px;
+    float:left;
+    text-align: left;
+    margin-right: 60px;
+    position:absolute;
+    top:20px;
+}
+.stopwatch_block .stopwatch_relative{
+    font-size:20px;
+    color:gray;
+    line-height: 20px;
+    top:70px;
+}
