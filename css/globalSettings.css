@@ -34,8 +34,6 @@ body{
     height:100%;
     position: relative;
     float:left;
-    background: url(../src/clock_background.png) no-repeat center 200px;
-    background-size: 300px 300px;
 }
 /* clock block display part */
 .block{
@@ -50,19 +48,28 @@ body{
     background:url(../src/close.png) no-repeat 0 0;
     background-size: 40px 40px;
 }
-/* clock detail part */
+/* time bar part */
 .bar_time{
     width:240px;
     height: 140px;
     padding: 16px;
     font-size:40px;
     line-height: 40px;
-    position: absolute;
-    left:45px;
     text-align: center;
 }
 .bar_time p{
     margin-left: 4px;
     margin-right: 4px;
     display: inline;
+}
+.bar_time_item{
+    width:50px;
+    float:left;
+    margin-left: 20px;
+}
+.bar_time_item img{
+    width:30px;
+    height:30px;
+    float:left;
+    margin-left: 10px;
 }

@@ -26,5 +26,10 @@
 .alarmclock_block .alarmclock_close{
     position:absolute;
     top:30px;
-    right:0;
+    right:50px;
+    z-index: 1;
+}
+#bar_leftside .bar_time{
+    position: absolute;
+    left:25px;
 }
