@@ -59,6 +59,12 @@ function appendAlarmclock(){
     });
 }
 function openAlarmclock(id){
+    closeAlarmclock();
+    let alarmClockImg=document.createElement("img");
+    alarmClockImg.className="alarmclock_selected";
+    alarmClockImg.src="../src/alarmclock_selected.png"
+    alarmClockImg.alt="alarmclock_selected";
+    $('.alarmclock_block').get(id).appendChild(alarmClockImg);
     alarmClockControl.currentAlarmclock=id;
     alarmClockControl.barLeftside.innerHTML="";
     $('#bar_leftside').append(`
@@ -78,6 +84,10 @@ function openAlarmclock(id){
             <p id="second_setting">00</p>
             <img id="second_down" src="../src/time_down.png" alt="time_down">
         </div>
+    </div>
+    <div class="bar_buttons">
+        <button class="bar_button" id="bar_submit">确定</button>
+        <button class="bar_button" id="bar_cancel">取消</button>
     </div>
     `);
     $('#hour_up').get(0).onclick=function(){
@@ -112,6 +122,23 @@ function openAlarmclock(id){
     }
     updateAlarmclock();
 }
+function closeAlarmclock(){
+    if(alarmClockControl.currentAlarmclock!=undefined){
+        var tempSelect= document.querySelectorAll('.alarmclock_selected');
+        if(tempSelect){//若找到
+            remove(tempSelect);
+        }
+    }
+}
+function remove (e) {
+    if (e) {
+        for(var i=0;i<e.length;i++){
+            e[i].remove();
+        }
+        return e;
+    }
+    return undefined;
+ }
 function updateAlarmclock(){ // use alarmClockControl.currentAlarmclock as current clock id
     if(alarmClockControl.currentAlarmclock!=undefined){
         var tmpClock=alarmClockControl.allAlarmclock[id2index(alarmClockControl.currentAlarmclock)];

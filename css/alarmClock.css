@@ -29,6 +29,13 @@
     right:50px;
     z-index: 1;
 }
+.alarmclock_block .alarmclock_selected{
+    position:absolute;
+    top:10px;
+    right:45px;
+    width:20px;
+    height:20px;
+}
 #bar_leftside .bar_time{
     position: absolute;
     left:25px;
