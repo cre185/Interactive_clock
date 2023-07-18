@@ -5,14 +5,12 @@ function* generateId(){
     }
 }
 alarmClockControl.idGenerator=generateId();
-
 class alarmClock{
     constructor(){
         this.time=new time();
         this.id=alarmClockControl.idGenerator.next().value;
     }
 }
-
 alarmClockControl.allAlarmclock=[]
 function id2index(id){
     let recIndex;
