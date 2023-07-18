@@ -6,22 +6,6 @@ function* generateId(){
 }
 alarmClockControl.idGenerator=generateId();
 
-function int2string(h,m,s){ // return a string like "00:00:00"
-    if(h<10) h="0"+h;
-    if(m<10) m="0"+m;
-    if(s<10) s="0"+s;
-    return h+":"+m+":"+s;
-}
-class time{
-    constructor(){
-        this.hour=0;
-        this.minute=0;
-        this.second=0;
-    }
-    time2string(){
-        return int2string(this.hour,this.minute,this.second);
-    }
-}
 class alarmClock{
     constructor(){
         this.time=new time();
@@ -64,8 +48,10 @@ function openAlarmclock(id){
     alarmClockImg.className="alarmclock_selected";
     alarmClockImg.src="../src/alarmclock_selected.png"
     alarmClockImg.alt="alarmclock_selected";
-    $('.alarmclock_block').get(id).appendChild(alarmClockImg);
+    $('.alarmclock_block').get(id2index(id)).appendChild(alarmClockImg);
     alarmClockControl.currentAlarmclock=id;
+    $('#bar_rightside .alarmclock_block').css("backgroundColor","#e0e0e0");
+    $('#bar_rightside .alarmclock_block').get(id2index(id)).style.backgroundColor="white";
     alarmClockControl.barLeftside.innerHTML="";
     $('#bar_leftside').append(`
     <div class="bar_time">
@@ -85,11 +71,11 @@ function openAlarmclock(id){
             <img id="second_down" src="../src/time_down.png" alt="time_down">
         </div>
     </div>
-    <div class="bar_buttons">
-        <button class="bar_button" id="bar_submit">确定</button>
-        <button class="bar_button" id="bar_cancel">取消</button>
-    </div>
     `);
+    // <div class="bar_buttons">
+    //     <button class="bar_button" id="bar_submit">确定</button>
+    //     <button class="bar_button" id="bar_cancel">取消</button>
+    // </div>
     $('#hour_up').get(0).onclick=function(){
         var tmpClock=alarmClockControl.allAlarmclock[id2index(id)];
         tmpClock.time.hour=(tmpClock.time.hour+1)%24;
@@ -166,7 +152,7 @@ var removeAlarmclock=function(id){
 }
 var newAlarmclock=function(){
     appendAlarmclock();
-    openAlarmclock(alarmClockControl.allAlarmclock.length-1);
+    openAlarmclock(alarmClockControl.allAlarmclock[alarmClockControl.allAlarmclock.length-1].id);
 }
 
 window.onload=function(){
