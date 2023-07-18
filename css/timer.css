@@ -1,3 +1,9 @@
+#bar_leftside{
+    background: rgba(189,189,189,0.3);
+}
+#bar_rightside{
+    background: rgba(189,189,189,0.3);
+}
 #button_restart{
     position: fixed;
     bottom: 30px;

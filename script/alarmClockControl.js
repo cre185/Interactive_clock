@@ -42,6 +42,8 @@ function appendAlarmclock(){
 }
 function openAlarmclock(id){
     alarmClockControl.currentAlarmclock=id;
+    $('#bar_rightside .alarmclock_block').css("backgroundColor","#e0e0e0");
+    $('#bar_rightside .alarmclock_block').get(id2index(id)).style.backgroundColor="white";
     alarmClockControl.barLeftside.innerHTML="";
     $('#bar_leftside').append(`
     <div class="bar_time">
@@ -121,7 +123,7 @@ var removeAlarmclock=function(id){
 }
 var newAlarmclock=function(){
     appendAlarmclock();
-    openAlarmclock(alarmClockControl.allAlarmclock.length-1);
+    openAlarmclock(alarmClockControl.allAlarmclock[alarmClockControl.allAlarmclock.length-1].id);
 }
 
 window.onload=function(){
