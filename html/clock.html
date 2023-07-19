@@ -9,25 +9,19 @@
     <link rel="stylesheet" type="text/css" href="../css/clock.css">
     <script src="../script/jquery-3.7.0.min.js"></script>
     <script src="../script/navigatorControl.js"></script>
+    <script src="../script/global.js"></script>
     <script src="../script/clockControl.js"></script>
 </head>
-<body onload = "drawClock()">
+<body onload = "drawClock()" onresize = "drawClock()">
 <div id="bar_leftside">
 </div>
 <div id="bar_rightside">
 </div>
 <div id="bar_center">
     <svg id = "clock_svg" xmlns="http://www.w3.org/2000/svg">
-        <circle cx = "150" cy = "150" r = "140" fill = "white" />
-
-        <rect x = "144" y = "15" width = "12" height = "40" fill="black"/>
-
-        <rect x = "144" y = "245" width = "12" height = "40" fill="black"/>
-
-        <rect x = "15" y = "144" width = "40" height = "12" fill="black"/>
-
-        <rect x = "245" y = "144" width = "40" height = "12" fill="black"/>
-
+        <g id = "scale"></g>
+        <g id = "hands"></g>
+        <text id = "timeText"></text>
     </svg>
 </div>
 </body>
