@@ -1,4 +1,5 @@
-var embedSVG = document.getElementById("clock_svg");
+function drawClock(){
+    var embedSVG = document.getElementById("clock_svg");
     var namespace = "http://www.w3.org/2000/svg";
     // 绘制表盘
     for(i = 0; i < 60; i++){
@@ -16,7 +17,7 @@ var embedSVG = document.getElementById("clock_svg");
             r = 120;
         }
         else{
-            width = 6;
+            width = 4;
             height = 12;
             r = 128
         }
@@ -31,3 +32,4 @@ var embedSVG = document.getElementById("clock_svg");
         rect.setAttribute("transform", "rotate(" + (i * 6).toString() +", " + x + ", " + y + ")");
         embedSVG.appendChild(rect);
     }
+}   

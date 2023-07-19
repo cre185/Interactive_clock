@@ -28,7 +28,7 @@ body{
     background: rgb(189, 189, 189);
 }
 #bar_center{
-    width: calc(100% - 700px);
+    width: calc(100% - 660px);
     height:100%;
     position: relative;
     float:left;
