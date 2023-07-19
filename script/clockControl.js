@@ -146,7 +146,8 @@ function hourMoveListenrs(event){
         y = event.offsetY;
         lastAngle[0] = global.globalTime.calHourAngle() - 90;
         let angle = arctan(x - cx, y - cy);
-        if(angle * lastAngle[0] < 0)
+        console.log(angle, lastAngle[0]);
+        if(angle * lastAngle[0] < 0 && (angle > 180 || lastAngle[0] > 180))
         {
             angle < 0 ? angle += 360 : lastAngle[0] += 360;
         }
@@ -165,10 +166,11 @@ function minuteMoveListenrs(event){
         y = event.offsetY;
         lastAngle[1] = global.globalTime.calMinAngle() - 90;
         let angle = arctan(x - cx, y - cy);
-        if(angle * lastAngle[1] < 0)
+        if(angle * lastAngle[1] < 0 && (angle > 180 || lastAngle[1] > 180))
         {
             angle < 0 ? angle += 360 : lastAngle[1] += 360;
         }
+        console.log(angle, lastAngle[1]);
         if(Math.abs(angle - lastAngle[1]) >= gap[1]){
             update((angle - lastAngle[1]) / gap[1]);
             lastAngle[1] = angle;
@@ -184,7 +186,7 @@ function secondMoveListenrs(event){
         y = event.offsetY;
         lastAngle[2] = global.globalTime.calSecAngle() - 90;
         let angle = arctan(x - cx, y - cy);
-        if(angle * lastAngle[2] < 0)
+        if(angle * lastAngle[2] < 0 && (angle > 180 || lastAngle[2] > 180))
         {
             angle < 0 ? angle += 360 : lastAngle[2] += 360;
         }
