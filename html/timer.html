@@ -13,13 +13,71 @@
     <script src="../script/timerControl.js"></script>
 </head>
 <body>
-<div id="bar_leftside">
-</div>
-<div id="bar_rightside">
-</div>
-<div id="bar_center">
-    <button id="button_restart"></button>
-    <button id="button_start"></button>
-</div>
+    <!-- 页面左侧功能栏 -->
+    <div id="bar_leftside">
+
+    </div>
+    <!-- 页面右侧功能栏 -->
+    <div id="bar_rightside">
+
+    </div>
+    <!-- 页面中间显示部分 -->
+    <div id="bar_center">
+        <!-- 计时器部分 -->
+        <div id="timer_bar">
+            <!-- 小时 -->
+            <select id="hour">
+                <optgroup label="小时">
+                    <script>
+                        for(var i=0;i<=23;i++){
+                            if(i<24){
+                                document.writeln('<option value="0'+i+'">'+i+'</option>');
+                            }
+                        }
+                    </script>
+                </optgroup>
+            </select>
+            <span>小时</span>
+            <!-- 分钟 -->
+            <select id="minute">
+                <optgroup label="分钟">
+                    <script>
+                        for(var i=0;i<=59;i++){
+                            if(i<60){
+                                document.writeln('<option value="0'+i+'">'+i+'</option>');
+                            }
+                        }
+                    </script>
+                </optgroup>
+            </select>
+            <span>分钟</span>
+            <!-- 秒 -->
+            <select id="second">
+                <optgroup label="秒">
+                    <script>
+                        for(var i=0;i<=59;i++){
+                            if(i<60){
+                                document.writeln('<option value="0'+i+'">'+i+'</option>');
+                            }
+                        }
+                    </script>
+                </optgroup>
+            </select>
+            <span>秒</span>
+        </div>
+        <!-- 按钮部分 -->
+        <div id="bottom_bar">
+            <!-- 取消按钮 -->
+            <div class="button_bar">
+                <button id="button_restart"></button>
+                <span>取消</span>
+            </div>
+            <!-- 开始计时按钮 -->
+            <div class="button_bar">
+                <button id="button_start"></button>
+                <span id="start">开始计时</span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

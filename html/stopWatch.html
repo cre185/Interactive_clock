@@ -13,14 +13,36 @@
     <script src="../script/stopWatchControl.js"></script>
 </head>
 <body>
-<div id="bar_leftside">
-</div>
-<div id="bar_rightside">
-</div>
-<div id="bar_center">
-    <button id="button_restart"></button>
-    <button id="button_start"></button>
-    <button id="button_record"></button>
-</div>
+    <!-- 页面左侧功能栏 -->
+    <div id="bar_leftside">
+    </div>
+    <!-- 页面右侧功能栏 -->
+    <div id="bar_rightside">
+    </div>
+    <!-- 页面中间显示部分 -->
+    <div id="bar_center">
+        <!-- 秒表部分 -->
+        <div id="stopwatch_bar">
+            <span id="stopwatch">00:00:00</span>
+        </div>
+        <!-- 按钮部分 -->
+        <div id="bottom_bar">
+            <!-- 复位按钮 -->
+            <div class="button_bar">
+                <button id="button_restart"></button>
+                <span>复位</span>
+            </div>
+            <!-- 启动按钮 -->
+            <div class="button_bar">
+                <button id="button_start"></button>
+                <span id="start">启动</span>
+            </div>
+            <!-- 分段按钮 -->
+            <div class="button_bar">
+                <button id="button_record"></button>
+                <span>分段</span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
