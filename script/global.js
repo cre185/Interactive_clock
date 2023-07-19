@@ -71,6 +71,23 @@ class time{
             this.hour %= 24;
         }
     }
+
+    tick_reverse(){
+        this.mSec -= 20;
+        if(this.mSec == -20){
+            this.mSec = 980;
+            this.sec--;
+        }
+        if(this.sec == -1){
+            this.sec = 59;
+            this.min--;
+        }
+        if(this.min == -1){
+            this.min = 59;
+            this.hour += 23;
+            this.hour %= 24;
+        }
+    }
 }
 
 global.globalTime=new time(); // global time used by clock
