@@ -1,44 +1,81 @@
-#bar_leftside{
+#bar_leftside
+{
     background: rgba(189,189,189,0.3);
 }
-#button_restart{
+
+#stopwatch_bar
+{
+    position: fixed;
+    width: 852px;
+    height: 535px;
+}
+
+#stopwatch
+{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 100px;
+}
+
+#bottom_bar
+{
     position: fixed;
     bottom: 30px;
-    left:46%;
-    margin-left: -100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 852px;
+    height: 80px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.button_bar
+{
+    display: flex;
+    flex-direction: column;
+}
+
+#button_restart
+{
+    margin: auto;
     background: url(../src/restart.png) no-repeat center center;
     background-size: 50px 50px;
     width: 50px;
     height:50px;
     border-style: none;
 }
-#button_start{
-    position: fixed;
-    bottom: 30px;
-    left:50%;
-    margin-left: -25px;
+
+#button_start
+{
+    margin: auto;
     background: url(../src/start.png) no-repeat center center;
     background-size: 50px 50px;
     width: 50px;
     height:50px;
     border-style: none;
 }
-#button_record{
-    position: fixed;
-    bottom: 30px;
-    left:54%;
-    margin-left: 50px;
+
+#button_record
+{
+    margin: auto;
     background: url(../src/stopWatch/record.png) no-repeat center center;
     background-size: 50px 50px;
     width: 50px;
     height:50px;
     border-style: none;
 }
-.stopwatch_block{
+
+.stopwatch_block
+{
     position: relative;
     height:110px;
 }
-.stopwatch_block p{
+
+.stopwatch_block p
+{
     font-size: 40px;
     line-height: 40px;
     float:left;
@@ -47,7 +84,9 @@
     position:absolute;
     top:20px;
 }
-.stopwatch_block .stopwatch_relative{
+
+.stopwatch_block .stopwatch_relative
+{
     font-size:20px;
     color:gray;
     line-height: 20px;

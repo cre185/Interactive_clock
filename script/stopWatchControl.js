@@ -16,6 +16,8 @@ function startStopwatch(){
     $('#button_start').css('background',"url(../src/pause.png) no-repeat center center")
     $('#button_start').css('background-size',"50px 50px")
     // todo: start stopwatch
+    // 秒表启动后“启动按钮”的文字由“启动”变为“停止”
+    document.getElementById('start').innerText = "停止";
 }
 function pauseStopwatch(){
     stopWatchControl.on=false;
@@ -23,6 +25,8 @@ function pauseStopwatch(){
     $('#button_start').css('background',"url(../src/start.png) no-repeat center center")
     $('#button_start').css('background-size',"50px 50px")
     // todo: pause stopwatch
+    // 秒表暂停后“启动按钮”的文字由“停止”变为“启动”
+    document.getElementById('start').innerText = "启动";
 }
 function restartStopwatch(){
     stopWatchControl.on=false;
@@ -32,6 +36,8 @@ function restartStopwatch(){
     global.stopWatchTime.clear();
     $('#bar_rightside').get(0).innerHTML="";
     stopWatchControl.recordCount=0;
+    // 秒表复位后“启动按钮”的文字由变为“启动”
+    document.getElementById('start').innerText = "启动";
 }
 function recordStopwatch(){
     currentTime=new time();
