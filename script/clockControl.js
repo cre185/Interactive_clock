@@ -196,6 +196,21 @@ function secondMoveListenrs(event){
     }
 }
 
+function resetTime(){
+    var mDate=new Date();
+    global.globalTime.hour=mDate.getHours();
+    global.globalTime.min=mDate.getMinutes();
+    global.globalTime.sec=mDate.getSeconds();
+    update();
+}
+
+function setTime(){
+    global.globalTime.hour = parseInt(document.getElementById("hour").value);
+    global.globalTime.min = parseInt(document.getElementById("minute").value);
+    global.globalTime.sec = parseInt(document.getElementById("second").value);
+    console.log(global.globalTime);
+}
+
 function init(){
     drawClock(true);
     const clock= document.getElementById("clock_svg");
@@ -258,4 +273,7 @@ function init(){
                 clock.removeEventListener("mousemove", secondMoveListenrs);
             }
         })
+
+        document.getElementById("button_confirm").addEventListener("click", setTime);
+        document.getElementById("button_reset").addEventListener("click", resetTime);
     }
