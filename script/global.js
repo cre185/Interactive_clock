@@ -88,6 +88,12 @@ class time{
             this.hour %= 24;
         }
     }
+    clear(){
+        this.hour = 0;
+        this.min = 0;
+        this.sec = 0;
+        this.mSec = 0;
+    }
 }
 
 global.globalTime=new time(); // global time used by clock
@@ -97,4 +103,3 @@ global.globalTime.min=mDate.getMinutes();
 global.globalTime.sec=mDate.getSeconds();
 global.stopWatchTime=new time(); // time used by stop watch
 global.timerTime=new time(); // time used by timer
-global.timerTime.minute=3;

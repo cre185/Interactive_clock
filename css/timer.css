@@ -7,7 +7,18 @@
 {
     background: rgba(189,189,189,0.3);
 }
-
+#timer_count
+{
+    position: fixed;
+    display: flex;
+    justify-content: space-around;
+    height: 200px;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%,-50%);
+    font-size:50px;
+    font-family:"Times New Roman",Georgia,Serif;
+}
 #timer_bar
 {
     position: fixed;
@@ -16,21 +27,35 @@
     width: 852px;
     height: 200px;
     left: 50%;
-    top: 50%;
+    top: 65%;
     transform: translate(-50%,-50%);
+    font-size:21px;
+    font-family:"Times New Roman",Georgia,Serif;
+}
+#timer_bar span
+{
+    position: relative;
+    top: 12px;
+    align-items: center;
+}
+#timer_bar select
+{
+    height: 50px;
 }
 
 #bottom_bar
 {
     position: fixed;
-    bottom: 30px;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+    left:50%;
+    top:75%;
     width: 852px;
     height: 80px;
     font-size: 20px;
     text-align: center;
+    transform: translate(-50%,-50%);
 }
 
 .button_bar
@@ -39,6 +64,14 @@
     flex-direction: column;
 }
 
+#restart_bar
+{
+    position: relative;
+}
+#start_bar
+{
+    position: relative;
+}
 #button_restart
 {
     margin: auto;
