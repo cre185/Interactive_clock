@@ -25,8 +25,19 @@
         <!-- 秒表部分 -->
         <div id="stopwatch_bar">
             <span id="stopwatch">00:00.00</span>
+            <svg id="stopwatch_pointer" xmlns="http://www.w3.org/2000/svg" onload = "drawClock()">
+                <g id = "scale"></g>
+                <g id = "hands"></g>
+            </svg>
         </div>
-        <!-- 按钮部分 -->
+        <!-- 秒表按钮部分：通过按钮可以切换数码显示和指针显示 -->
+        <div id="stopwatch_button_bar">
+            <!-- 数码显示按钮 -->
+            <button id="button_number" onclick="pointer_to_number()">数码显示&nbsp&nbsp;</button>
+            <!-- 指针显示按钮 -->
+            <button id="button_pointer" onclick="number_to_pointer()">指针显示&nbsp&nbsp;</button>
+        </div>
+        <!-- 底部按钮部分 -->
         <div id="bottom_bar">
             <!-- 复位按钮 -->
             <div class="button_bar">

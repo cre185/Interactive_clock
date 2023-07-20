@@ -157,6 +157,107 @@ function recordStopwatch(){
     }
 }
 
+// 显示部分由数码切换至指针
+function number_to_pointer()
+{
+    document.getElementById('stopwatch').style.visibility = "hidden";
+    document.getElementById('stopwatch_pointer').style.visibility = "visible";
+}
+
+// 显示部分由指针切换至数码
+function pointer_to_number()
+{
+    document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+    document.getElementById('stopwatch').style.visibility = "visible";
+}
+
+function drawClock(){
+    const clock= document.getElementById("stopwatch_pointer");
+    cx = clock.scrollWidth * 0.5;
+    cy = clock.scrollWidth * 0.5;
+    const scale= document.getElementById("scale");
+    const hands= document.getElementById("hands");
+    scale.innerHTML = "";
+    hands.innerHTML = "";
+    let namespace = "http://www.w3.org/2000/svg";
+    // 单位长度
+    let unit = cx / 300;
+    // 表盘半径
+    let radius = cx * 0.6;
+    // 绘制表盘
+    for(let i = 0; i < 240; i++){
+        let rect = document.createElementNS(namespace, "rect");
+        // 刻度尺寸参数
+        let width;
+        let height;
+        // 刻度半径
+        let r = radius - height / 2;
+        rect.setAttribute("fill", "black");
+        if(i % 20 === 0){
+            width = 3 * unit;
+            height = 15 * unit;
+        }
+        else{
+            width = 3 * unit;
+            height = 8 * unit;
+        }
+        // 刻度中心坐标
+        let x = (cx + r * Math.sin(Math.PI * i / 30) - width / 2).toString();
+        let y = (cy - r * Math.cos(Math.PI * i / 30) - height / 2).toString();
+        // 设置刻度属性
+        rect.setAttribute("width", width);
+        rect.setAttribute("height", height);
+        rect.setAttribute("x", x);
+        rect.setAttribute("y", y);
+        x = (cx + r * Math.sin(Math.PI * i / 30)).toString();
+        y = (cy - r * Math.cos(Math.PI * i / 30)).toString();
+        rect.setAttribute("transform", "rotate(" + (i * 6).toString() +", " + x + ", " + y + ")");
+        scale.appendChild(rect);
+    }
+    // 绘制表针
+    {
+        function setAttributes(width, height, color, angle){
+            this.setAttribute("width", width.toString());
+            this.setAttribute("height", height.toString());
+            this.setAttribute("x", (cx - width / 2).toString());
+            this.setAttribute("y", (cy - height).toString());
+            this.setAttribute("transform", "rotate(" + angle.toString() +", " + cx + ", " + cy + ")");
+            this.setAttribute("fill", color);
+        }
+
+        Object.defineProperty(SVGElement.prototype, "set", {
+            value: setAttributes,
+            writable: true,
+            enumerable: false,
+            configurable: true,
+        });
+
+        // 时针
+        var hrHand = document.createElementNS(namespace, "rect");
+        hrHand.setAttribute("id", "hourHand");
+        width = 15 * v;
+        height = radius * 0.5;
+        hrHand.set(width, height, "gray", global.globalTime.calHourAngle());
+        hands.appendChild(hrHand);
+
+        // 分针
+        var minHand = document.createElementNS(namespace, "rect");
+        minHand.setAttribute("id", "minuteHand");
+        width = 8 * v;
+        height = radius * 0.6;
+        minHand.set(width, height, "black", global.globalTime.calMinAngle());
+        hands.appendChild(minHand);
+
+        // 秒针
+        var secHand = document.createElementNS(namespace, "rect");
+        secHand.setAttribute("id", "secondHand");
+        width = 2 * v;
+        height = radius * 0.9;
+        secHand.set(width, height, "red", global.globalTime.calSecAngle());
+        hands.appendChild(secHand);
+    }
+}
+
 window.onload=function(){
     stopWatchControl.barRightside=$('#bar_rightside').get(0);
     stopWatchControl.barLeftside=$('#bar_leftside').get(0);
