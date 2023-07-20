@@ -121,7 +121,7 @@ function drawClock(hasText){
         const timeText = document.getElementById("timeText");   
         timeText.setAttribute("style", "text-anchor: middle");
         timeText.setAttribute("x", cx);
-        timeText.setAttribute("y", cy + radius + 80 * v);
+        timeText.setAttribute("y", cy + radius + 60 * v);
         timeText.setAttribute("font-size", (30 * v).toString());
         timeText.setAttribute("fill", "blue");
         timeText.innerHTML = global.globalTime.toString();
