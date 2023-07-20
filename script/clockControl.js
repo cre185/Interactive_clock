@@ -1,6 +1,7 @@
 var cx;
 var cy;
 var hands = ["hourHand", "minuteHand", "secondHand"];
+var clockTickWorking
 
 function update(times = 1){
     if(times > 0){
@@ -29,14 +30,14 @@ function update(times = 1){
 
 // 设置定时器
 var clockTick = setInterval(update, 20);
+clockTickWorking = true;
 
-function drawClock(){
+function drawClock(hasText){
     const clock= document.getElementById("clock_svg");
     cx = clock.scrollWidth * 0.5;
     cy = clock.scrollWidth * 0.5;
     const scale= document.getElementById("scale");
-    const hands= document.getElementById("hands");
-    const timeText = document.getElementById("timeText");    
+    const hands= document.getElementById("hands"); 
     scale.innerHTML = "";
     hands.innerHTML = "";
     var namespace = "http://www.w3.org/2000/svg";
@@ -116,8 +117,8 @@ function drawClock(){
         hands.appendChild(secHand);
 
     }
-
-    {
+    if(hasText){
+        const timeText = document.getElementById("timeText");   
         timeText.setAttribute("style", "text-anchor: middle");
         timeText.setAttribute("x", cx);
         timeText.setAttribute("y", cy + radius + 80 * v);
@@ -146,7 +147,6 @@ function hourMoveListenrs(event){
         y = event.offsetY;
         lastAngle[0] = global.globalTime.calHourAngle() - 90;
         let angle = arctan(x - cx, y - cy);
-        console.log(angle, lastAngle[0]);
         if(angle * lastAngle[0] < 0 && (angle > 180 || lastAngle[0] > 180))
         {
             angle < 0 ? angle += 360 : lastAngle[0] += 360;
@@ -170,7 +170,6 @@ function minuteMoveListenrs(event){
         {
             angle < 0 ? angle += 360 : lastAngle[1] += 360;
         }
-        console.log(angle, lastAngle[1]);
         if(Math.abs(angle - lastAngle[1]) >= gap[1]){
             update((angle - lastAngle[1]) / gap[1]);
             lastAngle[1] = angle;
@@ -198,7 +197,7 @@ function secondMoveListenrs(event){
 }
 
 function init(){
-    drawClock();
+    drawClock(true);
     const clock= document.getElementById("clock_svg");
     cx = clock.scrollWidth * 0.5;
     cy = clock.scrollWidth * 0.5;
@@ -213,6 +212,7 @@ function init(){
             e.stopPropagation();
             mouseMoving = true;
             clearInterval(clockTick);
+            clockTickWorking = false;
             // 仅在按下时处理鼠标移动事件，已达到拖动的效果
             clock.addEventListener("mousemove", hourMoveListenrs);
             lastListner = 0;
@@ -224,6 +224,7 @@ function init(){
             e.stopPropagation();
             mouseMoving = true;
             clearInterval(clockTick);
+            clockTickWorking = false;
             // 仅在按下时处理鼠标移动事件，已达到拖动的效果
             clock.addEventListener("mousemove", minuteMoveListenrs);
             lastListner = 1;
@@ -235,6 +236,7 @@ function init(){
             e.stopPropagation();
             mouseMoving = true;
             clearInterval(clockTick);
+            clockTickWorking = false;
             // 仅在按下时处理鼠标移动事件，已达到拖动的效果
             clock.addEventListener("mousemove", secondMoveListenrs);
             lastListner = 2;
@@ -242,7 +244,10 @@ function init(){
 
         clock.addEventListener("mouseup", function(e){
             mouseMoving = false;
-            clockTick = setInterval(update, 20);
+            if(!clockTickWorking){
+                clockTick = setInterval(update, 20);
+                clockTickWorking = true;
+            }
             if(lastListner == 0){
                 clock.removeEventListener("mousemove", hourMoveListenrs);
             }
