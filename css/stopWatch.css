@@ -3,6 +3,12 @@
     background: rgba(189,189,189,0.3);
 }
 
+#bar_rightside
+{
+    display: flex;
+    flex-direction: column;
+}
+
 #stopwatch_bar
 {
     position: fixed;
@@ -72,6 +78,8 @@
 {
     position: relative;
     height:110px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .stopwatch_block p
