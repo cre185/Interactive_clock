@@ -11,15 +11,25 @@
     <script src="../script/navigatorControl.js"></script>
     <script src="../script/global.js"></script>
     <script src="../script/alarmClockControl.js"></script>
-    <script src="../script/global.js"></script>
 </head>
-<body id="alarmClockBody">
-<div id="bar_leftside">
-</div>
-<div id="bar_rightside">
-    <button id="button_new_alarmclock"></button>
-</div>
-<div id="bar_center">
-</div>
+<body id="alarmClockBody" onload = "init()" onresize = "drawClock(true)"></body>
+    <div id="bar_leftside"></div>
+    <div id="bar_rightside">
+        <button id="button_new_alarmclock"></button>
+    </div>
+    <div id="bar_center">
+        <svg id = "clock_svg" xmlns="http://www.w3.org/2000/svg">
+            <g id = "scale"></g>
+            <g id = "hands"></g>
+            <text id = "timeText"></text>
+        </svg>
+    </div>
+    <div id="messageBox" style="display: none;">
+        <p>时间到！</p>
+        <button onclick="closeMessageBox()">确定</button>
+    </div>
+    <audio id="beep" loop>
+        <source src="../audio/beep.mp3" type="audio/mp3">
+    </audio>
 </body>
 </html>

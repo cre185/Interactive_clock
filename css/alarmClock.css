@@ -34,7 +34,19 @@
     width:20px;
     height:20px;
 }
-#bar_leftside .bar_time{
-    position: absolute;
-    left:25px;
+
+#clock_svg{
+    width: 100%;
+    height: 100%;
+}
+
+#messageBox {
+    position: fixed; /* 使用 fixed 定位，使其悬浮在窗口中 */
+    top: 50%; /* 距离顶部的距离为窗口高度的一半 */
+    left: 50%; /* 距离左边的距离为窗口宽度的一半 */
+    transform: translate(-50%, -50%); /* 使用 translate 属性将元素在水平和垂直方向上居中 */
+    background-color: #f1f1f1; /* 背景颜色，可以根据需要修改 */
+    padding: 20px; /* 内边距，可以根据需要修改 */
+    border: 1px solid #ccc; /* 边框，可以根据需要修改 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 添加阴影效果，可以根据需要修改 */
 }
