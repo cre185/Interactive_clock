@@ -54,6 +54,7 @@
 
 #stopwatch
 {
+    visibility: visible;
     position: absolute;
     left: 50%;
     top: 50%;
@@ -64,8 +65,10 @@
 #stopwatch_pointer
 {
     visibility: hidden;
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    transform: translate(10%,-10%);
+    width: 700px;
+    height: 700px;
 }
 
 #bottom_bar
