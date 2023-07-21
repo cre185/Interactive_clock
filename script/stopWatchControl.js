@@ -63,7 +63,6 @@ var stopWatchControl={};
 stopWatchControl.on = false;
 // 分段
 stopWatchControl.recordCount = 0;
-stopWatchControl.current = global.stopWatchTime;
 
 function appendRecord(t){
     // 右边栏添加显示组件
@@ -104,7 +103,7 @@ function startStopwatch(){
     if(stopWatchControl.recordCount === 0)
     {
         stopWatchControl.recordCount++;
-        stopWatchControl.current = new stopwatch();
+        stopWatchControl.current = global.stopWatchTime;
         appendRecord(stopWatchControl.current);
     }
     else
@@ -143,6 +142,7 @@ function restartStopwatch(){
     clearInterval(global.stopWatchTime.recordtimer);
     document.getElementById('stopwatch').innerText = global.stopWatchTime.toString();
     initClock();
+    stopWatchControl.recordCount = 0;
 }
 function recordStopwatch(){
     // 只有在秒表运行的时候才能分段
