@@ -23,13 +23,13 @@
 {
     position: fixed;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     width: 852px;
     height: 200px;
     left: 50%;
     top: 65%;
     transform: translate(-50%,-50%);
-    font-size:21px;
+    font-size:23px;
     font-family:"Times New Roman",Georgia,Serif;
 }
 #timer_bar span

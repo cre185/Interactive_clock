@@ -115,4 +115,17 @@ window.onload = function () {
         startTimer();
         setTimeout(pauseTimer,30);
     }
+    if (document.documentElement.clientWidth > 500 ) {
+        $('#timer_bar').css('justify-content',"space-around")
+    } else {
+        $('#timer_bar').css('justify-content',"center")
+    }
+}
+window.onresize = function () {
+    //document.documentElement.clientWidth  浏览器的宽度
+    if (document.documentElement.clientWidth > 1400 ) {
+        $('#timer_bar').css('justify-content',"space-around")
+    } else {
+        $('#timer_bar').css('justify-content',"center")
+    }
 }
