@@ -20,12 +20,14 @@
     font-size: 20%;
     font-family:"Times New Roman",Georgia,Serif;
 }
+
 #timer_bar span
 {
     position: relative;
     top: 12px;
     align-items: center;
 }
+
 #timer_bar select
 {
     height: 40%;
@@ -58,12 +60,13 @@
     height:20px;
     border-style: none;
 }
+
 #button_confirm
 {
     margin: auto;
     background: url(../src/start.png) no-repeat center center;
     background-size: 20px 20px;
-    width: 20px;
-    height:20px;
+    width: 100px;
+    height:100px;
     border-style: none;
 }
