@@ -66,9 +66,10 @@
 {
     visibility: hidden;
     position: absolute;
-    transform: translate(33%,10%) scale(1.2);
-    width: 60%;
-    height: 500px;
+    left: 50%;
+    transform: translate(-50%, 50%) scale(2);
+    width: auto;
+    height: 300px;
 }
 
 #bottom_bar
