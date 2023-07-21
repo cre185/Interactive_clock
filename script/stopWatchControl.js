@@ -63,6 +63,7 @@ var stopWatchControl={};
 stopWatchControl.on = false;
 // 分段
 stopWatchControl.recordCount = 0;
+stopWatchControl.current = global.stopWatchTime;
 
 function appendRecord(t){
     // 右边栏添加显示组件
