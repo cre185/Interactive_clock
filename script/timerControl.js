@@ -123,7 +123,7 @@ window.onload = function () {
 }
 window.onresize = function () {
     //document.documentElement.clientWidth  浏览器的宽度
-    if (document.documentElement.clientWidth > 1400 ) {
+    if (document.documentElement.clientWidth > 1500 ) {
         $('#timer_bar').css('justify-content',"space-around")
     } else {
         $('#timer_bar').css('justify-content',"center")
