@@ -79,7 +79,7 @@ function appendRecord(t){
     document.getElementById('bar_rightside').append(record_block);
 
     // 组件更新
-    record_rank.innerText = '#'+stopWatchControl.recordCount;
+    record_rank.innerText = '分段'+stopWatchControl.recordCount;
     global.stopWatchTime.recordtimer = setInterval(function (){
         t.tick();
         record.innerText = t.toString();

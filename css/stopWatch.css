@@ -1,6 +1,6 @@
 #bar_leftside
 {
-    background: rgba(189,189,189,0.3);
+    background: rgba(189,189,189);
 }
 
 #bar_center
@@ -11,19 +11,19 @@
 
 #stopwatch_bar
 {
-    position: fixed;
-    width: 852px;
-    height: 500px;
+    position: relative;
+    top: auto;
+    width: 100%;
 }
 
 #stopwatch_button_bar
 {
-    position: fixed;
-    bottom: 200px;
+    position: relative;
+    top: 60%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 852px;
+    width: 100%;
 }
 
 #button_number
@@ -51,8 +51,7 @@
     visibility: visible;
     position: absolute;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, 100%);
     font-size: 100px;
 }
 
@@ -68,13 +67,12 @@
 
 #bottom_bar
 {
-    position: fixed;
-    bottom: 30px;
+    position: relative;
+    top: 70%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    width: 852px;
-    height: 80px;
+    width: 100%;
     font-size: 20px;
     text-align: center;
 }
