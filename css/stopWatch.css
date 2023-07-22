@@ -3,12 +3,6 @@
     background: rgba(189,189,189,0.3);
 }
 
-#bar_rightside
-{
-    display: flex;
-    flex-direction: column;
-}
-
 #bar_center
 {
     display: flex;
@@ -125,19 +119,18 @@
 {
     position: relative;
     height:110px;
-    display: flex;
     justify-content: space-around;
+    border: solid #feeeed 2px;
 }
 
-.stopwatch_block p
+.stopwatch_block span
 {
     font-size: 40px;
     line-height: 40px;
-    float:left;
     text-align: left;
-    margin-right: 60px;
-    position:absolute;
-    top:20px;
+    display: block;
+    margin-left: 20px;
+    margin-top: 10px;
 }
 
 .stopwatch_block .stopwatch_relative

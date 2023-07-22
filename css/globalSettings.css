@@ -26,6 +26,8 @@ body{
     position: relative;
     float: right;
     background: rgb(189, 189, 189);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 #bar_center{
     width: calc(100% - 660px);
