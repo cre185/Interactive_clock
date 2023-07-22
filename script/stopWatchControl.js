@@ -63,7 +63,7 @@ var stopWatchControl={};
 stopWatchControl.on = false;
 // 分段
 stopWatchControl.recordCount = 0;
-stopWatchControl.current = global.stopWatchTime;
+stopWatchControl.current = new stopwatch();
 
 function appendRecord(t){
     // 右边栏添加显示组件
@@ -78,8 +78,16 @@ function appendRecord(t){
     record_block.append(record);
     document.getElementById('bar_rightside').append(record_block);
 
+    if(stopWatchControl.recordCount === 1)
+    {
+        t.hour = global.stopWatchTime.hour;
+        t.min = global.stopWatchTime.min;
+        t.sec = global.stopWatchTime.sec;
+        t.mSec = global.stopWatchTime.mSec;
+    }
+
     // 组件更新
-    record_rank.innerText = '#'+stopWatchControl.recordCount;
+    record_rank.innerText = '分段'+stopWatchControl.recordCount;
     global.stopWatchTime.recordtimer = setInterval(function (){
         t.tick();
         record.innerText = t.toString();
@@ -104,7 +112,10 @@ function startStopwatch(){
     if(stopWatchControl.recordCount === 0)
     {
         stopWatchControl.recordCount++;
-        stopWatchControl.current = global.stopWatchTime;
+        stopWatchControl.current.hour = global.stopWatchTime.hour;
+        stopWatchControl.current.min = global.stopWatchTime.min;
+        stopWatchControl.current.sec = global.stopWatchTime.sec;
+        stopWatchControl.current.mSec = global.stopWatchTime.mSec;
         appendRecord(stopWatchControl.current);
     }
     else

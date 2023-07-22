@@ -14,10 +14,25 @@
     justify-content: space-around;
     height: 200px;
     left: 50%;
-    top: 40%;
+    top: 70%;
     transform: translate(-50%,-50%);
     font-size:50px;
     font-family:"Times New Roman",Georgia,Serif;
+}
+#stopwatch_bar
+{
+    position: relative;
+    width: 852px;
+    height: 500px;
+}
+#stopwatch_pointer
+{
+    position: fixed;
+    left: 50%;
+    top:5%;
+    transform: translate(-50%, 50%) scale(2);
+    width: auto;
+    height: 300px;
 }
 #timer_bar
 {
@@ -27,7 +42,7 @@
     width: 852px;
     height: 200px;
     left: 50%;
-    top: 65%;
+    top: 80%;
     transform: translate(-50%,-50%);
     font-size:23px;
     font-family:"Times New Roman",Georgia,Serif;
@@ -50,7 +65,7 @@
     flex-direction: row;
     justify-content: space-around;
     left:50%;
-    top:75%;
+    top:85%;
     width: 852px;
     height: 80px;
     font-size: 20px;
