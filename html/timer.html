@@ -23,6 +23,19 @@
     </div>
     <!-- 页面中间显示部分 -->
     <div id="bar_center">
+        <!-- 秒表部分 -->
+        <div id="stopwatch_bar">
+            <svg id="stopwatch_pointer" xmlns="http://www.w3.org/2000/svg" onload = "initClock()" onresize="initClock()">
+                <g id = "scale"></g>
+                <g id = "hands"></g>
+                <circle
+                        cx="50%"
+                        cy="50%"
+                        r="3"
+                        fill="orange"
+                ></circle>
+            </svg>
+        </div>
         <!-- 倒计时部分 -->
         <div id="timer_count">
             <div id="count_hour">00</div>
