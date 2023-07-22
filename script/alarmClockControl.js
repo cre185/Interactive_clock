@@ -58,14 +58,14 @@ function appendAlarmclock(){
 
 function openAlarmclock(id){
     // 关闭之前打开的
-    closeAlarmclock();
+    // closeAlarmclock();
 
     //设置为选中样式
-    let alarmClockImg=document.createElement("img");
+    /*let alarmClockImg=document.createElement("img");
     alarmClockImg.className="alarmclock_selected";
     alarmClockImg.src="../src/alarmclock_selected.png"
     alarmClockImg.alt="alarmclock_selected";
-    $('.alarmclock_block').get(id2index(id)).appendChild(alarmClockImg);
+    $('.alarmclock_block').get(id2index(id)).appendChild(alarmClockImg);*/
     alarmClockControl.currentAlarmclock=id;
     $('#bar_rightside .alarmclock_block').css("backgroundColor","#e0e0e0");
     $('#bar_rightside .alarmclock_block').get(id2index(id)).style.backgroundColor="white";
@@ -138,6 +138,7 @@ function openAlarmclock(id){
     })
 }
 
+/*
 function closeAlarmclock(){
     if(alarmClockControl.currentAlarmclock!=undefined){
         var tempSelect= document.querySelectorAll('.alarmclock_selected');
@@ -156,6 +157,7 @@ function remove (e) {
     }
     return undefined;
  }
+*/
 
 var removeAlarmclock=function(id){
     var index=id2index(id);
