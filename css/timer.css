@@ -40,41 +40,39 @@
 
 #timer_bar
 {
-    position: fixed;
+    position: relative;
     display: flex;
-    justify-content: center;
-    width: 852px;
-    height: 200px;
+    justify-content: space-around;
+    width: 100%;
     left: 50%;
-    top: 80%;
-    transform: translate(-50%,-50%);
-    font-size:23px;
-    font-family:"Times New Roman",Georgia,Serif;
+    top: 40%;
+    transform: translateX(-50%);
+    font-size: 23px;
+    font-family: "Times New Roman",Georgia,Serif;
 }
+
 #timer_bar span
 {
     position: relative;
-    top: 12px;
     align-items: center;
 }
+
 #timer_bar select
 {
-    height: 50px;
+    width: auto;
+    transform: translateY(40%);
 }
 
 #bottom_bar
 {
-    position: fixed;
+    position: relative;
+    top: 45%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-    left:50%;
-    top:85%;
-    width: 852px;
-    height: 80px;
+    width: 100%;
     font-size: 20px;
     text-align: center;
-    transform: translate(-50%,-50%);
 }
 
 .button_bar
