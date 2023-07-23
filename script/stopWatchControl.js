@@ -138,6 +138,8 @@ function recordStopwatch(){
 // 显示部分由数码切换至指针
 function number_to_pointer()
 {
+    document.getElementById('wrapper').style.visibility = "hidden";
+    document.getElementById('display').style.visibility = "hidden";
     document.getElementById('stopwatch').style.visibility = "hidden";
     document.getElementById('stopwatch_pointer').style.visibility = "visible";
 }
@@ -146,6 +148,8 @@ function number_to_pointer()
 function pointer_to_number()
 {
     document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+    document.getElementById('wrapper').style.visibility = "visible";
+    document.getElementById('display').style.visibility = "visible";
     document.getElementById('stopwatch').style.visibility = "visible";
 }
 
@@ -398,11 +402,15 @@ function init_page()
     {
         if(localStorage.getItem("number_or_pointer") === "number")
         {
+            document.getElementById('wrapper').style.visibility = "visible";
+            document.getElementById('display').style.visibility = "visible";
             document.getElementById('stopwatch').style.visibility = "visible";
             document.getElementById('stopwatch_pointer').style.visibility = "hidden";
         }
         else if(localStorage.getItem("number_or_pointer") === "pointer")
         {
+            document.getElementById('wrapper').style.visibility = "hidden";
+            document.getElementById('display').style.visibility = "hidden";
             document.getElementById('stopwatch').style.visibility = "hidden";
             document.getElementById('stopwatch_pointer').style.visibility = "visible";
         }

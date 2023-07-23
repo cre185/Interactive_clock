@@ -22,7 +22,14 @@
     <div id="bar_center">
         <!-- 秒表部分 -->
         <div id="stopwatch_bar">
-            <span id="stopwatch"></span>
+
+            <div id="wrapper">
+                <div id="display">
+                    <div id="stopwatch"></div>
+                </div>
+            </div>
+
+            <!--<span id="stopwatch"></span>-->
             <svg id="stopwatch_pointer" xmlns="http://www.w3.org/2000/svg" onresize="initClock()">
                 <g id = "scale"></g>
                 <g id = "hands"></g>
