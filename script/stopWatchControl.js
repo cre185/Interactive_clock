@@ -53,7 +53,7 @@ class stopwatch extends time {
 // 秒表控制变量
 let stopWatchControl={};
 
-function appendRecord(t){
+function appendRecord(){
     // 右边栏添加显示组件
     let record_block = document.createElement("div");
     record_block.className = 'stopwatch_block';
@@ -66,20 +66,8 @@ function appendRecord(t){
     record_block.append(record);
     document.getElementById('bar_rightside').append(record_block);
 
-    if(stopWatchControl.recordCount === 1)
-    {
-        t.hour = global.stopWatchTime.hour;
-        t.min = global.stopWatchTime.min;
-        t.sec = global.stopWatchTime.sec;
-        t.mSec = global.stopWatchTime.mSec;
-    }
-
     // 组件更新
     record_rank.innerText = '分段'+stopWatchControl.recordCount;
-    global.stopWatchTime.recordtimer = setInterval(function (){
-        t.tick();
-        record.innerText = t.toString();
-    }, 10);
 }
 function startStopwatch(){
     stopWatchControl.on=true;
@@ -93,6 +81,8 @@ function startStopwatch(){
     let timer = setInterval(function (){
         global.stopWatchTime.tick();
         document.getElementById('stopwatch').innerText = global.stopWatchTime.toString();
+        stopWatchControl.current.tick();
+        document.getElementById('stopwatch'+stopWatchControl.recordCount).innerText = stopWatchControl.current.toString();
         initClock();
     },10);
     global.stopWatchTime.setTimer(timer);
@@ -104,14 +94,7 @@ function startStopwatch(){
         stopWatchControl.current.min = global.stopWatchTime.min;
         stopWatchControl.current.sec = global.stopWatchTime.sec;
         stopWatchControl.current.mSec = global.stopWatchTime.mSec;
-        appendRecord(stopWatchControl.current);
-    }
-    else
-    {
-        global.stopWatchTime.recordtimer = setInterval(function (){
-            stopWatchControl.current.tick();
-            document.getElementById('stopwatch'+stopWatchControl.recordCount).innerText = stopWatchControl.current.toString();
-        }, 10);
+        appendRecord();
     }
 }
 function pauseStopwatch(){
@@ -124,8 +107,6 @@ function pauseStopwatch(){
     document.getElementById('start').innerText = "启动";
     // 秒表暂停后，数字显示暂停
     global.stopWatchTime.clearTimer();
-    // 分段也暂停显示
-    clearInterval(global.stopWatchTime.recordtimer);
 }
 function restartStopwatch(){
     stopWatchControl.on=false;
@@ -139,7 +120,6 @@ function restartStopwatch(){
     // 秒表复位
     global.stopWatchTime.clear();
     stopWatchControl.current.clear();
-    clearInterval(global.stopWatchTime.recordtimer);
     document.getElementById('stopwatch').innerText = global.stopWatchTime.toString();
     initClock();
     stopWatchControl.recordCount = 0;
@@ -148,28 +128,16 @@ function recordStopwatch(){
     // 只有在秒表运行的时候才能分段
     if(stopWatchControl.on)
     {
-        // 先停止前一分段的计时
-        clearInterval(global.stopWatchTime.recordtimer);
-        // 再开启新分段的计时
+        // 开启新分段的计时
         stopWatchControl.recordCount++;
-        stopWatchControl.current = new stopwatch()
-        appendRecord(stopWatchControl.current);
+        stopWatchControl.current = new stopwatch();
+        appendRecord();
     }
 }
 
 // 显示部分由数码切换至指针
 function number_to_pointer()
 {
-    if(stopWatchControl.on)
-    {
-        global.stopWatchTime.clearTimer();
-        let timer = setInterval(function (){
-            global.stopWatchTime.tick();
-            document.getElementById('stopwatch').innerText = global.stopWatchTime.toString();
-            initClock();
-        },10);
-        global.stopWatchTime.setTimer(timer);
-    }
     document.getElementById('stopwatch').style.visibility = "hidden";
     document.getElementById('stopwatch_pointer').style.visibility = "visible";
 }
@@ -177,16 +145,6 @@ function number_to_pointer()
 // 显示部分由指针切换至数码
 function pointer_to_number()
 {
-    if(stopWatchControl.on)
-    {
-        global.stopWatchTime.clearTimer();
-        let timer = setInterval(function (){
-            global.stopWatchTime.tick();
-            document.getElementById('stopwatch').innerText = global.stopWatchTime.toString();
-            initClock();
-        },10);
-        global.stopWatchTime.setTimer(timer);
-    }
     document.getElementById('stopwatch_pointer').style.visibility = "hidden";
     document.getElementById('stopwatch').style.visibility = "visible";
 }
@@ -459,6 +417,8 @@ function init_page()
         let timer = setInterval(function (){
             global.stopWatchTime.tick();
             document.getElementById('stopwatch').innerText = global.stopWatchTime.toString();
+            stopWatchControl.current.tick();
+            document.getElementById('stopwatch'+stopWatchControl.recordCount).innerText = stopWatchControl.current.toString();
             initClock();
         },10);
         global.stopWatchTime.setTimer(timer);
@@ -488,6 +448,7 @@ function init_page()
             stopWatchControl.current.mSec = mSec;
         }
     }
+    stopWatchControl.recordCount = 0;
     if(localStorage.hasOwnProperty("record_count"))
     {
         stopWatchControl.recordCount = parseInt(localStorage.getItem("record_count"));
@@ -502,13 +463,6 @@ function init_page()
         if(stopWatchControl.recordCount > 0)
         {
             initAppendRecord(stopWatchControl.current.toString(), stopWatchControl.recordCount);
-            if(stopWatchControl.on)
-            {
-                global.stopWatchTime.recordtimer = setInterval(function (){
-                    stopWatchControl.current.tick();
-                    document.getElementById('stopwatch'+stopWatchControl.recordCount).innerText = stopWatchControl.current.toString();
-                }, 10);
-            }
         }
     }
     // 画表盘

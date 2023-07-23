@@ -52,6 +52,7 @@
     left: 50%;
     transform: translate(-50%, 100%);
     font-size: 100px;
+    font-family: Consolas, serif;
 }
 
 #stopwatch_pointer
