@@ -1,5 +1,6 @@
 var timerControl = {};
 var storage = window.localStorage;
+
 function update() {
     if(storage["timerControlPause"]=="true"){
         storage["timerControlPause"]="false";
@@ -79,90 +80,48 @@ function restartTimer() {
     document.querySelector('#count_minute').innerText = "00";
     document.querySelector('#count_second').innerText = "00";//初始化
     document.getElementById('start').innerText = "开始计时";
-    initClock();
 }
-function initClock()
-{
-    drawBigClock();
-}
-function drawBigClock(){
-    const clock= document.getElementById("stopwatch_pointer");
-    cx = clock.scrollWidth * 0.5;
-    cy = clock.scrollWidth * 0.5;
-    const scale= document.getElementById("scale");
-    const hands= document.getElementById("hands");
-    scale.innerHTML = "";
-    hands.innerHTML = "";
-    let namespace = "http://www.w3.org/2000/svg";
-    // 单位长度
-    let unit = cx / 300;
-    // 表盘半径
-    let radius = cx * 0.6;
-    // 绘制大表盘
-    for(let i = 0; i < 240; i++){
-        let rect = document.createElementNS(namespace, "rect");
-        // 刻度尺寸参数
-        let width;
-        let height;
-        if(i % 20 === 0){
-            width = 3 * unit;
-            height = 15 * unit;
-            rect.setAttribute("fill", "black");
-        }
-        else{
-            width = 3 * unit;
-            height = 8 * unit;
-            rect.setAttribute("fill", "gray");
-        }
-        // 刻度半径
-        let r = radius - height / 2;
-        // 刻度中心坐标
-        let x = (cx + r * Math.sin(Math.PI * i / 120) - width / 2).toString();
-        let y = (cy - r * Math.cos(Math.PI * i / 120) - height / 2).toString();
-        // 设置刻度属性
-        rect.setAttribute("width", width);
-        rect.setAttribute("height", height);
-        rect.setAttribute("x", x);
-        rect.setAttribute("y", y);
-        x = (cx + r * Math.sin(Math.PI * i / 120)).toString();
-        y = (cy - r * Math.cos(Math.PI * i / 120)).toString();
-        rect.setAttribute("transform", "rotate(" + (i * 1.5).toString() +", " + x + ", " + y + ")");
-        scale.appendChild(rect);
-    }
-    // 绘制表针
-    {
-        function setAttributes(width, height, color, angle){
-            this.setAttribute("width", width.toString());
-            this.setAttribute("height", height.toString());
-            this.setAttribute("x", (cx - width / 2).toString());
-            this.setAttribute("y", (cy - height).toString());
-            this.setAttribute("transform", "rotate(" + angle.toString() +", " + cx + ", " + cy + ")");
-            this.setAttribute("fill", color);
-        }
 
-        Object.defineProperty(SVGElement.prototype, "set", {
-            value: setAttributes,
-            writable: true,
-            enumerable: false,
-            configurable: true,
-        });
-        // 长指针
-        let hand_long = document.createElementNS(namespace, "rect");
-        hand_long.setAttribute("id", "hand_long");
-        hand_long.set(3*unit, radius, "orange", calculateAngle());
-        hands.appendChild(hand_long);
-    }
-}
-function calculateAngle(){
-    if(storage["timerControlOn"]=="false"){
-        return 0;
-    }
-    var x=(parseInt(storage["nowTimerTimeCount"])-parseInt(storage["startTimerTimeCount"]))/(parseInt(storage["targetTimerTimeCount"])-parseInt(storage["startTimerTimeCount"]));
-    return 360*x;
-}
 function alertTimer(){
     alert("时间到！")
 }//防止alert函数优先响应
+
+// 表盘进度更新
+function update_progress()
+{
+    // 获取进度条元素
+    const progress = document.getElementById('.progress');
+    // 获取总时间
+    let time = parseInt(storage["targetTimerTimeCount"]) - parseInt(storage["startTimerTimeCount"]);
+    // 获取圆一整圈的长度
+    const maxLen = Math.ceil(progress.getTotalLength());
+    progress.style.strokeDasharray = maxLen.toString();
+
+    // 匀速从 0~100% 的进度效果
+    // 进度条的初始值,效果为进度条为 0
+    let num = maxLen;
+    // 每次减小的单位值
+    let unit = maxLen*20/time;
+    // 倒计时进度动画定时器
+    let animation_timer;
+    animation_timer = window.requestAnimationFrame(function fn() {
+        if(num > 0)
+        {
+            num -= unit;
+            progress.style.strokeDashoffset = num;
+            // 继续循环则递归调用 fn 函数
+            animation_timer = window.requestAnimationFrame(fn)
+        }
+        else
+        {
+            // 循环停止
+            progress.style.strokeDashoffset = "0";
+            // 清除定时器
+            window.cancelAnimationFrame(animation_timer);
+        }
+    });
+}
+
 window.onload = function () {
     timerControl.barRightside = $('#bar_rightside').get(0);
     timerControl.barLeftside = $('#bar_leftside').get(0);

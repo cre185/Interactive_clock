@@ -7,33 +7,37 @@
 {
     background: rgba(189,189,189,0.3);
 }
+
 #timer_count
 {
-    position: fixed;
+    position: relative;
     display: flex;
-    justify-content: space-around;
     height: 200px;
     left: 50%;
-    top: 70%;
-    transform: translate(-50%,-50%);
+    transform: translateX(-50%);
     font-size:50px;
     font-family:"Times New Roman",Georgia,Serif;
 }
-#stopwatch_bar
+
+#count
 {
     position: relative;
-    width: 852px;
-    height: 500px;
+    display: flex;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, 98%);
 }
+
 #stopwatch_pointer
 {
-    position: fixed;
+    position: absolute;
     left: 50%;
-    top:5%;
-    transform: translate(-50%, 50%) scale(2);
+    top: 77%;
+    transform: translateX(-50%) scale(2);
     width: auto;
     height: 300px;
 }
+
 #timer_bar
 {
     position: fixed;
