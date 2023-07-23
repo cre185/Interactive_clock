@@ -1,21 +1,18 @@
 // 秒表类
-class stopwatch extends time
-{
+class stopwatch extends time {
     constructor() {
         super();
     }
 
     toString() {
-        if(this.hour >= 1) {
+        if (this.hour >= 1) {
             return (this.hour < 10 ? '0' + this.hour : this.hour) + ':' +
                 (this.min < 10 ? '0' + this.min : this.min) + ':' +
                 (this.sec < 10 ? '0' + this.sec : this.sec);
-        }
-        else
-        {
+        } else {
             return (this.min < 10 ? '0' + this.min : this.min) + ':' +
                 (this.sec < 10 ? '0' + this.sec : this.sec) + '.' +
-                (this.mSec < 100 ? '0' + this.mSec/10 : this.mSec/10);
+                (this.mSec < 100 ? '0' + this.mSec / 10 : this.mSec / 10);
         }
     }
 
@@ -36,18 +33,15 @@ class stopwatch extends time
         }
     }
 
-    setTimer(timer)
-    {
+    setTimer(timer) {
         this.timer = timer;
     }
 
-    clearTimer()
-    {
+    clearTimer() {
         clearInterval(this.timer);
     }
 
-    clear()
-    {
+    clear() {
         this.hour = 0;
         this.min = 0;
         this.sec = 0;
@@ -56,14 +50,8 @@ class stopwatch extends time
     }
 }
 
-// 秒表初始化
-global.stopWatchTime = new stopwatch();
 // 秒表控制变量
-var stopWatchControl={};
-stopWatchControl.on = false;
-// 分段
-stopWatchControl.recordCount = 0;
-stopWatchControl.current = new stopwatch();
+let stopWatchControl={};
 
 function appendRecord(t){
     // 右边栏添加显示组件
@@ -382,7 +370,201 @@ window.onload=function(){
     stopWatchControl.buttonStart=$('#button_start').get(0);
     stopWatchControl.buttonRestart=$('#button_restart').get(0);
     stopWatchControl.buttonRecord=$('#button_record').get(0);
-    stopWatchControl.buttonStart.onclick=startStopwatch;
     stopWatchControl.buttonRestart.onclick=restartStopwatch;
     stopWatchControl.buttonRecord.onclick=recordStopwatch;
+    // 恢复页面信息
+    init_page();
+    // 保存页面信息
+    update_page();
+}
+
+function init_page()
+{
+    // 按钮初始化
+    if(localStorage.hasOwnProperty("start_button_state"))
+    {
+        let button_text = document.getElementById('start');
+        let button = document.getElementById('button_start');
+        stopWatchControl.on = localStorage.getItem("start_button_state") === "true";
+        if(stopWatchControl.on)
+        {
+            stopWatchControl.buttonStart.onclick=pauseStopwatch;
+            button_text.innerText = "停止";
+            button.style.background = "url(../src/pause.png) no-repeat center center";
+            button.style.backgroundSize = "50px 50px";
+        }
+        else
+        {
+            stopWatchControl.buttonStart.onclick=startStopwatch;
+            button_text.innerText = "启动";
+            button.style.background = "url(../src/start.png) no-repeat center center";
+            button.style.backgroundSize = "50px 50px";
+        }
+    }
+    else
+    {
+        stopWatchControl.on = false;
+        stopWatchControl.buttonStart.onclick=startStopwatch;
+        document.getElementById('start').innerText = "启动";
+        document.getElementById('button_start').style.background = "url(../src/start.png) no-repeat center center";
+        document.getElementById('button_start').style.backgroundSize = "50px 50px";
+    }
+    // 秒表初始化
+    global.stopWatchTime = new stopwatch();
+    if(localStorage.hasOwnProperty("hour"))
+    {
+        global.stopWatchTime.hour = parseInt(localStorage.getItem("hour"));
+        global.stopWatchTime.min = parseInt(localStorage.getItem("min"));
+        global.stopWatchTime.sec = parseInt(localStorage.getItem("sec"));
+        global.stopWatchTime.mSec = parseInt(localStorage.getItem("mSec"));
+        if(stopWatchControl.on)
+        {
+            let time = new Date().getTime() - parseInt(localStorage.getItem("timestamp"));
+            time += global.stopWatchTime.hour*3600000 + global.stopWatchTime.min*60000 + global.stopWatchTime.sec*1000 + global.stopWatchTime.mSec;
+            let hour = Math.floor(time/3600000);
+            time %= 3600000;
+            let min = Math.floor(time/60000);
+            time %= 60000;
+            let sec = Math.floor(time/1000);
+            time %= 1000;
+            let mSec = time - time%10;
+            global.stopWatchTime.hour = hour;
+            global.stopWatchTime.min = min;
+            global.stopWatchTime.sec = sec;
+            global.stopWatchTime.mSec = mSec;
+        }
+    }
+    document.getElementById('stopwatch').innerText = global.stopWatchTime.toString();
+    // 显示组件初始化
+    if(localStorage.hasOwnProperty("number_or_pointer"))
+    {
+        if(localStorage.getItem("number_or_pointer") === "number")
+        {
+            document.getElementById('stopwatch').style.visibility = "visible";
+            document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+        }
+        else if(localStorage.getItem("number_or_pointer") === "pointer")
+        {
+            document.getElementById('stopwatch').style.visibility = "hidden";
+            document.getElementById('stopwatch_pointer').style.visibility = "visible";
+        }
+    }
+    else
+    {
+        document.getElementById('stopwatch').style.visibility = "visible";
+        document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+    }
+    if(stopWatchControl.on)
+    {
+        let timer = setInterval(function (){
+            global.stopWatchTime.tick();
+            document.getElementById('stopwatch').innerText = global.stopWatchTime.toString();
+            initClock();
+        },10);
+        global.stopWatchTime.setTimer(timer);
+    }
+    // 分段
+    stopWatchControl.current = new stopwatch();
+    if(localStorage.hasOwnProperty("current_hour"))
+    {
+        stopWatchControl.current.hour = parseInt(localStorage.getItem("current_hour"));
+        stopWatchControl.current.min = parseInt(localStorage.getItem("current_min"));
+        stopWatchControl.current.sec = parseInt(localStorage.getItem("current_sec"));
+        stopWatchControl.current.mSec = parseInt(localStorage.getItem("current_mSec"));
+        if(stopWatchControl.on)
+        {
+            let time = new Date().getTime() - parseInt(localStorage.getItem("timestamp"));
+            time += stopWatchControl.current.hour*3600000 + stopWatchControl.current.min*60000 + stopWatchControl.current.sec*1000 + stopWatchControl.current.mSec;
+            let hour = Math.floor(time/3600000);
+            time %= 3600000;
+            let min = Math.floor(time/60000);
+            time %= 60000;
+            let sec = Math.floor(time/1000);
+            time %= 1000;
+            let mSec = time - time%10;
+            stopWatchControl.current.hour = hour;
+            stopWatchControl.current.min = min;
+            stopWatchControl.current.sec = sec;
+            stopWatchControl.current.mSec = mSec;
+        }
+    }
+    if(localStorage.hasOwnProperty("record_count"))
+    {
+        stopWatchControl.recordCount = parseInt(localStorage.getItem("record_count"));
+        for(let i = 1; i < stopWatchControl.recordCount; i++)
+        {
+            if(localStorage.hasOwnProperty("record_"+i))
+            {
+                initAppendRecord(localStorage.getItem("record_"+i), i);
+            }
+            console.log(localStorage.getItem("record_"+i));
+        }
+        if(stopWatchControl.recordCount > 0)
+        {
+            initAppendRecord(stopWatchControl.current.toString(), stopWatchControl.recordCount);
+            if(stopWatchControl.on)
+            {
+                global.stopWatchTime.recordtimer = setInterval(function (){
+                    stopWatchControl.current.tick();
+                    document.getElementById('stopwatch'+stopWatchControl.recordCount).innerText = stopWatchControl.current.toString();
+                }, 10);
+            }
+        }
+    }
+    // 画表盘
+    initClock();
+}
+
+function update_page()
+{
+    // 每50毫秒记录一下页面信息
+    setInterval(function (){
+        // 启动/暂停按钮的状态
+        localStorage.setItem("start_button_state", stopWatchControl.on);
+        // 数码显示还是指针显示
+        if(document.getElementById("stopwatch").style.visibility === "visible")
+        {
+            localStorage.setItem("number_or_pointer", "number");
+        }
+        else if(document.getElementById("stopwatch").style.visibility === "hidden")
+        {
+            localStorage.setItem("number_or_pointer", "pointer");
+        }
+        // 时间
+        localStorage.setItem("hour", global.stopWatchTime.hour.toString());
+        localStorage.setItem("min", global.stopWatchTime.min.toString());
+        localStorage.setItem("sec", global.stopWatchTime.sec.toString());
+        localStorage.setItem("mSec", global.stopWatchTime.mSec.toString());
+        // 分段
+        localStorage.setItem("record_count", stopWatchControl.recordCount.toString());
+        localStorage.setItem("current_hour", stopWatchControl.current.hour.toString());
+        localStorage.setItem("current_min", stopWatchControl.current.min.toString());
+        localStorage.setItem("current_sec", stopWatchControl.current.sec.toString());
+        localStorage.setItem("current_mSec", stopWatchControl.current.mSec.toString());
+        for(let i = 1; i < stopWatchControl.recordCount; i++)
+        {
+            let time = document.getElementById('stopwatch'+i);
+            localStorage.setItem("record_"+i, time.innerText);
+        }
+        // 当前时间戳
+        localStorage.setItem("timestamp", new Date().getTime().toString());
+    }, 50);
+}
+
+function initAppendRecord(str, index){
+    // 右边栏添加显示组件
+    let record_block = document.createElement("div");
+    record_block.className = 'stopwatch_block';
+    let record_rank = document.createElement("span");
+    record_rank.id = index;
+    let record = document.createElement("span");
+    record.id = 'stopwatch'+index;
+
+    record_block.append(record_rank);
+    record_block.append(record);
+    document.getElementById('bar_rightside').append(record_block);
+
+    // 组件更新
+    record_rank.innerText = '分段'+index;
+    record.innerText = str;
 }
