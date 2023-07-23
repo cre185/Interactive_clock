@@ -11,7 +11,7 @@ function update() {
     var deltaTimerTime=parseInt(storage["targetTimerTimeCount"])-parseInt(storage["nowTimerTimeCount"]);
     if(deltaTimerTime<=0){
         restartTimer()
-        initClock();
+        update_progress();
         setTimeout(alertTimer,30);
         return;
     }
@@ -34,7 +34,7 @@ function update() {
         }
         else document.querySelector('#count_second').innerText=s.toString();
     }
-    initClock();
+    update_progress();
 }
 function startTimer() {
     storage["timerControlOn"] = "true";
@@ -80,6 +80,7 @@ function restartTimer() {
     document.querySelector('#count_minute').innerText = "00";
     document.querySelector('#count_second').innerText = "00";//初始化
     document.getElementById('start').innerText = "开始计时";
+    update_progress();
 }
 
 function alertTimer(){
@@ -90,27 +91,23 @@ function alertTimer(){
 function update_progress()
 {
     // 获取进度条元素
-    const progress = document.getElementById('.progress');
+    const progress = document.getElementById('progress');
     // 获取总时间
-    let time = parseInt(storage["targetTimerTimeCount"]) - parseInt(storage["startTimerTimeCount"]);
+    let persent = (parseInt(storage["nowTimerTimeCount"]) - parseInt(storage["startTimerTimeCount"]))/(parseInt(storage["targetTimerTimeCount"]) - parseInt(storage["startTimerTimeCount"]));
     // 获取圆一整圈的长度
     const maxLen = Math.ceil(progress.getTotalLength());
     progress.style.strokeDasharray = maxLen.toString();
 
     // 匀速从 0~100% 的进度效果
     // 进度条的初始值,效果为进度条为 0
-    let num = maxLen;
-    // 每次减小的单位值
-    let unit = maxLen*20/time;
+    let num = maxLen*persent;
     // 倒计时进度动画定时器
     let animation_timer;
+    var deltaTimerTime=parseInt(storage["targetTimerTimeCount"])-parseInt(storage["nowTimerTimeCount"]);
     animation_timer = window.requestAnimationFrame(function fn() {
-        if(num > 0)
+        if(deltaTimerTime > 0&&storage["timerControlOn"] == "true")
         {
-            num -= unit;
             progress.style.strokeDashoffset = num;
-            // 继续循环则递归调用 fn 函数
-            animation_timer = window.requestAnimationFrame(fn)
         }
         else
         {
