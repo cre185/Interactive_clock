@@ -59,7 +59,7 @@ class time{
     }
 
     getAMPM() {
-        return this.hour > 12 ? "PM" : "AM"; 
+        return this.hour >= 12 ? "PM" : "AM"; 
     }
 
     calHourAngle(){
