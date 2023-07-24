@@ -72,7 +72,7 @@ function appendRecord(){
 function startStopwatch(){
     stopWatchControl.on=true;
     stopWatchControl.buttonStart.onclick=pauseStopwatch;
-    $('#button_start').css('background',"url(../src/pause.png) no-repeat center center")
+    $('#button_start').css('background',"url(../src/pause_white.png) no-repeat center center")
     $('#button_start').css('background-size',"50px 50px")
     // todo: start stopwatch
     // 秒表启动后，“启动按钮”的文字由“启动”变为“停止”
@@ -100,7 +100,7 @@ function startStopwatch(){
 function pauseStopwatch(){
     stopWatchControl.on=false;
     stopWatchControl.buttonStart.onclick=startStopwatch;
-    $('#button_start').css('background',"url(../src/start.png) no-repeat center center")
+    $('#button_start').css('background',"url(../src/start_white.png) no-repeat center center")
     $('#button_start').css('background-size',"50px 50px")
     // todo: pause stopwatch
     // 秒表暂停后“启动按钮”的文字由“停止”变为“启动”
@@ -111,7 +111,7 @@ function pauseStopwatch(){
 function restartStopwatch(){
     stopWatchControl.on=false;
     stopWatchControl.buttonStart.onclick=startStopwatch;
-    $('#button_start').css('background',"url(../src/start.png) no-repeat center center")
+    $('#button_start').css('background',"url(../src/start_white.png) no-repeat center center")
     $('#button_start').css('background-size',"50px 50px")
     $('#bar_rightside').get(0).innerHTML="";
     stopWatchControl.recordCount=0;
@@ -352,14 +352,14 @@ function init_page()
         {
             stopWatchControl.buttonStart.onclick=pauseStopwatch;
             button_text.innerText = "停止";
-            button.style.background = "url(../src/pause.png) no-repeat center center";
+            button.style.background = "url(../src/pause_white.png) no-repeat center center";
             button.style.backgroundSize = "50px 50px";
         }
         else
         {
             stopWatchControl.buttonStart.onclick=startStopwatch;
             button_text.innerText = "启动";
-            button.style.background = "url(../src/start.png) no-repeat center center";
+            button.style.background = "url(../src/start_white.png) no-repeat center center";
             button.style.backgroundSize = "50px 50px";
         }
     }
@@ -368,7 +368,7 @@ function init_page()
         stopWatchControl.on = false;
         stopWatchControl.buttonStart.onclick=startStopwatch;
         document.getElementById('start').innerText = "启动";
-        document.getElementById('button_start').style.background = "url(../src/start.png) no-repeat center center";
+        document.getElementById('button_start').style.background = "url(../src/start_white.png) no-repeat center center";
         document.getElementById('button_start').style.backgroundSize = "50px 50px";
     }
     // 秒表初始化
