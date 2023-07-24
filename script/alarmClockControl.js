@@ -460,6 +460,17 @@ function init(){
             clock.removeEventListener("mousemove", secondMoveListenrs);
         }
     })
+
+    // 加载之前存储的闹钟信息
+    var alarmCount = 0;
+    if(localStorage.getItem("alarmCount")){
+        alarmCount = parseInt(localStorage.getItem("alarmCount"));
+    }
+    for(i = 0;i < alarmCount;i++){
+        appendAlarmclock();
+        const alarmTime = 
+        alarmClockControl.allAlarmclock[i].
+    }
 }
 
 function showMessage() {
