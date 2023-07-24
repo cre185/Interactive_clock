@@ -51,9 +51,400 @@
 {
     position: absolute;
     left: 50%;
-    transform: translate(-50%, 50%) scale(2);
     width: auto;
     height: 300px;
+    animation: floating 5s ease-in-out infinite;
+}
+
+#big_60
+{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    left: 50%;
+    animation: floating_big_60 5s ease-in-out infinite;
+}
+
+@keyframes floating_big_60
+{
+    0%, 100%
+    {
+        transform: translate(-50%, 370%);
+    }
+    50%
+    {
+        transform: translate(-50%, 300%);
+    }
+}
+
+#big_5
+{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    left: 50%;
+    animation: floating_big_5 5s ease-in-out infinite;
+}
+
+@keyframes floating_big_5
+{
+    0%, 100%
+    {
+        transform: translate(330%, 405%);
+    }
+    50%
+    {
+        transform: translate(330%, 335%);
+    }
+}
+
+#big_10
+{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    left: 50%;
+    animation: floating_big_10 5s ease-in-out infinite;
+}
+
+@keyframes floating_big_10
+{
+    0%, 100%
+    {
+        transform: translate(340%, 525%);
+    }
+    50%
+    {
+        transform: translate(340%, 455%);
+    }
+}
+
+#big_15
+{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    left: 50%;
+    animation: floating_big_15 5s ease-in-out infinite;
+}
+
+@keyframes floating_big_15
+{
+    0%, 100%
+    {
+        transform: translate(400%, 700%);
+    }
+    50%
+    {
+        transform: translate(400%, 630%);
+    }
+}
+
+#big_20
+{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    left: 50%;
+    animation: floating_big_20 5s ease-in-out infinite;
+}
+
+@keyframes floating_big_20
+{
+    0%, 100%
+    {
+        transform: translate(280%, 860%);
+    }
+    50%
+    {
+        transform: translate(280%, 790%);
+    }
+}
+
+#big_25
+{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    left: 50%;
+    animation: floating_big_25 5s ease-in-out infinite;
+}
+
+@keyframes floating_big_25
+{
+    0%, 100%
+    {
+        transform: translate(140%, 975%);
+    }
+    50%
+    {
+        transform: translate(140%, 905%);
+    }
+}
+
+#big_30
+{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    left: 50%;
+    animation: floating_big_30 5s ease-in-out infinite;
+}
+
+@keyframes floating_big_30
+{
+    0%, 100%
+    {
+        transform: translate(-50%, 1025%);
+    }
+    50%
+    {
+        transform: translate(-50%, 955%);
+    }
+}
+
+#big_35
+{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    left: 50%;
+    animation: floating_big_35 5s ease-in-out infinite;
+}
+
+@keyframes floating_big_35
+{
+    0%, 100%
+    {
+        transform: translate(-245%, 975%);
+    }
+    50%
+    {
+        transform: translate(-245%, 905%);
+    }
+}
+
+#big_40
+{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    left: 50%;
+    animation: floating_big_40 5s ease-in-out infinite;
+}
+
+@keyframes floating_big_40
+{
+    0%, 100%
+    {
+        transform: translate(-370%, 860%);
+    }
+    50%
+    {
+        transform: translate(-370%, 790%);
+    }
+}
+
+#big_45
+{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    left: 50%;
+    transform: translate(-420%, 665%);
+    animation: floating_big_45 5s ease-in-out infinite;
+}
+
+@keyframes floating_big_45
+{
+    0%, 100%
+    {
+        transform: translate(-420%, 700%);
+    }
+    50%
+    {
+        transform: translate(-420%, 630%);
+    }
+}
+
+#big_50
+{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    left: 50%;
+    animation: floating_big_50 5s ease-in-out infinite;
+}
+
+@keyframes floating_big_50
+{
+    0%, 100%
+    {
+        transform: translate(-370%, 525%);
+    }
+    50%
+    {
+        transform: translate(-370%, 455%);
+    }
+}
+
+#big_55
+{
+    position: absolute;
+    color: white;
+    font-size: 30px;
+    left: 50%;
+    animation: floating_big_55 5s ease-in-out infinite;
+}
+
+@keyframes floating_big_55
+{
+    0%, 100%
+    {
+        transform: translate(-245%, 405%);
+    }
+    50%
+    {
+        transform: translate(-245%, 335%);
+    }
+}
+
+#small_30
+{
+    position: absolute;
+    color: white;
+    font-size: 10px;
+    left: 50%;
+    animation: floating_small_30 5s ease-in-out infinite;
+}
+
+@keyframes floating_small_30
+{
+    0%, 100%
+    {
+        transform: translate(-50%, 1350%);
+    }
+    50%
+    {
+        transform: translate(-50%, 1170%);
+    }
+}
+
+#small_5
+{
+    position: absolute;
+    color: white;
+    font-size: 10px;
+    left: 50%;
+    animation: floating_small_5 5s ease-in-out infinite;
+}
+
+@keyframes floating_small_5
+{
+    0%, 100%
+    {
+        transform: translate(240%, 1430%);
+    }
+    50%
+    {
+        transform: translate(240%, 1250%);
+    }
+}
+
+#small_10
+{
+    position: absolute;
+    color: white;
+    font-size: 10px;
+    left: 50%;
+    animation: floating_small_10 5s ease-in-out infinite;
+}
+
+@keyframes floating_small_10
+{
+    0%, 100%
+    {
+        transform: translate(120%, 1580%);
+    }
+    50%
+    {
+        transform: translate(120%, 1400%);
+    }
+}
+
+#small_15
+{
+    position: absolute;
+    color: white;
+    font-size: 10px;
+    left: 50%;
+    animation: floating_small_15 5s ease-in-out infinite;
+}
+
+@keyframes floating_small_15
+{
+    0%, 100%
+    {
+        transform: translate(-50%, 1650%);
+    }
+    50%
+    {
+        transform: translate(-50%, 1470%);
+    }
+}
+
+#small_20
+{
+    position: absolute;
+    color: white;
+    font-size: 10px;
+    left: 50%;
+    animation: floating_small_20 5s ease-in-out infinite;
+}
+
+@keyframes floating_small_20
+{
+    0%, 100%
+    {
+        transform: translate(-180%, 1580%);
+    }
+    50%
+    {
+        transform: translate(-180%, 1400%);
+    }
+}
+
+#small_25
+{
+    position: absolute;
+    color: white;
+    font-size: 10px;
+    left: 50%;
+    animation: floating_small_25 5s ease-in-out infinite;
+}
+
+@keyframes floating_small_25
+{
+    0%, 100%
+    {
+        transform: translate(-180%, 1430%);
+    }
+    50%
+    {
+        transform: translate(-180%, 1250%);
+    }
+}
+
+@keyframes floating
+{
+    0%, 100%
+    {
+        transform: translate(-50%, 55%) scale(2);
+    }
+    50%
+    {
+        transform: translate(-50%, 45%) scale(2);
+    }
 }
 
 #bottom_bar

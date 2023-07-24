@@ -146,6 +146,7 @@ function number_to_pointer()
     document.getElementById('stopwatch').style.visibility = "hidden";
     document.getElementById('round_style').style.visibility = "hidden";
     document.getElementById('stopwatch_pointer').style.visibility = "visible";
+    show();
 }
 
 // 显示部分由指针切换至数码
@@ -153,6 +154,7 @@ function pointer_to_number()
 {
     module = "number";
     document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+    hide();
     if(localStorage.hasOwnProperty('number_style'))
     {
         if(localStorage.getItem('number_style') === "1")
@@ -202,7 +204,13 @@ function drawBigClock(){
         if(i % 20 === 0){
             width = 3 * unit;
             height = 15 * unit;
-            rect.setAttribute("fill", "black");
+            rect.setAttribute("fill", "white");
+        }
+        else if(i % 5 === 0)
+        {
+            width = 3 * unit;
+            height = 15 * unit;
+            rect.setAttribute("fill", "gray");
         }
         else{
             width = 3 * unit;
@@ -270,7 +278,7 @@ function drawSmallClock()
 {
     const clock= document.getElementById("stopwatch_pointer");
     cx = clock.scrollWidth * 0.5;
-    cy = clock.scrollWidth * 0.35;
+    cy = clock.scrollWidth * 0.4;
     const scale= document.getElementById("scale_min");
     const hands= document.getElementById("hands_min");
     scale.innerHTML = "";
@@ -291,7 +299,7 @@ function drawSmallClock()
             height = 10 * unit;
             if(i % 10 === 0)
             {
-                rect.setAttribute("fill", "black");
+                rect.setAttribute("fill", "white");
             }
             else
             {
@@ -435,6 +443,7 @@ function init_page()
             document.getElementById('stopwatch').style.visibility = "hidden";
         }
         document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+        hide();
     }
     else if(localStorage.getItem("number_or_pointer") === "pointer")
     {
@@ -443,6 +452,7 @@ function init_page()
         document.getElementById('stopwatch').style.visibility = "hidden";
         document.getElementById('round_style').style.visibility = "hidden";
         document.getElementById('stopwatch_pointer').style.visibility = "visible";
+        show();
     }
     else
     {
@@ -452,6 +462,7 @@ function init_page()
         document.getElementById('stopwatch').style.visibility = "visible";
         document.getElementById('round_style').style.visibility = "hidden";
         document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+        hide();
         localStorage["number_or_pointer"] = "number";
     }
 
@@ -603,4 +614,48 @@ function update_text()
     document.getElementById('time2').innerHTML = global.stopWatchTime.toString();
     document.getElementById('time3').innerHTML = global.stopWatchTime.toString();
     document.getElementById('time4').innerHTML = global.stopWatchTime.toString();
+}
+
+function hide()
+{
+    document.getElementById('big_5').style.visibility = "hidden";
+    document.getElementById('big_10').style.visibility = "hidden";
+    document.getElementById('big_15').style.visibility = "hidden";
+    document.getElementById('big_20').style.visibility = "hidden";
+    document.getElementById('big_25').style.visibility = "hidden";
+    document.getElementById('big_30').style.visibility = "hidden";
+    document.getElementById('big_35').style.visibility = "hidden";
+    document.getElementById('big_40').style.visibility = "hidden";
+    document.getElementById('big_45').style.visibility = "hidden";
+    document.getElementById('big_50').style.visibility = "hidden";
+    document.getElementById('big_55').style.visibility = "hidden";
+    document.getElementById('big_60').style.visibility = "hidden";
+    document.getElementById('small_5').style.visibility = "hidden";
+    document.getElementById('small_10').style.visibility = "hidden";
+    document.getElementById('small_15').style.visibility = "hidden";
+    document.getElementById('small_20').style.visibility = "hidden";
+    document.getElementById('small_25').style.visibility = "hidden";
+    document.getElementById('small_30').style.visibility = "hidden";
+}
+
+function show()
+{
+    document.getElementById('big_5').style.visibility = "visible";
+    document.getElementById('big_10').style.visibility = "visible";
+    document.getElementById('big_15').style.visibility = "visible";
+    document.getElementById('big_20').style.visibility = "visible";
+    document.getElementById('big_25').style.visibility = "visible";
+    document.getElementById('big_30').style.visibility = "visible";
+    document.getElementById('big_35').style.visibility = "visible";
+    document.getElementById('big_40').style.visibility = "visible";
+    document.getElementById('big_45').style.visibility = "visible";
+    document.getElementById('big_50').style.visibility = "visible";
+    document.getElementById('big_55').style.visibility = "visible";
+    document.getElementById('big_60').style.visibility = "visible";
+    document.getElementById('small_5').style.visibility = "visible";
+    document.getElementById('small_10').style.visibility = "visible";
+    document.getElementById('small_15').style.visibility = "visible";
+    document.getElementById('small_20').style.visibility = "visible";
+    document.getElementById('small_25').style.visibility = "visible";
+    document.getElementById('small_30').style.visibility = "visible";
 }
