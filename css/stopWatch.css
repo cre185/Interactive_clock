@@ -20,7 +20,7 @@
 #stopwatch_button_bar
 {
     position: relative;
-    top: 60%;
+    top: 40%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -59,7 +59,7 @@
 #bottom_bar
 {
     position: relative;
-    top: 70%;
+    top: 50%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -198,4 +198,93 @@
 #wrapper span:last-child
 {
     filter: blur(20px);
+}
+
+#button_style
+{
+    margin: auto;
+    transform: translate(0%, 0%);
+    background: url(../src/change.png) no-repeat center center;
+    background-size: 80px 80px;
+    width: 90px;
+    height: 90px;
+    border-style: none;
+}
+
+.circular path{
+    fill: none;
+}
+
+.circular{
+    width: 100px;
+    height: 100px;
+    transform: translate(195%, 65%);
+}
+
+.circular svg{
+    overflow: visible;
+}
+
+#button_bar_style
+{
+    margin-left: 60%;
+    transform: translate(0%, 20%);
+    width: 200px;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+}
+
+#round_style
+{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 42%);
+    height: 300px;
+    width: 100%;
+}
+
+.words
+{
+    font-weight: bold;
+    fill: none;
+    stroke-width: 4px;
+    stroke-dasharray: 45,155;
+    animation: drawing 8s linear infinite;
+}
+
+.words-1
+{
+    stroke: deepskyblue;
+    text-shadow: 0 0 50px deepskyblue;
+    animation-delay: -2s;
+}
+
+.words-2
+{
+    stroke: lightgreen;
+    text-shadow: 0 0 50px lightgreen;
+    animation-delay: -4s;
+}
+
+.words-3
+{
+    stroke: #fee800;
+    text-shadow: 0 0 50px #fee800;
+    animation-delay: -6s;
+}
+
+.words-4
+{
+    stroke: #ff2972;
+    text-shadow: 0 0 50px #ff2972;
+    animation-delay: -8s;
+}
+
+@keyframes drawing
+{
+    to
+    {
+        stroke-dashoffset: -200;
+    }
 }

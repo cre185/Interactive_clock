@@ -52,6 +52,8 @@ class stopwatch extends time {
 
 // 秒表控制变量
 let stopWatchControl={};
+// 显示方式变量
+let module;
 
 function appendRecord(){
     // 右边栏添加显示组件
@@ -72,15 +74,15 @@ function appendRecord(){
 function startStopwatch(){
     stopWatchControl.on=true;
     stopWatchControl.buttonStart.onclick=pauseStopwatch;
-    $('#button_start').css('background',"url(../src/pause_white.png) no-repeat center center")
-    $('#button_start').css('background-size',"50px 50px")
+    document.getElementById('button_start').style.background = "url(../src/pause_white.png) no-repeat center center";
+    document.getElementById('button_start').style.backgroundSize = "50px 50px";
     // todo: start stopwatch
     // 秒表启动后，“启动按钮”的文字由“启动”变为“停止”
     document.getElementById('start').innerText = "停止";
     // 秒表启动后，数字显示开始变化
     let timer = setInterval(function (){
         global.stopWatchTime.tick();
-        document.getElementById('stopwatch').innerText = global.stopWatchTime.toString();
+        update_text();
         stopWatchControl.current.tick();
         document.getElementById('stopwatch'+stopWatchControl.recordCount).innerText = stopWatchControl.current.toString();
         initClock();
@@ -100,8 +102,8 @@ function startStopwatch(){
 function pauseStopwatch(){
     stopWatchControl.on=false;
     stopWatchControl.buttonStart.onclick=startStopwatch;
-    $('#button_start').css('background',"url(../src/start_white.png) no-repeat center center")
-    $('#button_start').css('background-size',"50px 50px")
+    document.getElementById('button_start').style.background = "url(../src/start_white.png) no-repeat center center";
+    document.getElementById('button_start').style.backgroundSize = "50px 50px";
     // todo: pause stopwatch
     // 秒表暂停后“启动按钮”的文字由“停止”变为“启动”
     document.getElementById('start').innerText = "启动";
@@ -111,8 +113,8 @@ function pauseStopwatch(){
 function restartStopwatch(){
     stopWatchControl.on=false;
     stopWatchControl.buttonStart.onclick=startStopwatch;
-    $('#button_start').css('background',"url(../src/start_white.png) no-repeat center center")
-    $('#button_start').css('background-size',"50px 50px")
+    document.getElementById('button_start').style.background = "url(../src/start_white.png) no-repeat center center";
+    document.getElementById('button_start').style.backgroundSize = "50px 50px";
     $('#bar_rightside').get(0).innerHTML="";
     stopWatchControl.recordCount=0;
     // 秒表复位后“启动按钮”的文字变为“启动”
@@ -120,7 +122,7 @@ function restartStopwatch(){
     // 秒表复位
     global.stopWatchTime.clear();
     stopWatchControl.current.clear();
-    document.getElementById('stopwatch').innerText = global.stopWatchTime.toString();
+    update_text();
     initClock();
     stopWatchControl.recordCount = 0;
 }
@@ -138,19 +140,36 @@ function recordStopwatch(){
 // 显示部分由数码切换至指针
 function number_to_pointer()
 {
+    module = "pointer";
     document.getElementById('wrapper').style.visibility = "hidden";
     document.getElementById('display').style.visibility = "hidden";
     document.getElementById('stopwatch').style.visibility = "hidden";
+    document.getElementById('round_style').style.visibility = "hidden";
     document.getElementById('stopwatch_pointer').style.visibility = "visible";
 }
 
 // 显示部分由指针切换至数码
 function pointer_to_number()
 {
+    module = "number";
     document.getElementById('stopwatch_pointer').style.visibility = "hidden";
-    document.getElementById('wrapper').style.visibility = "visible";
-    document.getElementById('display').style.visibility = "visible";
-    document.getElementById('stopwatch').style.visibility = "visible";
+    if(localStorage.hasOwnProperty('number_style'))
+    {
+        if(localStorage.getItem('number_style') === "1")
+        {
+            document.getElementById('wrapper').style.visibility = "visible";
+            document.getElementById('display').style.visibility = "visible";
+            document.getElementById('stopwatch').style.visibility = "visible";
+            document.getElementById('round_style').style.visibility = "hidden";
+        }
+        else if(localStorage.getItem('number_style') === "2")
+        {
+            document.getElementById('wrapper').style.visibility = "hidden";
+            document.getElementById('display').style.visibility = "hidden";
+            document.getElementById('stopwatch').style.visibility = "hidden";
+            document.getElementById('round_style').style.visibility = "visible";
+        }
+    }
 }
 
 // 初始化表+更新表
@@ -396,35 +415,51 @@ function init_page()
             global.stopWatchTime.mSec = mSec;
         }
     }
-    document.getElementById('stopwatch').innerText = global.stopWatchTime.toString();
+
     // 显示组件初始化
-    if(localStorage.hasOwnProperty("number_or_pointer"))
+    update_text();
+    if(localStorage.getItem("number_or_pointer") === "number")
     {
-        if(localStorage.getItem("number_or_pointer") === "number")
+        if(localStorage.getItem("number_style") === "1")
         {
             document.getElementById('wrapper').style.visibility = "visible";
             document.getElementById('display').style.visibility = "visible";
             document.getElementById('stopwatch').style.visibility = "visible";
-            document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+            document.getElementById('round_style').style.visibility = "hidden";
         }
-        else if(localStorage.getItem("number_or_pointer") === "pointer")
+        else if(localStorage.getItem("number_style") === "2")
         {
+            document.getElementById('round_style').style.visibility = "visible";
             document.getElementById('wrapper').style.visibility = "hidden";
             document.getElementById('display').style.visibility = "hidden";
             document.getElementById('stopwatch').style.visibility = "hidden";
-            document.getElementById('stopwatch_pointer').style.visibility = "visible";
         }
+        document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+    }
+    else if(localStorage.getItem("number_or_pointer") === "pointer")
+    {
+        document.getElementById('wrapper').style.visibility = "hidden";
+        document.getElementById('display').style.visibility = "hidden";
+        document.getElementById('stopwatch').style.visibility = "hidden";
+        document.getElementById('round_style').style.visibility = "hidden";
+        document.getElementById('stopwatch_pointer').style.visibility = "visible";
     }
     else
     {
+        module = "number";
+        document.getElementById('wrapper').style.visibility = "visible";
+        document.getElementById('display').style.visibility = "visible";
         document.getElementById('stopwatch').style.visibility = "visible";
+        document.getElementById('round_style').style.visibility = "hidden";
         document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+        localStorage["number_or_pointer"] = "number";
     }
+
     if(stopWatchControl.on)
     {
         let timer = setInterval(function (){
             global.stopWatchTime.tick();
-            document.getElementById('stopwatch').innerText = global.stopWatchTime.toString();
+            update_text();
             stopWatchControl.current.tick();
             document.getElementById('stopwatch'+stopWatchControl.recordCount).innerText = stopWatchControl.current.toString();
             initClock();
@@ -479,19 +514,29 @@ function init_page()
 
 function update_page()
 {
-    // 每50毫秒记录一下页面信息
+    // 每10毫秒记录一下页面信息
     setInterval(function (){
         // 启动/暂停按钮的状态
         localStorage.setItem("start_button_state", stopWatchControl.on);
         // 数码显示还是指针显示
-        if(document.getElementById("stopwatch").style.visibility === "visible")
+        if(document.getElementById('stopwatch').style.visibility === 'visible' || document.getElementById('round_style').style.visibility === 'visible')
         {
             localStorage.setItem("number_or_pointer", "number");
         }
-        else if(document.getElementById("stopwatch").style.visibility === "hidden")
+        else
         {
             localStorage.setItem("number_or_pointer", "pointer");
         }
+
+        if(document.getElementById('stopwatch').style.visibility === 'visible')
+        {
+            localStorage.setItem("number_style", "1");
+        }
+        else if(document.getElementById('round_style').style.visibility === 'visible')
+        {
+            localStorage.setItem("number_style", "2");
+        }
+
         // 时间
         localStorage.setItem("hour", global.stopWatchTime.hour.toString());
         localStorage.setItem("min", global.stopWatchTime.min.toString());
@@ -510,7 +555,7 @@ function update_page()
         }
         // 当前时间戳
         localStorage.setItem("timestamp", new Date().getTime().toString());
-    }, 50);
+    }, 10);
 }
 
 function initAppendRecord(str, index){
@@ -529,4 +574,33 @@ function initAppendRecord(str, index){
     // 组件更新
     record_rank.innerText = '分段'+index;
     record.innerText = str;
+}
+
+function changeStyle()
+{
+    if(document.getElementById('stopwatch').style.visibility === "visible")
+    {
+        document.getElementById('wrapper').style.visibility = "hidden";
+        document.getElementById('display').style.visibility = "hidden";
+        document.getElementById('stopwatch').style.visibility = "hidden";
+        document.getElementById('round_style').style.visibility = "visible";
+        localStorage["number_style"] = "2";
+    }
+    else if(document.getElementById('round_style').style.visibility === "visible")
+    {
+        document.getElementById('wrapper').style.visibility = "visible";
+        document.getElementById('display').style.visibility = "visible";
+        document.getElementById('stopwatch').style.visibility = "visible";
+        document.getElementById('round_style').style.visibility = "hidden";
+        localStorage["number_style"] = "1";
+    }
+}
+
+function update_text()
+{
+    document.getElementById('stopwatch').innerText = global.stopWatchTime.toString();
+    document.getElementById('time1').innerHTML = global.stopWatchTime.toString();
+    document.getElementById('time2').innerHTML = global.stopWatchTime.toString();
+    document.getElementById('time3').innerHTML = global.stopWatchTime.toString();
+    document.getElementById('time4').innerHTML = global.stopWatchTime.toString();
 }
