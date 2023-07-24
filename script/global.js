@@ -44,10 +44,7 @@ class time{
     }
 
     getHour() {
-        if(this.hour === 12){
-            return 12 + " :";
-        }
-        return (this.hour % 12 < 10 ? "0" : "") + this.hour % 12 + " :";
+        return (this.hour < 10 ? "0" : "") + this.hour + " :";
     }
 
     getMin() {
@@ -56,10 +53,6 @@ class time{
 
     getSec() {
         return (this.sec  < 10 ? "0" : "") + this.sec;
-    }
-
-    getAMPM() {
-        return this.hour >= 12 ? "PM" : "AM"; 
     }
 
     calHourAngle(){

@@ -31,8 +31,6 @@ function update(times = 1){
     min.innerHTML = global.globalTime.getMin();
     let sec = document.getElementById("second");
     sec.innerHTML = global.globalTime.getSec();
-    let ampm = document.getElementById("ampm");
-    ampm.innerHTML = global.globalTime.getAMPM();
 }
 
 // 设置定时器
@@ -198,7 +196,7 @@ function drawClock(hasText){
         var hour = document.createElementNS(namespace, "text");
         hour.setAttribute("style", "text-anchor: middle");
         hour.setAttribute("id", "hour")
-        hour.setAttribute("x", cx - 45 * v);
+        hour.setAttribute("x", cx - 30 * v);
         hour.setAttribute("y", cy + 196 * v);
         hour.setAttribute("font-size", 18 * v);
         hour.setAttribute("fill", "#FF2972");
@@ -208,7 +206,7 @@ function drawClock(hasText){
         var min = document.createElementNS(namespace, "text");
         min.setAttribute("style", "text-anchor: middle");
         min.setAttribute("id", "minute")
-        min.setAttribute("x", cx - 8 * v);
+        min.setAttribute("x", cx + 7 * v);
         min.setAttribute("y", cy + 196 * v);
         min.setAttribute("font-size", 18 * v);
         min.setAttribute("fill", "#FEE800");
@@ -218,22 +216,12 @@ function drawClock(hasText){
         var sec = document.createElementNS(namespace, "text");
         sec.setAttribute("style", "text-anchor: middle");
         sec.setAttribute("id", "second")
-        sec.setAttribute("x", cx + 23 * v);
+        sec.setAttribute("x", cx + 38 * v);
         sec.setAttribute("y", cy + 196 * v);
         sec.setAttribute("font-size", 18 * v);
         sec.setAttribute("fill", "#04FC43");
         sec.innerHTML = global.globalTime.getSec();
         timeText.append(sec);
-
-        var ampm = document.createElementNS(namespace, "text");
-        ampm.setAttribute("style", "text-anchor: middle");
-        ampm.setAttribute("id", "ampm")
-        ampm.setAttribute("x", cx + 50 * v);
-        ampm.setAttribute("y", cy + 193 * v);
-        ampm.setAttribute("font-size", 9 * v);
-        ampm.setAttribute("fill", "#FFF");
-        ampm.innerHTML = global.globalTime.getAMPM();
-        timeText.append(ampm);
 
         if(!isAdjusting){
             // 调整按钮
@@ -305,14 +293,14 @@ function drawClock(hasText){
             for(var i = 0 ; i < 3; i++){
                 var up = document.createElementNS(namespace, "polygon");
                 var down = document.createElementNS(namespace, "polygon");
-                var points = (cx + (37 * i - 54) * v) + "," + (cy + 180 * v) + " " + (cx + (37 * i - 44) * v) + "," + (cy + 180 * v) + " "
-                + (cx + (37 * i - 49) * v) + "," + (cy + 175 * v);
+                var points = (cx + (37 * i - 40) * v) + "," + (cy + 180 * v) + " " + (cx + (37 * i - 30) * v) + "," + (cy + 180 * v) + " "
+                + (cx + (37 * i - 35) * v) + "," + (cy + 175 * v);
                 up.setAttribute("points", points);
                 up.setAttribute("fill", "#FFF");
                 up.addEventListener("click", adjusments[2 * i]);
                 buttons.appendChild(up);
-                points = (cx + (37 * i - 54) * v) + "," + (cy + 200 * v) + " " + (cx + (37 * i - 44) * v) + "," + (cy + 200 * v) + " "
-                + (cx + (37 * i - 49) * v) + "," + (cy + 205 * v);
+                points = (cx + (37 * i - 40) * v) + "," + (cy + 200 * v) + " " + (cx + (37 * i - 30) * v) + "," + (cy + 200 * v) + " "
+                + (cx + (37 * i - 35) * v) + "," + (cy + 205 * v);
                 down.setAttribute("points", points);
                 down.setAttribute("fill", "#FFF");
                 down.addEventListener("click", adjusments[2 * i + 1]);
