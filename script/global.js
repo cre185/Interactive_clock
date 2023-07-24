@@ -43,6 +43,25 @@ class time{
         (this.sec < 10 ? '0' + this.sec : this.sec);   
     }
 
+    getHour() {
+        if(this.hour === 12){
+            return 12 + " :";
+        }
+        return (this.hour % 12 < 10 ? "0" : "") + this.hour % 12 + " :";
+    }
+
+    getMin() {
+        return (this.min  < 10 ? "0" : "") + this.min + " :";
+    }
+
+    getSec() {
+        return (this.sec  < 10 ? "0" : "") + this.sec;
+    }
+
+    getAMPM() {
+        return this.hour > 12 ? "PM" : "AM"; 
+    }
+
     calHourAngle(){
         return ((this.hour % 12) * 3.6e6 + this.min * 6e4 + this.sec * 1e3 + this.mSec) / 4.32e7 * 360;
     }
