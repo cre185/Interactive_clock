@@ -1,11 +1,16 @@
 #bar_leftside
 {
-    background: rgba(189,189,189);
+    background: #2f363e;
+}
+
+#bar_rightside
+{
+    background: #2f363e;
 }
 
 #bar_center
 {
-    background-color: black;
+    background-color: #2f363e;
     display: flex;
     flex-direction: column;
 }

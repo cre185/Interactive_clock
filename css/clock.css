@@ -5,6 +5,17 @@
 
 #bar_rightside
 {
+    background: #2f363e;
     display: flex;
     flex-direction: column;
+}
+
+#bar_leftside
+{
+    background: #2f363e;
+}
+
+#bar_center
+{
+    background: #2f363e;
 }
