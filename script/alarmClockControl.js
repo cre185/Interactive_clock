@@ -63,6 +63,7 @@ function appendAlarmclock(loading){
             localStorage.setItem("formerAlarm", "00:00:00");
         }
     }
+    document.getElementById("bar_rightside").scrollTop=document.getElementById("bar_rightside").scrollHeight;
 }
 
 // 更新存储序列
