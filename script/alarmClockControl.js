@@ -468,7 +468,7 @@ function init(){
     }
     for(i = 0;i < alarmCount;i++){
         appendAlarmclock();
-        const alarmTime = 
+        const alarmTime = localStorage.getItem()
         alarmClockControl.allAlarmclock[i].
     }
 }
