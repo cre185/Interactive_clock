@@ -12,77 +12,55 @@
     <script src="../script/global.js"></script>
     <script src="../script/clockControl.js"></script>
 </head>
-<body onload = "init()" onresize = "drawClock(true)">
+<body onload = "init()" onresize = "init()">
 <div id="bar_leftside">
-    <div id="timer_bar">
-        <!-- 小时 -->
-        <span>设置时间：</span>
-        <select id="hour">
-            <optgroup label="时">
-                <script>
-                    for(var i=0;i<=23;i++){
-                        if(i<10){
-                            document.writeln('<option value="0'+i+'">'+i+'</option>');
-                        }
-                        else document.writeln('<option value="'+i+'">'+i+'</option>');
-                    }
-                </script>
-            </optgroup>
-        </select>
-        <span>时</span>
-        <!-- 分钟 -->
-        <select id="minute">
-            <optgroup label="分">
-                <script>
-                    for(var i=0;i<=59;i++){
-                        if(i<10){
-                            document.writeln('<option value="0'+i+'">'+i+'</option>');
-                        }
-                        else document.writeln('<option value="'+i+'">'+i+'</option>');
-                    }
-                </script>
-            </optgroup>
-        </select>
-        <span>钟</span>
-        <!-- 秒 -->
-        <select id="second">
-            <optgroup label="秒">
-                <script>
-                    for(var i=0;i<=59;i++){
-                        if(i<10){
-                            document.writeln('<option value="0'+i+'">'+i+'</option>');
-                        }
-                        else document.writeln('<option value="'+i+'">'+i+'</option>');
-                    }
-                </script>
-            </optgroup>
-        </select>
-        <span>秒</span>
-    </div>
-    <ul id = "buttons">
-        <!-- 时间重置按钮 -->
-        <li>
-        <div id = "reset_bar">
-            <button id="button_reset"></button>
-            <span id = "reset">重置</span>
-        </div>
-        </li>
-        <!-- 时间设定按钮 -->
-        <li>
-        <div id = "confirm_bar">
-            <button id="button_confirm"></button>
-            <span id="confirm">确定</span>
-        </div>
-        </li>
-    </ul>
 </div>
 <div id="bar_rightside">
 </div>
 <div id="bar_center">
     <svg id = "clock_svg" xmlns="http://www.w3.org/2000/svg">
+        <filter id="inset-shadow" x="-50%" y="-50%" width="200%" height="200%">
+            <feDropShadow dx="10" dy="50" stdDeviation="70" flood-color="rgba(0, 0, 0, 0.25)" />
+            <feDropShadow dx="5" dy="5" stdDeviation="10" flood-color="rgba(0, 0, 0, 0.5)" result="innerShadow1" />
+            <feComposite operator="out" in="innerShadow1" in2="SourceGraphic" result="composite1" />
+            <feDropShadow dx="5" dy="5" stdDeviation="20" flood-color="rgba(0, 0, 0, 0.2)" result="innerShadow2" />
+            <feComposite operator="out" in="innerShadow2" in2="composite1" result="composite2" />
+            <feDropShadow dx="-5" dy="-5" stdDeviation="15" flood-color="rgba(0, 0, 0, 0.75)" result="innerShadow3" />
+            <feComposite operator="out" in="innerShadow3" in2="composite2" result="composite3" />
+            <feMerge>
+              <feMergeNode in="composite3" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        <filter id = "red-shadow1" x = "-50%" y = "-50%" width = "200%" height = "200%">
+            <feDropShadow dx = "0" dy = "0" stdDeviation = "6" flood-color = "#FF2972" />
+        </filter>
+        <filter id = "red-shadow2" x = "-50%" y = "-50%" width = "200%" height = "200%">
+            <feDropShadow dx = "0" dy = "0" stdDeviation = "30" flood-color = "#FF2972" />
+        </filter>
+        <filter id = "yellow-shadow1" x = "-50%" y = "-50%" width = "200%" height = "200%">
+            <feDropShadow dx = "0" dy = "0" stdDeviation = "10" flood-color = "#FEE800" />
+        </filter>
+        <filter id = "yellow-shadow2" x = "-50%" y = "-50%" width = "200%" height = "200%">
+            <feDropShadow dx = "0" dy = "0" stdDeviation = "30" flood-color = "#FEE800" />
+        </filter>
+        <filter id = "green-shadow1" x = "-50%" y = "-50%" width = "200%" height = "200%">
+            <feDropShadow dx = "0" dy = "0" stdDeviation = "10" flood-color = "#04FC43" />
+        </filter>
+        <filter id = "green-shadow2" x = "-50%" y = "-50%" width = "200%" height = "200%">
+            <feDropShadow dx = "0" dy = "0" stdDeviation = "30" flood-color = "#04FC43" />
+        </filter>
+        <filter id="timebox-shadow" x="-10%" y="-10%" width="120%" height="120%">
+            <feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="rgba(0, 0, 0, 0.5)" />
+            <feDropShadow dx="3" dy="3" stdDeviation="6" flood-color="rgba(255, 255, 255, 0.2)" />
+            <feDropShadow dx="3" dy="3" stdDeviation="6" flood-color="rgba(0, 0, 0, 0.2)" />
+            <feDropShadow dx="-3" dy="-3" stdDeviation="9" flood-color="rgba(0, 0, 0, 0.75)" />
+          </filter>
         <g id = "scale"></g>
         <g id = "hands"></g>
-        <text id = "timeText"></text>
+        <g id = "center"></g>
+        <g id = "timeText"></g>
+        <g id = "buttons"></g>
     </svg>
 </div>
 </div>

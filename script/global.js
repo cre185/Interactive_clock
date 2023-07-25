@@ -43,6 +43,18 @@ class time{
         (this.sec < 10 ? '0' + this.sec : this.sec);   
     }
 
+    getHour() {
+        return (this.hour < 10 ? "0" : "") + this.hour + " :";
+    }
+
+    getMin() {
+        return (this.min  < 10 ? "0" : "") + this.min + " :";
+    }
+
+    getSec() {
+        return (this.sec  < 10 ? "0" : "") + this.sec;
+    }
+
     calHourAngle(){
         return ((this.hour % 12) * 3.6e6 + this.min * 6e4 + this.sec * 1e3 + this.mSec) / 4.32e7 * 360;
     }

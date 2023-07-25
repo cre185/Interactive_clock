@@ -22,14 +22,47 @@
     <div id="bar_center">
         <!-- 秒表部分 -->
         <div id="stopwatch_bar">
-
+            <!-- 文字显示部分 -->
+            <!-- 风格一 -->
             <div id="wrapper">
                 <div id="display">
                     <div id="stopwatch"></div>
                 </div>
+                <span></span>
+                <span></span>
             </div>
+            <!-- 风格二 -->
+            <svg id="round_style">
+                <text id="time1" text-anchor="middle" x="50%" y="50%" style="font-size: 100px;
+                font-family: 'Consolas', serif;" class="words words-1"></text>
+                <text id="time2" text-anchor="middle" x="50%" y="50%" style="font-size: 100px;
+                font-family: 'Consolas', serif;" class="words words-2"></text>
+                <text id="time3" text-anchor="middle" x="50%" y="50%" style="font-size: 100px;
+                font-family: 'Consolas', serif;" class="words words-3"></text>
+                <text id="time4" text-anchor="middle" x="50%" y="50%" style="font-size: 100px;
+                font-family: 'Consolas', serif;" class="words words-4"></text>
+            </svg>
 
-            <!--<span id="stopwatch"></span>-->
+            <!-- 指针显示部分 -->
+            <span id="big_60">60</span>
+            <span id="big_5">5</span>
+            <span id="big_10">10</span>
+            <span id="big_15">15</span>
+            <span id="big_20">20</span>
+            <span id="big_25">25</span>
+            <span id="big_30">30</span>
+            <span id="big_35">35</span>
+            <span id="big_40">40</span>
+            <span id="big_45">45</span>
+            <span id="big_50">50</span>
+            <span id="big_55">55</span>
+            <span id="small_30">30</span>
+            <span id="small_5">5</span>
+            <span id="small_10">10</span>
+            <span id="small_15">15</span>
+            <span id="small_20">20</span>
+            <span id="small_25">25</span>
+
             <svg id="stopwatch_pointer" xmlns="http://www.w3.org/2000/svg" onresize="initClock()">
                 <g id = "scale"></g>
                 <g id = "hands"></g>
@@ -43,11 +76,25 @@
                 <g id= "hands_min"></g>
                 <circle
                         cx="50%"
-                        cy="35%"
+                        cy="40%"
                         r="2"
                         fill="orange"
                 ></circle>
             </svg>
+        </div>
+        <!-- 切换风格按钮 -->
+        <div id="button_bar_style">
+            <div class="circular">
+                <svg viewBox="0 0 100 100">
+                    <path d="M 0,0 a 100,100 0 1, 1 -189,7 z" id="circle"></path>
+                    <text fill="white" writing-mode="tb">
+                        <textPath xlink:href="#circle">
+                            切换风格
+                        </textPath>
+                    </text>
+                </svg>
+            </div>
+            <button id="button_style" onclick="changeStyle()"></button>
         </div>
         <!-- 秒表按钮部分：通过按钮可以切换数码显示和指针显示 -->
         <div id="stopwatch_button_bar">
