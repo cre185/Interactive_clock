@@ -536,11 +536,15 @@
     border: solid #feeeed 2px;
 }
 
+.stopwatch_block span
+{
+    background: transparent;
+}
+
 .stopwatch_block::before, .stopwatch_block::after
 {
     content: '';
     position: absolute;
-    inset: 0;
     background: transparent;
     transition: 0.5s;
 }
@@ -742,10 +746,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    scale: 1.2;
     box-shadow: inset 5px 5px 25px rgba(0,0,0,0.25);
     border-radius: 50%;
-    transform: translate(84%, 50%);
+    left: 50%;
+    transform: translate(-50%, 50%) scale(1.2);
 }
 
 #clock_style2::before
