@@ -10,6 +10,7 @@
     border-style: none;
     z-index: 1;
 }
+
 .alarmclock_block{
     position: relative;
 }
@@ -52,4 +53,21 @@
     padding: 20px; /* 内边距，可以根据需要修改 */
     border: 1px solid #ccc; /* 边框，可以根据需要修改 */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 添加阴影效果，可以根据需要修改 */
+}
+
+#bar_submit {
+    margin: 0;
+    border-width: 0;
+    top: -50px;
+    height: 50px;
+    width: 40%;
+    left: 0;
+}
+
+#bar_cancel {
+    margin: 0;
+    border-width: 0;
+    height: 50px;
+    width: 40%;
+    right: 0;
 }

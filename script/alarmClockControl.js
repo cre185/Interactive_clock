@@ -8,8 +8,8 @@ function* generateId(){
     }
 }
 
-// 生成闹钟的编号
-alarmClockControl.idGenerator=generateId();
+alarmClockControl.idGenerator = generateId();
+
 
 // 闹钟结构体和默认构造函数
 class alarmClock{
@@ -35,7 +35,7 @@ function id2index(id){
 }
 
 //增加一个闹钟
-function appendAlarmclock(){
+function appendAlarmclock(loading){
     // 在html中新建一个闹钟元素
     $('#bar_rightside').append(`
     <div class="block alarmclock_block">
@@ -54,6 +54,24 @@ function appendAlarmclock(){
         removeAlarmclock(tmpClock.id);
         return false;
     });
+    // 首次添加，需要加入存储序列
+    if(!loading){
+        if(localStorage.getItem("formerAlarm")){
+            localStorage.setItem("formerAlarm", localStorage.getItem("formerAlarm") + "00:00:00");
+        }
+        else{
+            localStorage.setItem("formerAlarm", "00:00:00");
+        }
+    }
+}
+
+// 更新存储序列
+function updateQueue(){
+    var alarmQueue = "";
+    for(i = 0;i < alarmClockControl.allAlarmclock.length; i++){
+        alarmQueue = alarmQueue + alarmClockControl.allAlarmclock[i].time.toString();
+    }
+    localStorage.setItem("formerAlarm", alarmQueue);
 }
 
 function openAlarmclock(id){
@@ -130,11 +148,10 @@ function openAlarmclock(id){
         alarmClockControl.allAlarmclock[id2index(alarmClockControl.currentAlarmclock)].time = tmpClock.time;
         $('.alarmclock_target').get(id2index(alarmClockControl.currentAlarmclock)).innerHTML = tmpClock.time.toString();
         alarmClockControl.barLeftside.innerHTML="";
-        closeAlarmclock();
+        updateQueue();
     })
     $('#bar_cancel').last().bind('click', function(){
         alarmClockControl.barLeftside.innerHTML="";
-        closeAlarmclock();
     })
 }
 
@@ -167,6 +184,7 @@ var removeAlarmclock=function(id){
         alarmClockControl.currentAlarmclock=undefined;
         alarmClockControl.barLeftside.innerHTML="";
     }
+    updateQueue();
 }
 
 var newAlarmclock=function(){
@@ -460,6 +478,23 @@ function init(){
             clock.removeEventListener("mousemove", secondMoveListenrs);
         }
     })
+
+    // 加载之前存储的闹钟信息
+    var alarmStorage = localStorage.getItem("formerAlarm");
+    if(alarmStorage){
+        for(i = 0; i < alarmStorage.length; i = i + 8){
+            var hh = parseInt(alarmStorage[i]) * 10 + parseInt(alarmStorage[i + 1]);
+            var mm = parseInt(alarmStorage[i + 3]) * 10 + parseInt(alarmStorage[i + 4]);
+            var ss = parseInt(alarmStorage[i + 6]) * 10 + parseInt(alarmStorage[i + 7]);
+            var tmpTime = new time();
+            tmpTime.hour = hh;
+            tmpTime.min = mm;
+            tmpTime.sec = ss;
+            appendAlarmclock(loading = true);
+            alarmClockControl.allAlarmclock[alarmClockControl.allAlarmclock.length - 1].time = tmpTime;
+            $('.alarmclock_target').get(id2index(alarmClockControl.allAlarmclock[alarmClockControl.allAlarmclock.length - 1].id)).innerHTML = tmpTime.toString();
+        }
+    }
 }
 
 function showMessage() {

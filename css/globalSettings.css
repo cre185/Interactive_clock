@@ -15,14 +15,14 @@ body{
 /* main structure part */
 #bar_leftside{
     width:330px;
-    height:100%;
+    height: calc(100% - 50px);
     position: relative;
     float: left;
     background: rgb(189, 189, 189);
 }
 #bar_rightside{
     width:330px;
-    height:100%;
+    height: calc(100% - 50px);
     position: relative;
     float: right;
     background: rgb(189, 189, 189);
@@ -31,7 +31,7 @@ body{
 }
 #bar_center{
     width: calc(100% - 660px);
-    height:100%;
+    height: calc(100% - 50px);
     position: relative;
     float:left;
 }
