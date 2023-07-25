@@ -34,24 +34,51 @@
     width: 100%;
 }
 
-#button_number
+#button_number, #button_pointer
 {
+    font-size: 25px;
     width: 200px;
     height: 50px;
-    font-size: 30px;
-    text-align: right;
-    background: url("../src/stopwatch_number.png") no-repeat #feeeed 13px 2px;
-    background-size: 36px 42px;
+    line-height: 50px;
+    text-align: center;
+    color: white;
+    border-radius: 50px;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 400%;
+    z-index: 1;
 }
 
-#button_pointer
+#button_number::before, #button_pointer::before
 {
-    width: 200px;
-    height: 50px;
-    font-size: 30px;
-    text-align: right;
-    background: url("../src/stopwatch_pointer.png") no-repeat #feeeed 20px 7px;
-    background-size: 27px 33px;
+    content: '';
+    position: absolute;
+    width: 210px;
+    height: 60px;
+    margin-left: -55px;
+    margin-top: -7px;
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 400%;
+    border-radius: 50px;
+    filter: blur(20px);
+    z-index: -1;
+}
+
+#button_number:hover::before, #button_pointer:hover::before
+{
+    animation: sun 8s linear infinite;
+}
+
+#button_number:hover #button_pointer:hover
+{
+    animation: sun 8s linear infinite;
+}
+
+@keyframes sun
+{
+    100%
+    {
+        background-position: -400% 0;
+    }
 }
 
 #stopwatch_pointer
@@ -509,6 +536,26 @@
     border: solid #feeeed 2px;
 }
 
+.stopwatch_block::before, .stopwatch_block::after
+{
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: transparent;
+    transition: 0.5s;
+}
+
+.stopwatch_block::before
+{
+    inset: -3px;
+}
+
+.stopwatch_block::after
+{
+    inset: -3px;
+    filter: blur(10px);
+}
+
 .stopwatch_block span
 {
     font-size: 40px;
@@ -698,7 +745,7 @@
     scale: 1.2;
     box-shadow: inset 5px 5px 25px rgba(0,0,0,0.25);
     border-radius: 50%;
-    transform: translate(85%, 50%);
+    transform: translate(84%, 50%);
 }
 
 #clock_style2::before

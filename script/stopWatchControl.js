@@ -70,6 +70,9 @@ function appendRecord(){
 
     // 组件更新
     record_rank.innerText = '分段'+stopWatchControl.recordCount;
+
+    // 滚动栏调至最下方
+    document.getElementById("bar_rightside").scrollTop=document.getElementById("bar_rightside").scrollHeight;
 }
 function startStopwatch(){
     stopWatchControl.on=true;
