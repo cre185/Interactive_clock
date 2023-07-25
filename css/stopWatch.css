@@ -6,6 +6,8 @@
 #bar_rightside
 {
     background: #2f363e;
+    color: white;
+    font-family: Consolas, serif;
 }
 
 #bar_center

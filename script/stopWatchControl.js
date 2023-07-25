@@ -434,7 +434,7 @@ function init_page()
             global.stopWatchTime.mSec = mSec;
         }
     }
-    stopWatchControl.current = global.stopWatchTime;
+    stopWatchControl.current = new stopwatch();
 
     // 显示组件初始化
     update_text();
