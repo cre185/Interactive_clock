@@ -145,8 +145,18 @@ function number_to_pointer()
     document.getElementById('display').style.visibility = "hidden";
     document.getElementById('stopwatch').style.visibility = "hidden";
     document.getElementById('round_style').style.visibility = "hidden";
-    document.getElementById('stopwatch_pointer').style.visibility = "visible";
-    show();
+    if(localStorage['pointer_style'] === "2")
+    {
+        document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+        hide();
+        document.getElementById('clock_style2').style.visibility = "visible";
+    }
+    else
+    {
+        document.getElementById('stopwatch_pointer').style.visibility = "visible";
+        show();
+        document.getElementById('clock_style2').style.visibility = "hidden";
+    }
 }
 
 // 显示部分由指针切换至数码
@@ -154,6 +164,7 @@ function pointer_to_number()
 {
     module = "number";
     document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+    document.getElementById('clock_style2').style.visibility = "hidden";
     hide();
     if(localStorage.hasOwnProperty('number_style'))
     {
@@ -177,8 +188,8 @@ function pointer_to_number()
 // 初始化表+更新表
 function initClock()
 {
-    drawBigClock();
     drawSmallClock();
+    drawBigClock();
 }
 
 // 画大表
@@ -253,12 +264,12 @@ function drawBigClock(){
         // 分段长指针
         let hand_record_long = document.createElementNS(namespace, "rect");
         hand_record_long.setAttribute("id", "hand_record_long");
-        hand_record_long.set(3*unit, radius, "blue", stopWatchControl.current.calSecAngle());
+        hand_record_long.set(3*unit, radius, "skyblue", stopWatchControl.current.calSecAngle());
         hands.appendChild(hand_record_long);
         // 分段短指针
         let hand_record_short = document.createElementNS(namespace, "rect");
         hand_record_short.setAttribute("id", "hand_record_short");
-        hand_record_short.set(3*unit, radius*0.2, "blue", stopWatchControl.current.calSecAngle()+180);
+        hand_record_short.set(3*unit, radius*0.2, "skyblue", stopWatchControl.current.calSecAngle()+180);
         hands.appendChild(hand_record_short);
         // 长指针
         let hand_long = document.createElementNS(namespace, "rect");
@@ -400,7 +411,7 @@ function init_page()
     }
     // 秒表初始化
     global.stopWatchTime = new stopwatch();
-    if(localStorage.hasOwnProperty("hour"))
+    if(parseInt(localStorage.getItem("hour")) >= 0)
     {
         global.stopWatchTime.hour = parseInt(localStorage.getItem("hour"));
         global.stopWatchTime.min = parseInt(localStorage.getItem("min"));
@@ -423,6 +434,7 @@ function init_page()
             global.stopWatchTime.mSec = mSec;
         }
     }
+    stopWatchControl.current = global.stopWatchTime;
 
     // 显示组件初始化
     update_text();
@@ -444,15 +456,26 @@ function init_page()
         }
         document.getElementById('stopwatch_pointer').style.visibility = "hidden";
         hide();
+        document.getElementById('clock_style2').style.visibility = "hidden";
     }
     else if(localStorage.getItem("number_or_pointer") === "pointer")
     {
+        if(localStorage.getItem("pointer_style") === "1")
+        {
+            document.getElementById('stopwatch_pointer').style.visibility = "visible";
+            show();
+            document.getElementById('clock_style2').style.visibility = "hidden";
+        }
+        else if(localStorage.getItem("pointer_style") === "2")
+        {
+            document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+            hide();
+            document.getElementById('clock_style2').style.visibility = "visible";
+        }
         document.getElementById('wrapper').style.visibility = "hidden";
         document.getElementById('display').style.visibility = "hidden";
         document.getElementById('stopwatch').style.visibility = "hidden";
         document.getElementById('round_style').style.visibility = "hidden";
-        document.getElementById('stopwatch_pointer').style.visibility = "visible";
-        show();
     }
     else
     {
@@ -463,6 +486,7 @@ function init_page()
         document.getElementById('round_style').style.visibility = "hidden";
         document.getElementById('stopwatch_pointer').style.visibility = "hidden";
         hide();
+        document.getElementById('clock_style2').style.visibility = "hidden";
         localStorage["number_or_pointer"] = "number";
     }
 
@@ -478,8 +502,7 @@ function init_page()
         global.stopWatchTime.setTimer(timer);
     }
     // 分段
-    stopWatchControl.current = new stopwatch();
-    if(localStorage.hasOwnProperty("current_hour"))
+    if(parseInt(localStorage.getItem("current_hour")) >= 0)
     {
         stopWatchControl.current.hour = parseInt(localStorage.getItem("current_hour"));
         stopWatchControl.current.min = parseInt(localStorage.getItem("current_min"));
@@ -503,7 +526,7 @@ function init_page()
         }
     }
     stopWatchControl.recordCount = 0;
-    if(localStorage.hasOwnProperty("record_count"))
+    if(parseInt(localStorage.getItem("record_count")) >= 0)
     {
         stopWatchControl.recordCount = parseInt(localStorage.getItem("record_count"));
         for(let i = 1; i < stopWatchControl.recordCount; i++)
@@ -548,6 +571,14 @@ function update_page()
             localStorage.setItem("number_style", "2");
         }
 
+        if(document.getElementById('stopwatch_pointer').style.visibility === 'visible')
+        {
+            localStorage.setItem("pointer_style", "1");
+        }
+        else if(document.getElementById('clock_style2').style.visibility === 'visible')
+        {
+            localStorage.setItem("pointer_style", "2");
+        }
         // 时间
         localStorage.setItem("hour", global.stopWatchTime.hour.toString());
         localStorage.setItem("min", global.stopWatchTime.min.toString());
@@ -605,6 +636,20 @@ function changeStyle()
         document.getElementById('round_style').style.visibility = "hidden";
         localStorage["number_style"] = "1";
     }
+    else if(document.getElementById('stopwatch_pointer').style.visibility === "visible")
+    {
+        document.getElementById('stopwatch_pointer').style.visibility = "hidden";
+        hide();
+        document.getElementById('clock_style2').style.visibility = "visible";
+        localStorage["pointer_style"] = "2";
+    }
+    else if(document.getElementById('clock_style2').style.visibility === "visible")
+    {
+        document.getElementById('stopwatch_pointer').style.visibility = "visible";
+        show();
+        document.getElementById('clock_style2').style.visibility = "hidden";
+        localStorage["pointer_style"] = "1";
+    }
 }
 
 function update_text()
@@ -614,6 +659,7 @@ function update_text()
     document.getElementById('time2').innerHTML = global.stopWatchTime.toString();
     document.getElementById('time3').innerHTML = global.stopWatchTime.toString();
     document.getElementById('time4').innerHTML = global.stopWatchTime.toString();
+    update_clock_style2();
 }
 
 function hide()
@@ -658,4 +704,28 @@ function show()
     document.getElementById('small_20').style.visibility = "visible";
     document.getElementById('small_25').style.visibility = "visible";
     document.getElementById('small_30').style.visibility = "visible";
+}
+
+function update_clock_style2()
+{
+    let mm = document.getElementById('mm_style2');
+    let ss = document.getElementById('ss_style2');
+    let sec_dot = document.querySelector('.sec_dot');
+    let min_dot = document.querySelector('.min_dot');
+    let rec_dot = document.querySelector('.rec_dot');
+
+    let mn = document.getElementById('mn_style2');
+    let sc = document.getElementById('sc_style2');
+    let re = document.getElementById('re_style2');
+
+    mm.style.strokeDashoffset = 314 - 314*2*global.stopWatchTime.calMinAngle()/360;
+    ss.style.strokeDashoffset = 628 - 628*global.stopWatchTime.calSecAngle()/360;
+
+    sec_dot.style.transform = `rotateZ(${global.stopWatchTime.calSecAngle()}deg)`;
+    min_dot.style.transform = `rotateZ(${2*global.stopWatchTime.calMinAngle()}deg)`;
+    rec_dot.style.transform = `rotateZ(${stopWatchControl.current.calSecAngle()}deg)`;
+
+    mn.style.transform = `rotateZ(${2*global.stopWatchTime.calMinAngle()}deg)`;
+    sc.style.transform = `rotateZ(${global.stopWatchTime.calSecAngle()}deg)`;
+    re.style.transform = `rotateZ(${stopWatchControl.current.calSecAngle()}deg)`;
 }

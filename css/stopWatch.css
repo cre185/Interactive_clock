@@ -684,3 +684,213 @@
         stroke-dashoffset: -200;
     }
 }
+
+#clock_style2
+{
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    scale: 1.2;
+    box-shadow: inset 5px 5px 25px rgba(0,0,0,0.25);
+    border-radius: 50%;
+    transform: translate(85%, 50%);
+}
+
+#clock_style2::before
+{
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: #2f363e;
+    z-index: 10000;
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
+#time_style2
+{
+    position: relative;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#time_style2 .circle_style2
+{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#time_style2 .circle_style2 svg
+{
+    position: relative;
+    transform: rotate(270deg);
+}
+
+#time_style2 .circle_style2:nth-child(1) svg
+{
+    width: 250px;
+    height: 250px;
+}
+
+#time_style2 .circle_style2:nth-child(2) svg
+{
+    width: 210px;
+    height: 210px;
+}
+
+#time_style2 .circle_style2 svg circle
+{
+    width: 100%;
+    height: 100%;
+    fill: transparent;
+    stroke-width: 5;
+    stroke: var(--clr);
+    transform: translate(5px, 5px);
+    opacity: 0.25;
+}
+
+#time_style2 .circle_style2:nth-child(1) svg circle
+{
+    stroke-dasharray: 628;
+    stroke-dashoffset: 628;
+}
+
+#time_style2 .circle_style2:nth-child(2) svg circle
+{
+    stroke-dasharray: 314;
+    stroke-dashoffset: 314;
+}
+
+.dots
+{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    z-index: 10;
+}
+
+.dots::before
+{
+    content: "";
+    position: absolute;
+    top: -3px;
+    width: 15px;
+    height: 15px;
+    background: var(--clr);
+    border-radius: 50%;
+    box-shadow: 0 0 20px var(--clr),
+    0 0 40px var(--clr),
+    0 0 60px var(--clr),
+    0 0 80px var(--clr);
+}
+
+.dots.sec_dot::before
+{
+    transform: translateY(21px);
+}
+
+.dots.rec_dot::before
+{
+    background: #04fc43;
+    box-shadow: 0 0 20px #04fc43,
+    0 0 40px #04fc43,
+    0 0 60px #04fc43,
+    0 0 80px #04fc43;
+    transform: translateY(21px);
+}
+
+.dots.min_dot::before
+{
+    transform: translateY(51px);
+}
+
+.needles
+{
+    position: absolute;
+    width: 200px;
+    height: 340px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 10;
+}
+
+.needles i
+{
+    position: absolute;
+    width: 2px;
+    background: var(--clr2);
+    height: 50%;
+    opacity: 0.75;
+    border-radius: 6px;
+    transform-origin: bottom;
+    transform: scaleY(0.5);
+}
+
+.needles.needle2
+{
+    width: 170px;
+    height: 140px;
+    z-index: 9;
+}
+
+.needles.needle2 i
+{
+    width: 3px;
+}
+
+.needles.needle3
+{
+    width: 140px;
+    height: 140px;
+    z-index: 8;
+}
+
+#time_style2 span
+{
+    position: absolute;
+    inset: -8px;
+    text-align: center;
+    color: #999;
+    font-family: consolas;
+    transform: rotate(calc(30deg*var(--i)));
+}
+
+#time_style2 span b
+{
+    font-size: 0.75em;
+    font-weight: 500;
+    display: inline-block;
+    transform: rotate(calc(-30deg*var(--i)));
+}
+
+#time_min span
+{
+    position: absolute;
+    inset: 40px;
+    text-align: center;
+    color: #999;
+    font-family: consolas;
+    transform: rotate(calc(60deg*var(--i)));
+}
+
+#time_min span b
+{
+    font-size: 0.75em;
+    font-weight: 500;
+    display: inline-block;
+    transform: rotate(calc(-60deg*var(--i)));
+}
