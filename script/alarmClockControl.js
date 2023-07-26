@@ -38,7 +38,7 @@ function id2index(id){
 function appendAlarmclock(loading){
     // 在html中新建一个闹钟元素
     $('#bar_rightside').append(`
-    <div class="block alarmclock_block">
+    <div class="block alarmclock_block" style="background-color: rgb(224, 224, 224);">
         <p class="alarmclock_target">00:00:00</p>
         <button class="close alarmclock_close"></button>
     </div>
@@ -256,7 +256,7 @@ function drawClock(hasText){
         var width;
         var height
         var r;
-        rect.setAttribute("fill", "black")
+        rect.setAttribute("fill", "black");
         if(i % 15 == 0){
             width = 12 * v;
             height = 40 * v;
@@ -330,7 +330,7 @@ function drawClock(hasText){
         timeText.setAttribute("x", cx);
         timeText.setAttribute("y", cy + radius + 60 * v);
         timeText.setAttribute("font-size", (30 * v).toString());
-        timeText.setAttribute("fill", "blue");
+        timeText.setAttribute("fill", "red");
         timeText.innerHTML = global.globalTime.toString();
     }
 }   
