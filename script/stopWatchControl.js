@@ -59,13 +59,16 @@ function appendRecord(){
     // 右边栏添加显示组件
     let record_block = document.createElement("div");
     record_block.className = 'stopwatch_block';
+    let record_container = document.createElement("div");
+    record_container.className = 'record_container';
     let record_rank = document.createElement("span");
     record_rank.id = stopWatchControl.recordCount;
     let record = document.createElement("span");
     record.id = 'stopwatch'+stopWatchControl.recordCount;
 
-    record_block.append(record_rank);
-    record_block.append(record);
+    record_container.append(record_rank);
+    record_container.append(record);
+    record_block.append(record_container);
     document.getElementById('bar_rightside').append(record_block);
 
     // 组件更新
@@ -607,13 +610,16 @@ function initAppendRecord(str, index){
     // 右边栏添加显示组件
     let record_block = document.createElement("div");
     record_block.className = 'stopwatch_block';
+    let record_container = document.createElement("div");
+    record_container.className = 'record_container';
     let record_rank = document.createElement("span");
     record_rank.id = index;
     let record = document.createElement("span");
     record.id = 'stopwatch'+index;
 
-    record_block.append(record_rank);
-    record_block.append(record);
+    record_container.append(record_rank);
+    record_container.append(record);
+    record_block.append(record_container);
     document.getElementById('bar_rightside').append(record_block);
 
     // 组件更新

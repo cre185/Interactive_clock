@@ -531,46 +531,54 @@
 .stopwatch_block
 {
     position: relative;
-    height:110px;
-    justify-content: space-around;
-    border: solid #feeeed 2px;
+    width: 90%;
+    left: 5%;
+    height: 110px;
+    justify-content: center;
 }
 
-.stopwatch_block span
+.record_container
 {
-    background: transparent;
+    display: flex;
+    width: 99%;
+    height: 98%;
+    justify-content: space-around;
 }
 
-.stopwatch_block::before, .stopwatch_block::after
+.record_container::before, .record_container::after
 {
     content: '';
     position: absolute;
-    background: transparent;
+    background: linear-gradient(45deg, #00ccff, #2f363e, #d400d4);
     transition: 0.5s;
 }
 
-.stopwatch_block::before
+.record_container::before
 {
     inset: -3px;
 }
 
-.stopwatch_block::after
+.record_container::after
 {
     inset: -3px;
     filter: blur(10px);
 }
 
-.stopwatch_block span
+.record_container span
 {
+    position: relative;
+    width: 50%;
+    top: 2px;
+    left: 1px;
     font-size: 40px;
-    line-height: 40px;
-    text-align: left;
-    display: block;
-    margin-left: 20px;
-    margin-top: 10px;
+    line-height: 100px;
+    text-align: center;
+    display: inline-block;
+    background: #2f363e;
+    z-index: 10;
 }
 
-.stopwatch_block .stopwatch_relative
+.record_container .stopwatch_relative
 {
     font-size:20px;
     color:gray;
