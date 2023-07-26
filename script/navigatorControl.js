@@ -22,10 +22,10 @@ var timerPage=function(){
 // insertion of navigator
 document.writeln("<div id=\'navigator\'>");
 document.writeln("    <ul>");
-document.writeln("        <li id=\'clock\'>时钟</li>");
-document.writeln("        <li id=\'alarmClock\'>闹钟</li>");
-document.writeln("        <li id=\'stopWatch\'>秒表</li>");
-document.writeln("        <li id=\'timer\'>计时器</li>");
+document.writeln("        <li id=\'clock\' style='--clr3:#00ade1'><a href='#' data-text='&nbsp;Clock&nbsp;'>&nbsp;Clock&nbsp;</a></li>");
+document.writeln("        <li id=\'alarmClock\' style='--clr3:#ff6493'><a href='#' data-text='&nbsp;AlarmClock&nbsp;'>&nbsp;AlarmClock&nbsp;</a></li>");
+document.writeln("        <li id=\'stopWatch\' style='--clr3:#ffdd1c'><a href='#' data-text='&nbsp;StopWatch&nbsp;'>&nbsp;StopWatch&nbsp;</a></li>");
+document.writeln("        <li id=\'timer\' style='--clr3:#00dc82'><a href='#' data-text='&nbsp;Timer&nbsp;'>&nbsp;Timer&nbsp;</a></li>");
 document.writeln("    </ul>");
 document.writeln("</div>");
 
