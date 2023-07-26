@@ -40,7 +40,7 @@ function startTimer() {
     storage["timerControlOn"] = "true";
     $('#timer_bar').css('display', "none");
     timerControl.buttonStart.onclick = pauseTimer;
-    $('#button_start').css('background', "url(../src/pause.png) no-repeat center center")
+    $('#button_start').css('background', "url(../src/pause_white.png) no-repeat center center")
     $('#button_start').css('background-size', "50px 50px")
     if (storage["timerControlPause"] == "false") {
         storage["targetTimerTimeCount"]=new Date().getTime();
@@ -56,7 +56,7 @@ function startTimer() {
 function pauseTimer() {
     storage["timerControlPause"] ="true";
     timerControl.buttonStart.onclick = startTimer;
-    $('#button_start').css('background', "url(../src/start.png) no-repeat center center")
+    $('#button_start').css('background', "url(../src/start_white.png) no-repeat center center")
     $('#button_start').css('background-size', "50px 50px")
     clearInterval(clockTick);
     //  pause timer
@@ -68,7 +68,7 @@ function restartTimer() {
     storage["timerControlPause"]="false";
     $('#timer_bar').css('display', "flex");
     timerControl.buttonStart.onclick = startTimer;
-    $('#button_start').css('background', "url(../src/start.png) no-repeat center center")
+    $('#button_start').css('background', "url(../src/start_white.png) no-repeat center center")
     $('#button_start').css('background-size', "50px 50px")
     clearInterval(clockTick);
     global.timerTime.clear();
