@@ -2,121 +2,59 @@
     margin: 0;
     padding: 0;
 }
+
 #navigator{
-    width:100%;
-    height:50px;
-    background-color: black;
-    color: #ffffff;
-    text-align: center;
-    font-size: 25px;
-    font-family: "微软雅黑";
-}
-#navigator ul{
-    list-style: none;
-}
-#navigator ul li{
-    display: inline-block;
-    width: 200px;
+    width: 100%;
     height: 50px;
+    background-color: #2f363e;
+    text-align: center;
+    font-size: 40px;
+    font-family: "微软雅黑";
+    display: flex;
+    justify-content: center;
+}
+
+#navigator ul
+{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    column-gap: 80px;
+}
+
+#navigator ul li
+{
+    list-style: none;
+    display: inline-block;
+    transform: translateY(-6%);
+}
+
+#navigator ul li a
+{
+    position: relative;
+    text-decoration: none;
     line-height: 50px;
-}
-#navigator ul li:hover{
-    background-color: #ffffff;
-    color: #000000;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
 }
 
-#clock:before
+#navigator ul li a::before
 {
-    content: "";
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    margin: auto;
-    background: url(../src/clock_white.png) no-repeat center;
-    background-size: 100% 100%;
-    transform: translateX(-10px) translateY(4px);
+    content: attr(data-text);
+    position: absolute;
+    transform: translateY(6%);
+    /* 这里clr3报错不影响，因为是在navigatorControl.js里往document写入html时定义的变量clr3，没有直接在html文件里定义*/
+    color: var(--clr3);
+    width: 0;
+    overflow: hidden;
+    transition: 1s;
+    border-right: 5px solid var(--clr3);
+    -webkit-text-stroke: 1px var(--clr3);
 }
 
-#clock:hover:before
+#navigator ul li a:hover::before
 {
-    content: "";
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    margin: auto;
-    background: url(../src/clock.png) no-repeat center;
-    background-size: 100% 100%;
-    transform: translateX(-10px) translateY(4px);
-}
-
-#alarmClock:before
-{
-    content: "";
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    margin: auto;
-    background: url(../src/alarm_clock_white.png) no-repeat center;
-    background-size: 100% 100%;
-    transform: translateX(-10px) translateY(3px);
-}
-
-#alarmClock:hover:before
-{
-    content: "";
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    margin: auto;
-    background: url(../src/alarm_clock.png) no-repeat center;
-    background-size: 100% 100%;
-    transform: translateX(-10px) translateY(3px);
-}
-
-#stopWatch:before
-{
-    content: "";
-    display: inline-block;
-    width: 20px;
-    height: 25px;
-    margin: auto;
-    background: url(../src/stopwatch_white.png) no-repeat center;
-    background-size: 100% 100%;
-    transform: translateX(-10px) translateY(3px);
-}
-
-#stopWatch:hover:before
-{
-    content: "";
-    display: inline-block;
-    width: 20px;
-    height: 25px;
-    margin: auto;
-    background: url(../src/stopwatch.png) no-repeat center;
-    background-size: 100% 100%;
-    transform: translateX(-10px) translateY(3px);
-}
-
-#timer:before
-{
-    content: "";
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    margin: auto;
-    background: url(../src/timer_white.png) no-repeat center;
-    background-size: 100% 100%;
-    transform: translateX(-10px) translateY(4px);
-}
-
-#timer:hover:before
-{
-    content: "";
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    margin: auto;
-    background: url(../src/timer.png) no-repeat center;
-    background-size: 100% 100%;
-    transform: translateX(-10px) translateY(4px);
+    width: 100%;
+    filter: drop-shadow(0 0 25px var(--clr3));
 }
