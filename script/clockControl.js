@@ -74,13 +74,13 @@ function appendAlarmclock(loading){
     // 首次添加，需要加入存储序列
     if(!loading){
         if(localStorage.getItem("formerAlarm")){
-            localStorage.setItem("formerAlarm", localStorage.getItem("formerAlarm") + "00:00:000");
+            localStorage.setItem("formerAlarm", localStorage.getItem("formerAlarm") + "00:00:001");
         }
         else{
-            localStorage.setItem("formerAlarm", "00:00:000");
+            localStorage.setItem("formerAlarm", "00:00:001");
         }
     }
-
+    document.getElementsByTagName('input')[document.getElementsByTagName('input').length - 1].checked = true;
     // 当开关被点击时，切换状态并保存到本地存储
     document.getElementsByTagName('input')[document.getElementsByTagName('input').length - 1].addEventListener('change', (event) => {
         if (event.target.id == "togBtn"){
@@ -133,7 +133,15 @@ function openAlarmclock(id){
     $('#bar_rightside .alarmclock_block').get(id2index(id)).style.backgroundColor="#3d464f";
     
     // 重置左边设置界面
-    alarmClockControl.barLeftside.innerHTML="<button id=\"button_new_alarmclock\"></button>";
+    alarmClockControl.barLeftside.innerHTML=`<div class="container" id="button_new_alarmclock">
+        <a href="#" style="--clr4:#1e9bff">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            添加闹钟
+        </a>
+    </div>`;
     alarmClockControl.buttonNewAlarm=$('#button_new_alarmclock').get(0);
     alarmClockControl.buttonNewAlarm.onclick=newAlarmclock;
     $('#bar_leftside').append(`
@@ -194,11 +202,27 @@ function openAlarmclock(id){
     $('#bar_submit').last().bind('click', function(){
         alarmClockControl.allAlarmclock[id2index(alarmClockControl.currentAlarmclock)].time = tmpClock.time;
         $('.alarmclock_target').get(id2index(alarmClockControl.currentAlarmclock)).innerHTML = tmpClock.time.toString();
-        alarmClockControl.barLeftside.innerHTML="";
+        alarmClockControl.barLeftside.innerHTML=`<div class="container" id="button_new_alarmclock">
+            <a href="#" style="--clr4:#1e9bff">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                添加闹钟
+            </a>
+        </div>`;
         updateQueue();
     })
     $('#bar_cancel').last().bind('click', function(){
-        alarmClockControl.barLeftside.innerHTML="<button id=\"button_new_alarmclock\"></button>";
+        alarmClockControl.barLeftside.innerHTML=`<div class="container" id="button_new_alarmclock">
+            <a href="#" style="--clr4:#1e9bff">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                添加闹钟
+            </a>
+        </div>`;
         alarmClockControl.buttonNewAlarm=$('#button_new_alarmclock').get(0);
         alarmClockControl.buttonNewAlarm.onclick=newAlarmclock;
     })
@@ -235,7 +259,15 @@ var removeAlarmclock=function(id){
     alarmClockControl.allAlarmclock.splice(index,1);
     if(alarmClockControl.currentAlarmclock===id){
         alarmClockControl.currentAlarmclock=undefined;
-        alarmClockControl.barLeftside.innerHTML="<button id=\"button_new_alarmclock\"></button>";
+        alarmClockControl.barLeftside.innerHTML=`<div class="container" id="button_new_alarmclock">
+            <a href="#" style="--clr4:#1e9bff">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                添加闹钟
+            </a>
+        </div>`;
         alarmClockControl.buttonNewAlarm=$('#button_new_alarmclock').get(0);
         alarmClockControl.buttonNewAlarm.onclick=newAlarmclock;
     }
@@ -796,7 +828,10 @@ function init(){
             appendAlarmclock(loading = true);
             // 如果之前的状态存在，设置开关的状态
             // console.log(previousState);
-            if (previousState) {
+            if (!previousState) {
+                document.getElementsByTagName('input')[document.getElementsByTagName('input').length - 1].checked = false;
+            }
+            else {
                 document.getElementsByTagName('input')[document.getElementsByTagName('input').length - 1].checked = true;
             }
             alarmClockControl.allAlarmclock[alarmClockControl.allAlarmclock.length - 1].time = tmpTime;
