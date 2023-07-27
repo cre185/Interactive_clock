@@ -18,7 +18,7 @@ var timerPage=function(){
 // insertion of navigator
 document.writeln("<div id=\'navigator\'>");
 document.writeln("    <ul>");
-document.writeln("        <li id=\'clock\' style='--clr3:#00ade1'><a href='#' data-text='&nbsp;Clock&nbsp;'>&nbsp;Clock&nbsp;</a></li>");
+document.writeln("        <li id=\'clock\' style='--clr3:#ff2972'><a href='#' data-text='&nbsp;Clock&nbsp;'>&nbsp;Clock&nbsp;</a></li>");
 document.writeln("        <li id=\'stopWatch\' style='--clr3:#ffdd1c'><a href='#' data-text='&nbsp;StopWatch&nbsp;'>&nbsp;StopWatch&nbsp;</a></li>");
 document.writeln("        <li id=\'timer\' style='--clr3:#00dc82'><a href='#' data-text='&nbsp;Timer&nbsp;'>&nbsp;Timer&nbsp;</a></li>");
 document.writeln("    </ul>");
