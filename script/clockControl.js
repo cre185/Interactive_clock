@@ -1,5 +1,6 @@
 var alarmClockControl={};
 var beep;
+var idBefore;
 
 // 生成顺位编号
 function* generateId(){
@@ -8,7 +9,7 @@ function* generateId(){
     }
 }
 
-alarmClockControl.idGenerator = generateId();
+
 
 
 // 闹钟结构体和默认构造函数
@@ -21,6 +22,37 @@ class alarmClock{
 
 // 所有的闹钟的数组，初始为空
 alarmClockControl.allAlarmclock=[]
+
+
+function sortAlarmClock(){
+    sorting = true;
+    var arr = alarmClockControl.allAlarmclock;
+
+    arr.sort(function(a, b) {
+        if(a.time.hour == b.time.hour){
+            if(a.time.min == b.time.min){
+                return a.time.sec - b.time.sec;
+            }
+            else{
+                return a.time.min - b.time.min;
+            }
+        }
+        else{
+            return a.time.hour - b.time.hour;
+        }
+    })
+
+    alarmClockControl.allAlarmclock = arr;
+
+    var idAfter = id2index(idBefore);
+    console.log(alarmClockControl.allAlarmclock);
+    //更新一下序列，并刷新
+    updateQueue();
+    alarmClockControl.allAlarmclock.splice(0, alarmClockControl.allAlarmclock.length);
+    init();
+    sorting = false;
+    return idAfter;
+}
 
 // 把id转换为下角标
 function id2index(id){
@@ -57,27 +89,37 @@ function findElementIndexInId(element) {
 //增加一个闹钟
 function appendAlarmclock(loading){
     // 在html中新建一个闹钟元素
+    console.log("appending!");
+    // 新建一个闹钟对象，并添加进闹钟控制对象中
+    var tmpClock=new alarmClock();
+    var tempTime = new time();
+
+    tempTime.hour = global.globalTime.hour;
+    tempTime.min = global.globalTime.min;
+    tempTime.sec = global.globalTime.sec;
+
+    tmpClock.time = tempTime;
+
     $('#bar_rightside').append(`
     <div class="block alarmclock_block" id="alarmclock_block" style="background-color: #2f363e;">
-        <p class="alarmclock_target" id="alarmclock_target">00:00:00</p>
+        <p class="alarmclock_target" id="alarmclock_target">` + tempTime.toString() + `</p>
         <label class="switch">
             <input type="checkbox" id="togBtn">
             <div class="slider round"></div>
         </label>
     </div>
     `);
-    // 新建一个闹钟对象，并添加进闹钟控制对象中
-    var tmpClock=new alarmClock();
+
     alarmClockControl.allAlarmclock.push(tmpClock);
 
     
     // 首次添加，需要加入存储序列
     if(!loading){
         if(localStorage.getItem("formerAlarm")){
-            localStorage.setItem("formerAlarm", localStorage.getItem("formerAlarm") + "00:00:001");
+            localStorage.setItem("formerAlarm", localStorage.getItem("formerAlarm") + tempTime.toString() + "1");
         }
         else{
-            localStorage.setItem("formerAlarm", "00:00:001");
+            localStorage.setItem("formerAlarm", tempTime.toString() + "1");
         }
     }
     document.getElementsByTagName('input')[document.getElementsByTagName('input').length - 1].checked = true;
@@ -128,7 +170,13 @@ function updateQueue(){
 
 
 function openAlarmclock(id){
-    alarmClockControl.currentAlarmclock=id;
+    if(!sorting){
+        idBefore = id;
+        id = sortAlarmClock();
+    }
+    alarmClockControl.currentAlarmclock = id;
+    console.log(id);
+
     $('#bar_rightside .alarmclock_block').css("backgroundColor","#2f363e");
     $('#bar_rightside .alarmclock_block').get(id2index(id)).style.backgroundColor="#3d464f";
     
@@ -215,7 +263,7 @@ function openAlarmclock(id){
         </div>`;
         alarmClockControl.buttonNewAlarm=$('#button_new_alarmclock').get(0);
         alarmClockControl.buttonNewAlarm.onclick=newAlarmclock;
-        updateQueue();
+        sortAlarmClock();
     })
     $('#bar_cancel').last().bind('click', function(){
         alarmClockControl.barLeftside.innerHTML=`<div class="container" id="button_new_alarmclock">
@@ -286,6 +334,7 @@ var cx;
 var cy;
 var hands = ["hourHand", "minuteHand", "secondHand"];
 var clockTickWorking;
+var sorting;
 var isAdjusting = false;
 
 function update(times = 1){
@@ -318,7 +367,8 @@ function update(times = 1){
 
     for(i = 0; i < alarmClockControl.allAlarmclock.length; i++) 
     {
-        if(alarmClockControl.allAlarmclock[i].time.hour == global.globalTime.hour &&
+        if(!sorting){
+            if(alarmClockControl.allAlarmclock[i].time.hour == global.globalTime.hour &&
             alarmClockControl.allAlarmclock[i].time.min == global.globalTime.min &&
             alarmClockControl.allAlarmclock[i].time.sec == global.globalTime.sec &&
             clockTickWorking &&
@@ -327,6 +377,7 @@ function update(times = 1){
             {
                 showMessage();
             }
+        }
     }
 }
 
@@ -814,7 +865,7 @@ function init(){
     alarmClockBlocks.forEach(element => {
         element.remove();
     });
-
+    alarmClockControl.idGenerator = generateId();
     // 加载之前存储的闹钟信息
     var alarmStorage = localStorage.getItem("formerAlarm");
     if(alarmStorage){
