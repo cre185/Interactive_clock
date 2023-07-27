@@ -6,7 +6,6 @@
 #bar_rightside
 {
     background: #2f363e;
-    display: flex;
     flex-direction: column;
 }
 
@@ -18,4 +17,147 @@
 #bar_center
 {
     background: #2f363e;
+}
+
+#button_new_alarmclock{
+    position: fixed;
+    bottom: 30px;
+    right: 140px;
+    margin-left: -25px;
+    background: url(../src/alarmClock/new_alarmclock.png) no-repeat center center;
+    background-size: 50px 50px;
+    width: 50px;
+    height:50px;
+    border-style: none;
+    z-index: 1;
+}
+
+.alarmclock_block{
+    position: relative;
+}
+.alarmclock_block p{
+    font-size: 40px;
+    line-height: 40px;
+    float:left;
+    text-align: left;
+    margin-right: 60px;
+    position:absolute;
+    top:30px;
+}
+.alarmclock_block .alarmclock_close{
+    position:absolute;
+    top:30px;
+    right:50px;
+    z-index: 1;
+}
+/*
+.alarmclock_block .alarmclock_selected{
+    position:absolute;
+    top:10px;
+    right:45px;
+    width:20px;
+    height:20px;
+}
+*/
+
+#messageBox {
+    position: fixed; /* 使用 fixed 定位，使其悬浮在窗口中 */
+    top: 50%; /* 距离顶部的距离为窗口高度的一半 */
+    left: 50%; /* 距离左边的距离为窗口宽度的一半 */
+    transform: translate(-50%, -50%); /* 使用 translate 属性将元素在水平和垂直方向上居中 */
+    background-color: #f1f1f1; /* 背景颜色，可以根据需要修改 */
+    padding: 20px; /* 内边距，可以根据需要修改 */
+    border: 1px solid #ccc; /* 边框，可以根据需要修改 */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 添加阴影效果，可以根据需要修改 */
+}
+
+#bar_submit {
+    margin: 0;
+    border-width: 0;
+    top: -50px;
+    height: 50px;
+    width: 40%;
+    left: 0;
+}
+
+#bar_cancel {
+    margin: 0;
+    border-width: 0;
+    height: 50px;
+    width: 40%;
+    right: 0;
+}
+
+#bar_delete {
+    margin: 0;
+    border-width: 0;
+    height: 50px;
+    width: 40%;
+    right: 0;
+}
+
+/* 创建一个开关按钮的样式 */
+.switch {
+position: absolute;
+display: inline-block;
+width: 60px;
+height: 34px;
+right: 30px;
+top: 30px;
+}
+
+/* 隐藏开关按钮的输入框 */
+.switch input { 
+opacity: 0;
+width: 0;
+height: 0;
+}
+
+/* 创建滑块的样式 */
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+transition: .4s;
+}
+
+/* 创建滑块的初始状态 */
+.slider:before {
+position: absolute;
+content: "";
+height: 26px;
+width: 26px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+transition: .4s;
+}
+
+/* 当输入框被选中时，改变滑块的背景颜色 */
+input:checked + .slider {
+background-color: #2196F3;
+}
+
+/* 当输入框被聚焦时，给滑块添加阴影 */
+input:focus + .slider {
+box-shadow: 0 0 1px #2196F3;
+}
+
+/* 当输入框被选中时，移动滑块 */
+input:checked + .slider:before {
+transform: translateX(26px);
+}
+
+/* 创建滑块的圆角样式 */
+.slider.round {
+border-radius: 34px;
+}
+
+/* 创建滑块的圆形样式 */
+.slider.round:before {
+border-radius: 50%;
 }

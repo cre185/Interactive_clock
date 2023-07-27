@@ -1,3 +1,201 @@
+var alarmClockControl={};
+var beep;
+
+// 生成顺位编号
+function* generateId(){
+    for(let i=0;;i++){
+        yield i;
+    }
+}
+
+alarmClockControl.idGenerator = generateId();
+
+
+// 闹钟结构体和默认构造函数
+class alarmClock{
+    constructor(){
+        this.time=new time();
+        this.id=alarmClockControl.idGenerator.next().value;
+    }
+}
+
+// 所有的闹钟的数组，初始为空
+alarmClockControl.allAlarmclock=[]
+
+// 把id转换为下角标
+function id2index(id){
+    let recIndex;
+    alarmClockControl.allAlarmclock.find((item,index)=>{
+        if(item.id===id){
+            recIndex=index;
+            return true;
+        }
+    })
+    return recIndex;
+}
+
+//增加一个闹钟
+function appendAlarmclock(loading){
+    // 在html中新建一个闹钟元素
+    $('#bar_rightside').append(`
+    <div class="block alarmclock_block" style="background-color: rgb(224, 224, 224);">
+        <p class="alarmclock_target">00:00:00</p>
+        <label class="switch">
+            <input type="checkbox" id="togBtn">
+            <div class="slider round"></div>
+        </label>
+    </div>
+    `);
+    // 新建一个闹钟对象，并添加进闹钟控制对象中
+    var tmpClock=new alarmClock();
+    alarmClockControl.allAlarmclock.push(tmpClock);
+    $('.alarmclock_block').last().bind('click',function(event){
+        openAlarmclock(tmpClock.id);
+        event.stopPropagation();
+        return false;
+    });
+    $('')
+    // 首次添加，需要加入存储序列
+    if(!loading){
+        if(localStorage.getItem("formerAlarm")){
+            localStorage.setItem("formerAlarm", localStorage.getItem("formerAlarm") + "00:00:00");
+        }
+        else{
+            localStorage.setItem("formerAlarm", "00:00:00");
+        }
+    }
+    document.getElementById("bar_rightside").scrollTop=document.getElementById("bar_rightside").scrollHeight;
+}
+
+// 更新存储序列
+function updateQueue(){
+    var alarmQueue = "";
+    for(i = 0;i < alarmClockControl.allAlarmclock.length; i++){
+        alarmQueue = alarmQueue + alarmClockControl.allAlarmclock[i].time.toString();
+    }
+    localStorage.setItem("formerAlarm", alarmQueue);
+}
+
+
+function openAlarmclock(id){
+    // 关闭之前打开的
+    // closeAlarmclock();
+
+    //设置为选中样式
+    /*let alarmClockImg=document.createElement("img");
+    alarmClockImg.className="alarmclock_selected";
+    alarmClockImg.src="../src/alarmclock_selected.png"
+    alarmClockImg.alt="alarmclock_selected";
+    $('.alarmclock_block').get(id2index(id)).appendChild(alarmClockImg);*/
+    alarmClockControl.currentAlarmclock=id;
+    $('#bar_rightside .alarmclock_block').css("backgroundColor","#e0e0e0");
+    $('#bar_rightside .alarmclock_block').get(id2index(id)).style.backgroundColor="white";
+    
+    // 重置左边设置界面
+    alarmClockControl.barLeftside.innerHTML="";
+    $('#bar_leftside').append(`
+    <div class="bar_time">
+        <div class="bar_time_item">
+            <img id="hour_up" src="../src/time_up.png" alt="time_up">
+            <p id="hour_setting">00</p>:
+            <img id="hour_down" src="../src/time_down.png" alt="time_down">
+        </div>
+        <div class="bar_time_item">
+            <img id="minute_up" src="../src/time_up.png" alt="time_up">
+            <p id="minute_setting">00</p>:
+            <img id="minute_down" src="../src/time_down.png" alt="time_down">
+        </div>
+        <div class="bar_time_item">
+            <img id="second_up" src="../src/time_up.png" alt="time_up">
+            <p id="second_setting">00</p>
+            <img id="second_down" src="../src/time_down.png" alt="time_down">
+        </div>
+    </div>
+    <div class="bar_buttons">
+        <button class="bar_button" id="bar_submit">确定</button>
+        <button class="bar_button" id="bar_cancel">取消</button>
+        <button class="bar_button" id="bar_delete">删除</button>
+    </div>
+    `);
+
+    //设置按钮功能
+    var tmpClock = new alarmClock();
+    tmpClock.time = alarmClockControl.allAlarmclock[id2index(alarmClockControl.currentAlarmclock)].time;
+    $('#hour_setting').get(0).innerHTML = tmpClock.time.hour.toString().padStart(2, '0');
+    $('#minute_setting').get(0).innerHTML = tmpClock.time.min.toString().padStart(2, '0');
+    $('#second_setting').get(0).innerHTML = tmpClock.time.sec.toString().padStart(2, '0');
+    $('#hour_up').get(0).onclick=function(){
+        tmpClock.time.hour = (tmpClock.time.hour + 1) % 24;
+        $('#hour_setting').get(0).innerHTML = tmpClock.time.hour.toString().padStart(2, '0');
+    }
+    $('#hour_down').get(0).onclick=function(){
+        tmpClock.time.hour = (tmpClock.time.hour + 23) % 24;
+        $('#hour_setting').get(0).innerHTML = tmpClock.time.hour.toString().padStart(2, '0');
+    }
+    $('#minute_up').get(0).onclick=function(){
+        tmpClock.time.min = (tmpClock.time.min + 1) % 60;
+        $('#minute_setting').get(0).innerHTML = tmpClock.time.min.toString().padStart(2, '0');
+    }
+    $('#minute_down').get(0).onclick=function(){
+        tmpClock.time.min = (tmpClock.time.min + 59) % 60;
+        $('#minute_setting').get(0).innerHTML = tmpClock.time.min.toString().padStart(2, '0');
+    }
+    $('#second_up').get(0).onclick=function(){
+        tmpClock.time.sec = (tmpClock.time.sec + 1) % 60;
+        $('#second_setting').get(0).innerHTML = tmpClock.time.sec.toString().padStart(2, '0');
+    }
+    $('#second_down').get(0).onclick=function(){
+        tmpClock.time.sec = (tmpClock.time.sec + 59) % 60;
+        $('#second_setting').get(0).innerHTML = tmpClock.time.sec.toString().padStart(2, '0');
+    }
+    $('#bar_submit').last().bind('click', function(){
+        alarmClockControl.allAlarmclock[id2index(alarmClockControl.currentAlarmclock)].time = tmpClock.time;
+        $('.alarmclock_target').get(id2index(alarmClockControl.currentAlarmclock)).innerHTML = tmpClock.time.toString();
+        alarmClockControl.barLeftside.innerHTML="";
+        updateQueue();
+    })
+    $('#bar_cancel').last().bind('click', function(){
+        alarmClockControl.barLeftside.innerHTML="";
+    })
+}
+
+/*
+function closeAlarmclock(){
+    if(alarmClockControl.currentAlarmclock!=undefined){
+        var tempSelect= document.querySelectorAll('.alarmclock_selected');
+        if(tempSelect){//若找到
+            remove(tempSelect);
+        }
+    }
+}
+
+function remove (e) {
+    if (e) {
+        for(var i=0;i<e.length;i++){
+            e[i].remove();
+        }
+        return e;
+    }
+    return undefined;
+ }
+*/
+
+var removeAlarmclock=function(id){
+    var index=id2index(id);
+    $('.alarmclock_block').get(index).remove();
+    alarmClockControl.allAlarmclock.splice(index,1);
+    if(alarmClockControl.currentAlarmclock===id){
+        alarmClockControl.currentAlarmclock=undefined;
+        alarmClockControl.barLeftside.innerHTML="";
+    }
+    updateQueue();
+}
+
+var newAlarmclock=function(){
+    appendAlarmclock();
+    openAlarmclock(alarmClockControl.allAlarmclock[alarmClockControl.allAlarmclock.length-1].id);
+}
+
 var cx;
 var cy;
 var hands = ["hourHand", "minuteHand", "secondHand"];
@@ -31,6 +229,18 @@ function update(times = 1){
     min.innerHTML = global.globalTime.getMin();
     let sec = document.getElementById("second");
     sec.innerHTML = global.globalTime.getSec();
+
+    for(i = 0; i < alarmClockControl.allAlarmclock.length; i++) 
+    {
+        if(alarmClockControl.allAlarmclock[i].time.hour == global.globalTime.hour &&
+            alarmClockControl.allAlarmclock[i].time.min == global.globalTime.min &&
+            alarmClockControl.allAlarmclock[i].time.sec == global.globalTime.sec &&
+            clockTickWorking &&
+            global.globalTime.mSec == 0)
+            {
+                showMessage();
+            }
+    }
 }
 
 // 设置定时器
@@ -433,16 +643,23 @@ function resetTime(){
     global.globalTime.sec=mDate.getSeconds();
     clockTick = setInterval(update, 20);
     isAdjusting = false;
-    init()
+    init();
 }
 
 function setTime(){
     clockTick = setInterval(update, 20);
     isAdjusting = false;
-    init()
+    init();
 }
 
 function init(){
+    beep = document.getElementById("beep");
+    alarmClockControl.barRightside=$('#bar_rightside').get(0);
+    alarmClockControl.barLeftside=$('#bar_leftside').get(0);
+    alarmClockControl.barCenter=$('#bar_center').get(0);
+    alarmClockControl.buttonNewAlarm=$('#button_new_alarmclock').get(0);
+    alarmClockControl.buttonNewAlarm.onclick=newAlarmclock;
+
     drawClock(true);
     const clock= document.getElementById("clock_svg");
     cx = clock.scrollWidth * 0.5;
@@ -452,56 +669,91 @@ function init(){
     lastAngle[2] = global.globalTime.calSecAngle() - 90;
 
     // 安装监听器
-        var hand = document.getElementById(hands[0]);
-        hand.addEventListener("mousedown", function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            mouseMoving = true;
-            clearInterval(clockTick);
-            clockTickWorking = false;
-            // 仅在按下时处理鼠标移动事件，已达到拖动的效果
-            clock.addEventListener("mousemove", hourMoveListenrs);
-            lastListner = 0;
-        })
+    var hand = document.getElementById(hands[0]);
+    hand.addEventListener("mousedown", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        mouseMoving = true;
+        clearInterval(clockTick);
+        clockTickWorking = false;
+        // 仅在按下时处理鼠标移动事件，已达到拖动的效果
+        clock.addEventListener("mousemove", hourMoveListenrs);
+        lastListner = 0;
+    })
 
-        hand = document.getElementById(hands[1]);
-        hand.addEventListener("mousedown", function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            mouseMoving = true;
-            clearInterval(clockTick);
-            clockTickWorking = false;
-            // 仅在按下时处理鼠标移动事件，已达到拖动的效果
-            clock.addEventListener("mousemove", minuteMoveListenrs);
-            lastListner = 1;
-        })
+    hand = document.getElementById(hands[1]);
+    hand.addEventListener("mousedown", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        mouseMoving = true;
+        clearInterval(clockTick);
+        clockTickWorking = false;
+        // 仅在按下时处理鼠标移动事件，已达到拖动的效果
+        clock.addEventListener("mousemove", minuteMoveListenrs);
+        lastListner = 1;
+    })
 
-        hand = document.getElementById(hands[2]);
-        hand.addEventListener("mousedown", function(e){
-            e.preventDefault();
-            e.stopPropagation();
-            mouseMoving = true;
-            clearInterval(clockTick);
-            clockTickWorking = false;
-            // 仅在按下时处理鼠标移动事件，已达到拖动的效果
-            clock.addEventListener("mousemove", secondMoveListenrs);
-            lastListner = 2;
-        })
+    hand = document.getElementById(hands[2]);
+    hand.addEventListener("mousedown", function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        mouseMoving = true;
+        clearInterval(clockTick);
+        clockTickWorking = false;
+        // 仅在按下时处理鼠标移动事件，已达到拖动的效果
+        clock.addEventListener("mousemove", secondMoveListenrs);
+        lastListner = 2;
+    })
 
-        clock.addEventListener("mouseup", function(e){
-            mouseMoving = false;
-            if(!clockTickWorking && !isAdjusting){
-                clockTick = setInterval(update, 20);
-                clockTickWorking = true;
-            }
-            if(lastListner == 0){
-                clock.removeEventListener("mousemove", hourMoveListenrs);
-            }
-            else if(lastListner == 1){
-                clock.removeEventListener("mousemove", minuteMoveListenrs);
-            }
-            else{
-                clock.removeEventListener("mousemove", secondMoveListenrs);
-            }
-        })
+    clock.addEventListener("mouseup", function(e){
+        mouseMoving = false;
+        if(!clockTickWorking && !isAdjusting){
+            clockTick = setInterval(update, 20);
+            clockTickWorking = true;
+        }
+        if(lastListner == 0){
+            clock.removeEventListener("mousemove", hourMoveListenrs);
+        }
+        else if(lastListner == 1){
+            clock.removeEventListener("mousemove", minuteMoveListenrs);
+        }
+        else{
+            clock.removeEventListener("mousemove", secondMoveListenrs);
+        }
+    })
+    //先清除闹钟
+    for(i = 0;i < alarmClockControl.allAlarmclock.length;i++){
+        $('.alarmclock_block').get(index).remove();
+        alarmClockControl.allAlarmclock.splice(index,1); 
     }
+
+    // 加载之前存储的闹钟信息
+    var alarmStorage = localStorage.getItem("formerAlarm");
+    if(alarmStorage){
+        for(i = 0; i < alarmStorage.length; i = i + 8){
+            var hh = parseInt(alarmStorage[i]) * 10 + parseInt(alarmStorage[i + 1]);
+            var mm = parseInt(alarmStorage[i + 3]) * 10 + parseInt(alarmStorage[i + 4]);
+            var ss = parseInt(alarmStorage[i + 6]) * 10 + parseInt(alarmStorage[i + 7]);
+            var tmpTime = new time();
+            tmpTime.hour = hh;
+            tmpTime.min = mm;
+            tmpTime.sec = ss;
+            appendAlarmclock(loading = true);
+            alarmClockControl.allAlarmclock[alarmClockControl.allAlarmclock.length - 1].time = tmpTime;
+            $('.alarmclock_target').get(id2index(alarmClockControl.allAlarmclock[alarmClockControl.allAlarmclock.length - 1].id)).innerHTML = tmpTime.toString();
+        }
+    }
+}
+
+function showMessage() {
+    var messageBox = document.getElementById("messageBox");
+    messageBox.style.display = "block";
+    beep.play();
+}
+
+function closeMessageBox() {
+    var messageBox = document.getElementById("messageBox");
+    messageBox.style.display = "none";
+    beep.pause();
+    beep.currentTime = 0;
+}

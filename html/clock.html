@@ -16,6 +16,7 @@
 <div id="bar_leftside">
 </div>
 <div id="bar_rightside">
+    <button id="button_new_alarmclock"></button>
 </div>
 <div id="bar_center">
     <svg id = "clock_svg" xmlns="http://www.w3.org/2000/svg">
@@ -63,6 +64,13 @@
         <g id = "buttons"></g>
     </svg>
 </div>
+<div id="messageBox" style="display: none;">
+    <p>时间到！</p>
+    <button onclick="closeMessageBox()">确定</button>
+</div>
+<audio id="beep" loop>
+    <source src="../audio/beep.mp3" type="audio/mp3">
+</audio>
 </div>
 </body>
 </html>

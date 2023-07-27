@@ -40,7 +40,10 @@ function appendAlarmclock(loading){
     $('#bar_rightside').append(`
     <div class="block alarmclock_block" style="background-color: rgb(224, 224, 224);">
         <p class="alarmclock_target">00:00:00</p>
-        <button class="close alarmclock_close"></button>
+        <label class="switch">
+            <input type="checkbox" id="togBtn">
+            <div class="slider round"></div>
+        </label>
     </div>
     `);
     // 新建一个闹钟对象，并添加进闹钟控制对象中
