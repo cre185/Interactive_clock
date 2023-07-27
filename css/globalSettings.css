@@ -18,14 +18,14 @@ body{
     height: calc(100% - 50px);
     position: relative;
     float: left;
-    background: rgb(189, 189, 189);
+    background: #2f363e;
 }
 #bar_rightside{
     width:330px;
     height: calc(100% - 50px);
     position: relative;
     float: right;
-    background: rgb(189, 189, 189);
+    background: #2f363e;
     overflow-y: auto;
     overflow-x: hidden;
 }

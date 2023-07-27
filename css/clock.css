@@ -20,11 +20,12 @@
 }
 
 #button_new_alarmclock{
-    position: fixed;
+    position: absolute;
     bottom: 30px;
     right: 140px;
     margin-left: -25px;
     background: url(../src/alarmClock/new_alarmclock.png) no-repeat center center;
+    filter: invert(100%);
     background-size: 50px 50px;
     width: 50px;
     height:50px;
@@ -43,6 +44,7 @@
     margin-right: 60px;
     position:absolute;
     top:30px;
+    color: #f1f1f1;
 }
 .alarmclock_block .alarmclock_close{
     position:absolute;
@@ -65,36 +67,58 @@
     top: 50%; /* 距离顶部的距离为窗口高度的一半 */
     left: 50%; /* 距离左边的距离为窗口宽度的一半 */
     transform: translate(-50%, -50%); /* 使用 translate 属性将元素在水平和垂直方向上居中 */
-    background-color: #f1f1f1; /* 背景颜色，可以根据需要修改 */
-    padding: 20px; /* 内边距，可以根据需要修改 */
-    border: 1px solid #ccc; /* 边框，可以根据需要修改 */
+    background-color: #363e47; /* 背景颜色，可以根据需要修改 */
+    width: 40%;
+    height: 40%;
+    color: #f1f1f1;
+    font-size: 50px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    border-radius: 15px;
+    border: 1px solid #000; /* 边框，可以根据需要修改 */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* 添加阴影效果，可以根据需要修改 */
 }
 
-#bar_submit {
-    margin: 0;
-    border-width: 0;
-    top: -50px;
-    height: 50px;
-    width: 40%;
-    left: 0;
+#messageBox p {
+    position: absolute;
+    left: calc(50% - 100px);
+    top: calc(50% - 50px);
 }
 
-#bar_cancel {
-    margin: 0;
-    border-width: 0;
+#messageBox button {
+    position: absolute;
+    width: 200px;
     height: 50px;
-    width: 40%;
-    right: 0;
+    background-color: #363e47;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-bottom: black solid 1px;
+    left: calc(50% - 100px);
+    bottom: 20px;
+    color: #f1f1f1;
+    font-size: 30px;
 }
 
-#bar_delete {
+.bar_button {
     margin: 0;
     border-width: 0;
+    float: left;
+    width: 272px;
     height: 50px;
-    width: 40%;
-    right: 0;
+    background-color: #363e47;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border-bottom: black solid 1px;
+    color: #f1f1f1;
 }
+
+#hour_up, #minute_up, #second_up, #hour_down, #minute_down, #second_down{
+    filter: invert(100%);
+}
+
+.bar_time_item {
+    color: #f1f1f1;
+}
+
 
 /* 创建一个开关按钮的样式 */
 .switch {
@@ -121,7 +145,7 @@ top: 0;
 left: 0;
 right: 0;
 bottom: 0;
-background-color: #ccc;
+background-color: #363e47;
 transition: .4s;
 }
 
@@ -139,12 +163,12 @@ transition: .4s;
 
 /* 当输入框被选中时，改变滑块的背景颜色 */
 input:checked + .slider {
-background-color: #2196F3;
+background-color: #218316;
 }
 
 /* 当输入框被聚焦时，给滑块添加阴影 */
 input:focus + .slider {
-box-shadow: 0 0 1px #2196F3;
+box-shadow: 0 0 1px #2f363e;
 }
 
 /* 当输入框被选中时，移动滑块 */
@@ -160,4 +184,14 @@ border-radius: 34px;
 /* 创建滑块的圆形样式 */
 .slider.round:before {
 border-radius: 50%;
+}
+
+/* 给元素添加边缘羽化效果 */
+.alarmclock_block {
+    border-radius: 10px; /* 调整这个值来控制羽化效果的强度 */
+}
+
+/* 给元素添加阴影效果 */
+.alarmclock_block {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 调整这个值来控制阴影的颜色、大小和模糊程度 */
 }
