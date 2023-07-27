@@ -250,17 +250,21 @@
     color: #f1f1f1;
 }
 
+@keyframes slideIn{
+    from{left: -330px;}
+}
 
 #bar_adjust {
     position: absolute;
     width: 330px;
     height: 330px;
-    left: 0px;
+    left: 0;
     top: 10%;
     background-color: #363e47;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.8s 1;
 }
 
 
@@ -338,4 +342,8 @@ border-radius: 50%;
 /* 给元素添加阴影效果 */
 .alarmclock_block {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 调整这个值来控制阴影的颜色、大小和模糊程度 */
+}
+
+button:hover {
+    background-color: #49525d;
 }
