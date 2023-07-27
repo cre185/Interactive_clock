@@ -145,27 +145,29 @@ function openAlarmclock(id){
     alarmClockControl.buttonNewAlarm=$('#button_new_alarmclock').get(0);
     alarmClockControl.buttonNewAlarm.onclick=newAlarmclock;
     $('#bar_leftside').append(`
-    <div class="bar_time">
-        <div class="bar_time_item">
-            <img id="hour_up" src="../src/time_up.png" alt="time_up">
-            <p id="hour_setting">00</p>:
-            <img id="hour_down" src="../src/time_down.png" alt="time_down">
+    <div id="bar_adjust">
+        <div class="bar_time">
+            <div class="bar_time_item">
+                <img id="hour_up" src="../src/time_up.png" alt="time_up">
+                <p id="hour_setting">00</p>:
+                <img id="hour_down" src="../src/time_down.png" alt="time_down">
+            </div>
+            <div class="bar_time_item">
+                <img id="minute_up" src="../src/time_up.png" alt="time_up">
+                <p id="minute_setting">00</p>:
+                <img id="minute_down" src="../src/time_down.png" alt="time_down">
+            </div>
+            <div class="bar_time_item">
+                <img id="second_up" src="../src/time_up.png" alt="time_up">
+                <p id="second_setting">00</p>
+                <img id="second_down" src="../src/time_down.png" alt="time_down">
+            </div>
         </div>
-        <div class="bar_time_item">
-            <img id="minute_up" src="../src/time_up.png" alt="time_up">
-            <p id="minute_setting">00</p>:
-            <img id="minute_down" src="../src/time_down.png" alt="time_down">
+        <div class="bar_buttons">
+            <button class="bar_button" id="bar_submit">确定</button>
+            <button class="bar_button" id="bar_cancel">取消</button>
+            <button class="bar_button" id="bar_delete">删除</button>
         </div>
-        <div class="bar_time_item">
-            <img id="second_up" src="../src/time_up.png" alt="time_up">
-            <p id="second_setting">00</p>
-            <img id="second_down" src="../src/time_down.png" alt="time_down">
-        </div>
-    </div>
-    <div class="bar_buttons">
-        <button class="bar_button" id="bar_submit">确定</button>
-        <button class="bar_button" id="bar_cancel">取消</button>
-        <button class="bar_button" id="bar_delete">删除</button>
     </div>
     `);
 
@@ -211,6 +213,8 @@ function openAlarmclock(id){
                 添加闹钟
             </a>
         </div>`;
+        alarmClockControl.buttonNewAlarm=$('#button_new_alarmclock').get(0);
+        alarmClockControl.buttonNewAlarm.onclick=newAlarmclock;
         updateQueue();
     })
     $('#bar_cancel').last().bind('click', function(){
@@ -229,7 +233,6 @@ function openAlarmclock(id){
     $('#bar_delete').last().bind('click', function(){
         removeAlarmclock(alarmClockControl.currentAlarmclock);
     })
-    
 }
 
 /*

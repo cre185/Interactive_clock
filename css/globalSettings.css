@@ -58,6 +58,7 @@ body{
     font-size:40px;
     line-height: 40px;
     text-align: center;
+    margin: auto;
 }
 .bar_time p{
     margin-left: 4px;

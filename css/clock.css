@@ -224,7 +224,7 @@
 }
 
 .bar_button {
-    margin: 0;
+    margin: auto;
     border-width: 0;
     float: left;
     width: 272px;
@@ -236,12 +236,31 @@
     color: #f1f1f1;
 }
 
+.bar_buttons {
+    position: absolute;
+    left: 29px;
+    margin: auto;
+}
+
 #hour_up, #minute_up, #second_up, #hour_down, #minute_down, #second_down{
     filter: invert(100%);
 }
 
 .bar_time_item {
     color: #f1f1f1;
+}
+
+
+#bar_adjust {
+    position: absolute;
+    width: 330px;
+    height: 330px;
+    left: 0px;
+    top: 10%;
+    background-color: #363e47;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 }
 
 
