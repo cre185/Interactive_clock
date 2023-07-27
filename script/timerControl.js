@@ -143,7 +143,7 @@ window.onload = function () {
     if (storage["timerControlOn"] == "true") {
         $('#timer_bar').css('display', "none");
         timerControl.buttonStart.onclick = pauseTimer;
-        $('#button_start').css('background', "url(../src/pause.png) no-repeat center center")
+        $('#button_start').css('background', "url(../src/pause_white.png) no-repeat center center")
         $('#button_start').css('background-size', "50px 50px")
         document.getElementById('start').innerText = "暂停";
         clockTick = setInterval(update, 20);
@@ -151,7 +151,7 @@ window.onload = function () {
     if (storage["timerControlPause"] === undefined) storage["timerControlPause"] = "false";
     if (storage["timerControlPause"] == "true") {
         timerControl.buttonStart.onclick = startTimer;
-        $('#button_start').css('background', "url(../src/start.png) no-repeat center center")
+        $('#button_start').css('background', "url(../src/start_white.png) no-repeat center center")
         $('#button_start').css('background-size', "50px 50px")
         clearInterval(clockTick);
         document.getElementById('start').innerText = "继续";
