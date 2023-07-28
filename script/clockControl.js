@@ -45,10 +45,9 @@ function sortAlarmClock(){
     alarmClockControl.allAlarmclock = arr;
 
     var idAfter = id2index(idBefore);
-    console.log(alarmClockControl.allAlarmclock);
     //更新一下序列，并刷新
     updateQueue();
-    alarmClockControl.allAlarmclock.splice(0, alarmClockControl.allAlarmclock.length);
+    console.log(alarmClockControl.allAlarmclock);
     init();
     sorting = false;
     return idAfter;
@@ -170,10 +169,14 @@ function updateQueue(){
 
 
 function openAlarmclock(id){
+    var rightBar = document.getElementById("bar_rightside");
+    const scrollPositon = rightBar.scrollTop;
     if(!sorting){
         idBefore = id;
         id = sortAlarmClock();
     }
+    rightBar = document.getElementById("bar_rightside");
+    rightBar.scrollTop = scrollPositon;
     alarmClockControl.currentAlarmclock = id;
     console.log(id);
 
@@ -860,7 +863,8 @@ function init(){
         }
     })
     //先清除闹钟
-    const alarmClockBlocks = document.querySelectorAll(".alarmclock_block");
+    var alarmClockBlocks = document.querySelectorAll(".alarmclock_block");
+    alarmClockControl.allAlarmclock.splice(0, alarmClockControl.allAlarmclock.length);
   
     alarmClockBlocks.forEach(element => {
         element.remove();
@@ -870,6 +874,7 @@ function init(){
     var alarmStorage = localStorage.getItem("formerAlarm");
     if(alarmStorage){
         for(i = 0; i < alarmStorage.length; i = i + 9){
+            appendAlarmclock(loading = true);
             var hh = parseInt(alarmStorage[i]) * 10 + parseInt(alarmStorage[i + 1]);
             var mm = parseInt(alarmStorage[i + 3]) * 10 + parseInt(alarmStorage[i + 4]);
             var ss = parseInt(alarmStorage[i + 6]) * 10 + parseInt(alarmStorage[i + 7]);
@@ -879,13 +884,12 @@ function init(){
             tmpTime.hour = hh;
             tmpTime.min = mm;
             tmpTime.sec = ss;
-            appendAlarmclock(loading = true);
             // 如果之前的状态存在，设置开关的状态
             // console.log(previousState);
-            if (!previousState) {
+            if (previousState == 0) {
                 document.getElementsByTagName('input')[document.getElementsByTagName('input').length - 1].checked = false;
             }
-            else {
+            else if(previousState == 1){
                 document.getElementsByTagName('input')[document.getElementsByTagName('input').length - 1].checked = true;
             }
             alarmClockControl.allAlarmclock[alarmClockControl.allAlarmclock.length - 1].time = tmpTime;
