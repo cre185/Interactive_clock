@@ -2,6 +2,8 @@
 
 姚润茂 2021011785 yrm21@mails.tsinghua.edu.cn
 罗一鹤 2021011538 2975587905@qq.com
+
+方钧同 2021011783 fangjt21@mails.tsinghua.edu.cn
 *在这里添加：姓名 学号 邮箱*
 
 ### 实现思路
@@ -26,6 +28,24 @@
 + 由浅色UI调整为深色UI
 
 #### 时钟（方钧同）
+
+###### 表盘绘制
+
+主要将部件分为`scale`，`hands`，`center`，`timetext`和`buttons`5个g标签，便于统一管理和每次更新时的初始化。
+
+`scale`中包括表盘的所有部件以及刻度。`hands`中包含三个表针，每个表针由一个rect和一个circle组成，颜色统一。`center`出现的原因在于svg没有z-index属性，仅能通过先后出现的顺序来决定覆盖关系。`timetext`涉及时间的显示及其边框，而`buttons`则是对应的调节按钮。由于svg没有box-shadow属性，只能通过包含feDropShadow的filter来实现对应的阴影效果。
+
+为了保证表盘随用户界面的缩放，定义了相对长度单位`v`，每次页面缩放时会清空表盘的所有内容，并按照相对大小重新绘制。
+
+###### 功能实现
+
+时钟正常的运行通过调用自定义的`time`类中的`tick()`方法，设定间隔为20ms的定时器。
+
+通过参数设置时间的实现也较为简单，只需要将对应按钮的`onclick`时间的监听函数设为`tick()`或`tick_reverse`对应次数即可。
+
+难点在于拖动调整功能的实现。要实现不同指针的联动，则需要随着鼠标的移动实时更新后台用于记录时间的`global.globalTime`。实现的方法为用一变量`lastAngle`记录上次更新时指针的角度(实际编写中为了代码的复用性考虑，`lastAngle`为一数组)，当这一时刻角度的改变量大于每个指针的阈值时(即20ms对应的角度)，则更新`global.globalTime`与`lastAngle`。这样便能达到实时更新与表针联动的效果。
+
+为了正确的实现拖动功能，重写了表盘的`mousemove`监听函数。考虑到三个指针对应的监听函数并不同，因此采用鼠标按下时安装对应监听器，松开时则移出的方法。
 
 #### 闹钟  （徐超）
 
@@ -138,6 +158,12 @@
 
 #### 时钟
 
+进入网页默认显示时钟，时钟默认设置为与北京时间相同。
+
+可通过拖动表针设置时间，不同表针之间有联动。
+
+也可通过`ADJUST`按钮调整，按下后时间会暂停，可分别设置时分秒，`RESET`为重设回默认时间，`CONFIRM`为确定，此时仍可动过拖动表针修改时间。
+
 #### 闹钟  
 #### 秒表  
 
@@ -165,6 +191,12 @@
 设置时间后，点击“开始计时”启动计时器，启动时点击“暂停”暂停计时器，在任意时刻点击“取消”来重置计时器
 ***
 ### 遇到的问题及解决方案
+
+#### 时钟
+
+**问题：**开始时拖动，每次转过一圈后，上一级的时间无法正确更新
+
+**解决方案：**这是由于返回角度的函数在$269^。$到$-89^。$之间不连续导致的，在更新了特殊情况的判断后得到了解决。
 
 #### 秒表
 
@@ -203,3 +235,4 @@
 8. [使用HTML和CSS创建独特的按钮悬停效果](https://www.bilibili.com/video/BV1iM411C7oN/?spm_id_from=333.337.search-card.all.click)
 9. [未来主义的CSS动画按钮](https://www.bilibili.com/video/BV1Pm4y1U7GR/?spm_id_from=333.337.search-card.all.click)
 10. [[HTML&CSS] 创意菜单悬停动画效果](https://www.bilibili.com/video/BV1LV4y1n7eb/?spm_id_from=333.337.search-card.all.click)
+11. [【网页设计】用CSS给你的网页制作一个动态闹钟](https://www.bilibili.com/video/BV1j94y127ou/?buvid=Y640326A5398443344148AB304027CDC9474&is_story_h5=false&mid=CQQQFBBe6iyNdG8WzToCBw%3D%3D&p=1&plat_id=116&share_from=ugc&share_medium=iphone&share_plat=ios&share_session_id=843F4374-5B68-456B-A427-D92EB4660DA4&share_source=WEIXIN&share_tag=s_i&timestamp=1690106620&unique_k=HvRdMGQ&up_id=288724&vd_source=14d0c4b582d6968197d86af9fb6c9447)
