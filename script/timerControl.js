@@ -113,6 +113,7 @@ function update_progress()
         {
             // 循环停止
             progress.style.strokeDashoffset = "0";
+            progress.style.strokeDasharray=0;
             // 清除定时器
             window.cancelAnimationFrame(animation_timer);
         }
