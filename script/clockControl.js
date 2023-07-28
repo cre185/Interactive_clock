@@ -47,7 +47,7 @@ function sortAlarmClock(){
     var idAfter = id2index(idBefore);
     //更新一下序列，并刷新
     updateQueue();
-    console.log(alarmClockControl.allAlarmclock);
+    // console.log(alarmClockControl.allAlarmclock);
     init();
     sorting = false;
     return idAfter;
@@ -88,7 +88,7 @@ function findElementIndexInId(element) {
 //增加一个闹钟
 function appendAlarmclock(loading){
     // 在html中新建一个闹钟元素
-    console.log("appending!");
+    // console.log("appending!");
     // 新建一个闹钟对象，并添加进闹钟控制对象中
     var tmpClock=new alarmClock();
     var tempTime = new time();
@@ -178,7 +178,7 @@ function openAlarmclock(id){
     rightBar = document.getElementById("bar_rightside");
     rightBar.scrollTop = scrollPositon;
     alarmClockControl.currentAlarmclock = id;
-    console.log(id);
+    // console.log(id);
 
     $('#bar_rightside .alarmclock_block').css("backgroundColor","#2f363e");
     $('#bar_rightside .alarmclock_block').get(id2index(id)).style.backgroundColor="#3d464f";
