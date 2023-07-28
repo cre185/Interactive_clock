@@ -9,9 +9,6 @@ function* generateId(){
     }
 }
 
-
-
-
 // 闹钟结构体和默认构造函数
 class alarmClock{
     constructor(){
@@ -154,7 +151,6 @@ function appendAlarmclock(loading){
             openAlarmclock(alarmClockControl.allAlarmclock[idx].id);
         }
     });
-    document.getElementById("bar_rightside").scrollTop=document.getElementById("bar_rightside").scrollHeight;
 }
 
 // 更新存储序列
