@@ -1,11 +1,13 @@
 ## 大作业说明文档
 钟健坤 2021011780 2907692855@qq.com  
+
 姚润茂 2021011785 yrm21@mails.tsinghua.edu.cn
 
 罗一鹤 2021011538 2975587905@qq.com
 
 方钧同 2021011783 fangjt21@mails.tsinghua.edu.cn
-*在这里添加：姓名 学号 邮箱*
+
+徐超 2021011776 chao-xu21@mails.tsinghua.edu.cn
 
 ### 实现思路
 #### 整体框架  （钟健坤）
