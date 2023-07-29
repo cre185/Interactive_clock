@@ -773,7 +773,7 @@ function resetTime(){
 
 function setTime(){
     clockTick = setInterval(update, 20);
-    window.localStorage.dTime = global.globalTime.getTotal - mDate.getHours * 3600 - mDate.getMinutes * 60 - mDate.getSeconds;
+    window.localStorage.dTime = global.globalTime.getTotal() - mDate.getHours() * 3600 - mDate.getMinutes() * 60 - mDate.getSeconds();
     isAdjusting = false;
     init();
 }
