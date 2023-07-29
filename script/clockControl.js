@@ -877,7 +877,7 @@ function init(){
 
     //重置id生成器
     alarmClockControl.idGenerator = generateId();
-    
+
     // 加载之前存储的闹钟信息
     var alarmStorage = localStorage.getItem("formerAlarm");
     if(alarmStorage){
