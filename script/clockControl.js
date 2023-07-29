@@ -1,6 +1,7 @@
 var alarmClockControl={};
 var beep;
 var idBefore;
+var mDate=new Date();
 
 // 生成顺位编号
 function* generateId(){
@@ -329,12 +330,12 @@ var isAdjusting = false;
 function update(times = 1){
     if(times > 0){
         for(var i = 0; i < times; i++){
-            global.globalTime.tick(); 
+            global.globalTime.tick();
         }
     }
     else if(times < 0){
         for(var i = 0; i < times * -1; i++){
-            global.globalTime.tick_reverse(); 
+            global.globalTime.tick_reverse();
         }
     }
     var angles = [global.globalTime.calHourAngle(), global.globalTime.calMinAngle(), global.globalTime.calSecAngle()];
@@ -346,7 +347,7 @@ function update(times = 1){
         let hand = document.getElementById(hands[i]);
         hand.setAttribute("transform", "rotate(" + angles[i]+", " + cx + ", " + cy + ")");
     }
-    
+
     let hour = document.getElementById("hour");
     hour.innerHTML = global.globalTime.getHour();
     let min = document.getElementById("minute");
@@ -354,15 +355,15 @@ function update(times = 1){
     let sec = document.getElementById("second");
     sec.innerHTML = global.globalTime.getSec();
 
-    for(i = 0; i < alarmClockControl.allAlarmclock.length; i++) 
+    for(i = 0; i < alarmClockControl.allAlarmclock.length; i++)
     {
         if(!sorting){
             if(alarmClockControl.allAlarmclock[i].time.hour == global.globalTime.hour &&
-            alarmClockControl.allAlarmclock[i].time.min == global.globalTime.min &&
-            alarmClockControl.allAlarmclock[i].time.sec == global.globalTime.sec &&
-            clockTickWorking &&
-            document.getElementsByTagName("input")[i].checked == true &&
-            global.globalTime.mSec == 0)
+                alarmClockControl.allAlarmclock[i].time.min == global.globalTime.min &&
+                alarmClockControl.allAlarmclock[i].time.sec == global.globalTime.sec &&
+                clockTickWorking &&
+                document.getElementsByTagName("input")[i].checked == true &&
+                global.globalTime.mSec == 0)
             {
                 showMessage();
             }
@@ -379,8 +380,8 @@ function drawClock(hasText){
     cx = clock.scrollWidth * 0.5;
     cy = clock.scrollWidth * 0.4;
     const scale= document.getElementById("scale");
-    const hands= document.getElementById("hands"); 
-    const center= document.getElementById("center"); 
+    const hands= document.getElementById("hands");
+    const center= document.getElementById("center");
     const timeText = document.getElementById("timeText");
     const buttons = document.getElementById("buttons");
     scale.innerHTML = "";
@@ -442,8 +443,8 @@ function drawClock(hasText){
 
     // 绘制表针
     {
-        const filters = ["url(#red-shadow1) url(#red-shadow2)", "url(#yellow-shadow1) url(#yellow-shadow2)", 
-        "url(#green-shadow1) url(#green-shadow2)"]
+        const filters = ["url(#red-shadow1) url(#red-shadow2)", "url(#yellow-shadow1) url(#yellow-shadow2)",
+            "url(#green-shadow1) url(#green-shadow2)"]
 
         function setAttributes(width, height, color, angle, id){
             let hand = this.childNodes[0];
@@ -466,7 +467,7 @@ function drawClock(hasText){
             writable: true,
             enumerable: false,
             configurable: true,
-          });
+        });
 
         // 时针
         var hrHand = document.createElementNS(namespace, "g");
@@ -631,13 +632,13 @@ function drawClock(hasText){
                 var up = document.createElementNS(namespace, "polygon");
                 var down = document.createElementNS(namespace, "polygon");
                 var points = (cx + (37 * i - 40) * v) + "," + (cy + 180 * v) + " " + (cx + (37 * i - 30) * v) + "," + (cy + 180 * v) + " "
-                + (cx + (37 * i - 35) * v) + "," + (cy + 175 * v);
+                    + (cx + (37 * i - 35) * v) + "," + (cy + 175 * v);
                 up.setAttribute("points", points);
                 up.setAttribute("fill", "#FFF");
                 up.addEventListener("click", adjusments[2 * i]);
                 buttons.appendChild(up);
                 points = (cx + (37 * i - 40) * v) + "," + (cy + 200 * v) + " " + (cx + (37 * i - 30) * v) + "," + (cy + 200 * v) + " "
-                + (cx + (37 * i - 35) * v) + "," + (cy + 205 * v);
+                    + (cx + (37 * i - 35) * v) + "," + (cy + 205 * v);
                 down.setAttribute("points", points);
                 down.setAttribute("fill", "#FFF");
                 down.addEventListener("click", adjusments[2 * i + 1]);
@@ -645,7 +646,7 @@ function drawClock(hasText){
             }
         }
     }
-}   
+}
 
 // 拖动表针
 
@@ -764,10 +765,7 @@ function minusSec(){
 }
 
 function resetTime(){
-    var mDate=new Date();
-    global.globalTime.hour=mDate.getHours();
-    global.globalTime.min=mDate.getMinutes();
-    global.globalTime.sec=mDate.getSeconds();
+    window.localStorage.dTime = 0;
     clockTick = setInterval(update, 20);
     isAdjusting = false;
     init();
@@ -775,6 +773,7 @@ function resetTime(){
 
 function setTime(){
     clockTick = setInterval(update, 20);
+    window.localStorage.dTime = global.globalTime.getTotal - mDate.getHours * 3600 - mDate.getMinutes * 60 - mDate.getSeconds;
     isAdjusting = false;
     init();
 }
@@ -786,6 +785,27 @@ function init(){
     alarmClockControl.barCenter=$('#bar_center').get(0);
     alarmClockControl.buttonNewAlarm=$('#button_new_alarmclock').get(0);
     alarmClockControl.buttonNewAlarm.onclick=newAlarmclock;
+
+    // 设置时间
+    if(window.localStorage.dTime === undefined) {
+        window.localStorage.dTime = 0;
+    }
+    mDate = new Date();
+    global.globalTime.hour = mDate.getHours();
+    global.globalTime.min = mDate.getMinutes();
+    global.globalTime.sec = mDate.getSeconds();
+
+    let dTime = window.localStorage.dTime;
+    if(dTime > 0){
+        for(var i = 0; i < dTime * 50; i++){
+            global.globalTime.tick();
+        }
+    }
+    else if(dTime < 0){
+        for(var i = 0; i < dTime * -50; i++){
+            global.globalTime.tick_reverse();
+        }
+    }
 
     drawClock(true);
     const clock= document.getElementById("clock_svg");
@@ -815,7 +835,6 @@ function init(){
         mouseMoving = true;
         clearInterval(clockTick);
         clockTickWorking = false;
-        // 仅在按下时处理鼠标移动事件，已达到拖动的效果
         clock.addEventListener("mousemove", minuteMoveListenrs);
         lastListner = 1;
     })
@@ -827,7 +846,6 @@ function init(){
         mouseMoving = true;
         clearInterval(clockTick);
         clockTickWorking = false;
-        // 仅在按下时处理鼠标移动事件，已达到拖动的效果
         clock.addEventListener("mousemove", secondMoveListenrs);
         lastListner = 2;
     })
@@ -847,6 +865,7 @@ function init(){
         else{
             clock.removeEventListener("mousemove", secondMoveListenrs);
         }
+        window.localStorage.dTime = global.globalTime.getTotal() - mDate.getHours() * 3600 - mDate.getMinutes() * 60 - mDate.getSeconds();
     })
     //先清除闹钟
     var alarmClockBlocks = document.querySelectorAll(".alarmclock_block");

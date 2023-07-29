@@ -106,11 +106,10 @@ class time{
         this.sec = 0;
         this.mSec = 0;
     }
+    getTotal(){
+        return 3600 * this.hour + 60 * this.min + this.sec;
+    }
 }
 
 global.globalTime=new time(); // global time used by clock
-var mDate=new Date();
-global.globalTime.hour=mDate.getHours();
-global.globalTime.min=mDate.getMinutes();
-global.globalTime.sec=mDate.getSeconds();
 global.timerTime=new time(); // time used by timer
