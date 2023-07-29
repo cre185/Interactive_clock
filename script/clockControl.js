@@ -20,8 +20,9 @@ class alarmClock{
 // 所有的闹钟的数组，初始为空
 alarmClockControl.allAlarmclock=[]
 
-
+// 对闹钟依据时间进行排序
 function sortAlarmClock(){
+    //加锁，防止无限循环append
     sorting = true;
     var arr = alarmClockControl.allAlarmclock;
 
@@ -41,11 +42,12 @@ function sortAlarmClock(){
 
     alarmClockControl.allAlarmclock = arr;
 
+    // 计算当前所选排序后的id
     var idAfter = id2index(idBefore);
-    //更新一下序列，并刷新
+    // 更新一下序列，并刷新
     updateQueue();
-    // console.log(alarmClockControl.allAlarmclock);
     init();
+    // 解锁
     sorting = false;
     return idAfter;
 }
@@ -62,6 +64,7 @@ function id2index(id){
     return recIndex;
 }
 
+// 字符替换
 function replaceCharAtIndex(str, index, newChar) {
     if (index < 0 || index >= str.length) {
         return str; // 防止下标越界
@@ -71,6 +74,7 @@ function replaceCharAtIndex(str, index, newChar) {
     return charArray.join('');
 }
 
+// 通过id找到所有同类
 function findElementIndexInId(element) {
     const Id = element.id;
     const elementsWithClass = document.querySelectorAll(`#${Id}`);
@@ -90,6 +94,7 @@ function appendAlarmclock(loading){
     var tmpClock=new alarmClock();
     var tempTime = new time();
 
+    // 设置初始化时间
     tempTime.hour = global.globalTime.hour;
     tempTime.min = global.globalTime.min;
     tempTime.sec = global.globalTime.sec;
@@ -118,6 +123,7 @@ function appendAlarmclock(loading){
             localStorage.setItem("formerAlarm", tempTime.toString() + "1");
         }
     }
+    // 默认开启
     document.getElementsByTagName('input')[document.getElementsByTagName('input').length - 1].checked = true;
     // 当开关被点击时，切换状态并保存到本地存储
     document.getElementsByTagName('input')[document.getElementsByTagName('input').length - 1].addEventListener('change', (event) => {
@@ -138,6 +144,7 @@ function appendAlarmclock(loading){
         }
     });
 
+    // 点击闹钟块会选中
     document.getElementsByClassName("alarmclock_block")[document.getElementsByClassName("alarmclock_block").length - 1].addEventListener('click', (event) => {
         if (event.target.id == "alarmclock_block"){
             var idx = findElementIndexInId(event.target);
@@ -145,6 +152,7 @@ function appendAlarmclock(loading){
         }
     });
 
+    // 点击文字也会选中
     document.getElementsByClassName("alarmclock_target")[document.getElementsByClassName("alarmclock_block").length - 1].addEventListener('click', (event) => {
         if (event.target.id == "alarmclock_target"){
             var idx = findElementIndexInId(event.target);
@@ -153,7 +161,7 @@ function appendAlarmclock(loading){
     });
 }
 
-// 更新存储序列
+// 根据当前数组更新存储序列
 function updateQueue(){
     var alarmQueue = "";
     var alarmStorage = localStorage.getItem("formerAlarm");
@@ -163,10 +171,11 @@ function updateQueue(){
     localStorage.setItem("formerAlarm", alarmQueue);
 }
 
-
+// 根据id打开设置面板
 function openAlarmclock(id){
     var rightBar = document.getElementById("bar_rightside");
     const scrollPositon = rightBar.scrollTop;
+    // 打开后进行排序
     if(!sorting){
         idBefore = id;
         id = sortAlarmClock();
@@ -282,27 +291,7 @@ function openAlarmclock(id){
     })
 }
 
-/*
-function closeAlarmclock(){
-    if(alarmClockControl.currentAlarmclock!=undefined){
-        var tempSelect= document.querySelectorAll('.alarmclock_selected');
-        if(tempSelect){//若找到
-            remove(tempSelect);
-        }
-    }
-}
-
-function remove (e) {
-    if (e) {
-        for(var i=0;i<e.length;i++){
-            e[i].remove();
-        }
-        return e;
-    }
-    return undefined;
- }
-*/
-
+// 删除闹钟
 var removeAlarmclock=function(id){
     var index=id2index(id);
     $('.alarmclock_block').get(index).remove();
@@ -324,6 +313,7 @@ var removeAlarmclock=function(id){
     updateQueue();
 }
 
+// 新建闹钟
 var newAlarmclock=function(){
     appendAlarmclock();
     openAlarmclock(alarmClockControl.allAlarmclock[alarmClockControl.allAlarmclock.length-1].id);
@@ -865,7 +855,10 @@ function init(){
     alarmClockBlocks.forEach(element => {
         element.remove();
     });
+
+    //重置id生成器
     alarmClockControl.idGenerator = generateId();
+    
     // 加载之前存储的闹钟信息
     var alarmStorage = localStorage.getItem("formerAlarm");
     if(alarmStorage){
@@ -881,7 +874,6 @@ function init(){
             tmpTime.min = mm;
             tmpTime.sec = ss;
             // 如果之前的状态存在，设置开关的状态
-            // console.log(previousState);
             if (previousState == 0) {
                 document.getElementsByTagName('input')[document.getElementsByTagName('input').length - 1].checked = false;
             }
